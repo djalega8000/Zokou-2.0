@@ -44,12 +44,30 @@
       "required":true
       
     },
-    "NOM_OWNER":
     {
-      "description":"votre nom",
-      "value":"luffy",
-      "required":true
-    }
+    "name": "NOM_OWNER",
+    "desc": "Le nom du propriétaire",
+    "require": false,
+    "value": "Zokou-Md"
+  },
+  {
+    "name": "NUMERO_OWNER",
+    "desc": "Le numéro du propriétaire",
+    "require": true,
+    "value": "225XXXXXXXXX"
+  },
+   {
+    "name": "IMAGE_MENU",
+    "desc": "L'URL de l'image du menu",
+    "require": false,
+    "value": "https://wallpapercave.com/uwp/uwp3860299.jpeg"
+  },
+{
+    "name": "NOM_BOT",
+    "desc": "Le nom du bot",
+    "require": false,
+    "value": "Ƶ𝓞ｋØ𝓊-2.0"
+  }
   },
 
   "addons":[
