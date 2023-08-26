@@ -2,7 +2,7 @@
   "name":"Zokou-2.0",
   "description":"bot whatsapp développé par djalega++",
   "keywords":["bot","node","baileys","whatsapp"],
-  "logo":"https://wallpapercave.com/uwp/uwp3860299.jpeg",
+  "logo":"https://raw.githubusercontent.com/djalega8000/Zokou-2.0/main/Zokou.jpg",
   "repository":"https://github.com/djalega8000/Zokou-2.0",
   "succes_url":"/",
   "stack":"container",
@@ -48,28 +48,28 @@
     {
     
     "desc": "Le nom du propriétaire",
-    "require": false,
-    "value": "Zokou-Md"
+    "required": false,
+    "value": "Zokou-2.0"
   },
     "NUMERO_OWNER":
   {
     
     "desc": "Le numéro du propriétaire",
-    "require":false,
+    "required":false,
     "value": "225XXXXXXXXX"
   },
     "IMAGE_MENU":
    {
     
     "desc": "L'URL de l'image du menu",
-    "require": false,
-    "value": "https://wallpapercave.com/uwp/uwp3860299.jpeg"
+    "required":false,
+    "value": "https://raw.githubusercontent.com/djalega8000/Zokou-2.0/main/Zokou.jpg"
   },
     "NOM_BOT":
 {
     
     "desc": "Le nom du bot",
-    "require": false,
+    "required": false,
     "value": "Ƶ𝓞ｋØ𝓊-2.0"
   }
   },
