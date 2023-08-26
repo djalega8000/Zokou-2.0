@@ -60,6 +60,11 @@
     "youtube-yts": "^2.0.0",
     "youtubedl-core": "^4.11.7",
     "yt-search": "^2.10.4",
-    "ytdl-core": "^4.11.5"
+    "ytdl-core": "^4.11.5",
+    "google-tts-api": "latest",
+    "canvacord": "latest"
+
+    
+
   }
 }
