@@ -44,26 +44,30 @@
       "required":true
       
     },
+    "NOM_OWNER":
     {
-    "name": "NOM_OWNER",
+    
     "desc": "Le nom du propriétaire",
     "require": false,
     "value": "Zokou-Md"
   },
+    "NUMERO_OWNER":
   {
-    "name": "NUMERO_OWNER",
+    
     "desc": "Le numéro du propriétaire",
-    "require": true,
+    "require":false,
     "value": "225XXXXXXXXX"
   },
+    "IMAGE_MENU":
    {
-    "name": "IMAGE_MENU",
+    
     "desc": "L'URL de l'image du menu",
     "require": false,
     "value": "https://wallpapercave.com/uwp/uwp3860299.jpeg"
   },
+    "NOM_BOT":
 {
-    "name": "NOM_BOT",
+    
     "desc": "Le nom du bot",
     "require": false,
     "value": "Ƶ𝓞ｋØ𝓊-2.0"
