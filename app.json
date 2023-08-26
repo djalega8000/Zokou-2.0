@@ -1,0 +1,60 @@
+{
+  "name":"Zokou-2.0",
+  "description":"bot whatsapp développé par djalega++",
+  "keywords":["bot","node","baileys","whatsapp"],
+  "logo":"https://wallpapercave.com/uwp/uwp3860299.jpeg",
+  "repository":"https://github.com/djalega8000/Zokou-MD",
+  "succes_url":"/",
+  "stack":"container",
+  "env":{
+    "PREFIXE":
+    {
+      "description":"choisissez votre préfixe",
+      "value":"#",
+      "required":true
+    },
+    "LECTURE_AUTO_STATUS":
+    {
+      "description":"le bot lira tous les status automatiquement (oui pour activer et non pour désactiver)",
+      "value":"oui",
+      "required":false
+    }, "TELECHARGER_AUTO_STATUS":
+    {
+      "description":"le bot téléchargera tous les status automatiquement (oui pour activer et non pour désactiver)",
+      "value":"oui",
+      "required":false
+    }
+    ,
+    "MODE_PUBLIC":
+    {
+      "description":"oui pour le mode public ou non pour le mode privé(Dans ce vous seul  utiliserez le bot)",
+      "value":"oui",
+      "required":false
+    },
+    "API_LOL_HUMAIN":
+    {
+      "description":"placer votre  apikey de chez api.lolhumain.xyz(pas obligatoire)",
+      "value":"",
+      "required":false
+    },
+    "SESSION_ID":
+    {
+      "description":"veuillez renseigner votre id de session",   
+      "value":"",
+      "required":true
+      
+    },
+    "NOM_OWNER":
+    {
+      "description":"votre nom",
+      "value":"luffy",
+      "required":true
+    }
+  },
+
+  "addons":[
+    {
+      "plan":"heroku-postgresql"
+    }
+  ]
+}
