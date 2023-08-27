@@ -31,9 +31,9 @@
       "value":"oui",
       "required":false
     },
-    "API_LOL_HUMAIN":
+    "APILOLHUMAIN":
     {
-      "description":"placer votre  apikey de chez api.lolhumain.xyz(pas obligatoire)",
+      "description":"placer votre  apikey de chez api.lolhuman.xyz(pas obligatoire)",
       "value":"",
       "required":false
     },
