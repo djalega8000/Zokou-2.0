@@ -11,7 +11,7 @@ zokou({ nomCom: "tgs", categorie: "Mods" }, async (dest, zk, commandeOptions) =>
   }
   const apikey = conf.APILOLHUMAIN
 
-  if (apikey === null || apikey === 'null') { repondre('Veillez vérifier votre apikey ou si vous en avez pas , veiller crée un compte sur api.lolhumain.xyz et vous en procurer une.'); return; };
+  if (apikey === null || apikey === 'null') { repondre('Veillez vérifier votre apikey ou si vous en avez pas , veiller crée un compte sur api.lolhuman.xyz et vous en procurer une.'); return; };
 
   if (!arg[0]) {
     repondre("veuillez insérer un lien de sticker Telegram svp");
