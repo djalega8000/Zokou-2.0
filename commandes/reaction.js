@@ -2,7 +2,6 @@ const axios = require('axios');
 const { zokou } = require("../framework/zokou");
 const fs = require("fs-extra");
 const { exec } = require("child_process");
-const fetch = require("node-fetch");
 const child_process = require('child_process');
 const {unlink } = require ('fs').promises ;
 
