@@ -18,7 +18,7 @@ const creerTableAntibot=async ()=>
   
 
     
-await pool.query("CREATE TABLE IF NOT EXISTS antibot(groupeJid text PRIMARY KEY,etat text default r);")
+await pool.query("CREATE TABLE IF NOT EXISTS antibot(groupeJid text PRIMARY KEY,etat text default false);")
 
   }catch(e){console.log("oups une erreur est survenue lors de la création de la table antibot "+e)}
 }
