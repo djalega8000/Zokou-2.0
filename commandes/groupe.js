@@ -548,3 +548,99 @@ zokou({ nomCom: "gpp", categorie: "Groupe" }, async (dest, zk, commandeOptions) 
   }
 
 });
+
+/////////////
+zokou({nomCom:"annonce",categorie:"Groupe",reaction:"🎤"},async(dest,zk,commandeOptions)=>{
+
+
+const {ms,repondre,msgRepondu,verifGroupe,prefixe,arg}=commandeOptions;
+
+
+if(!verifGroupe){return repondre("Pour les groupes uniquement ⛔️");}
+
+const infoGroupe=verifGroupe?await zk.groupMetadata(dest).catch((e)=>{console.log(e);}):"";
+
+
+const membres =verifGroupe?infoGroupe.participants:{}
+
+if(!msgRepondu && !arg.join(" "))
+{
+ // return repondre(`${prefixe}annonce Salut comment allez vous ?`);
+  const txt =`${prefixe}annonce Salut comment allez vous ?`
+  await zk.sendMessage(dest,{text:txt})
+}
+
+try{
+
+           /*const isTextRpd=msgRepondu.extendedTextMessage?.text?true:false;
+
+const textRpd =isTextRpd?msgRepondu.extendedTextMessage?.text:"";
+
+const isVideoRpd =msgRepondu.videoMessage?true:false;
+const videoRpd =isVideoRpd?await zk.downloadAndSaveMediaMessage(msgRepondu.videoMessage):null;
+
+
+const titreVid =isVideoRpd?msgRepondu.videoMessage.caption:"";
+
+
+const isImgRpd=msgRepondu.imageMessage?true:false;
+
+const imgRpd=isImgRpd?await zk.downloadAndSaveMediaMessage(msgRepondu.imageMessage):null;
+
+const titreImg=isImgRpd?msgRepondu.imageMessag.caption:"";*/
+
+         if(msgRepondu)
+            {
+
+    /** *********^^^^^^^^^^^^/ *///////////////////////////////////////////
+             
+           const isTextRpd=msgRepondu.extendedTextMessage?.text?true:false;
+
+const textRpd =isTextRpd?msgRepondu.extendedTextMessage?.text:"";
+
+const isVideoRpd =msgRepondu.videoMessage?true:false;
+const videoRpd =isVideoRpd?await zk.downloadAndSaveMediaMessage(msgRepondu.videoMessage):null;
+
+
+const titreVid =isVideoRpd?msgRepondu.videoMessage.caption:"";
+
+
+const isImgRpd=msgRepondu.imageMessage?true:false;
+
+const imgRpd=isImgRpd?await zk.downloadAndSaveMediaMessage(msgRepondu.imageMessage):null;
+
+const titreImg=isImgRpd?msgRepondu.imageMessage.caption:"";
+              
+      ////////////        
+
+              
+
+              
+if(isImgRpd)
+                  { 
+                     await zk.sendMessage(dest,{image:{url:imgRpd},caption:titreImg,mentions:membres.map((i)=>i.id)},{quoted:ms})
+                   }else    if(isVideoRpd)
+{
+     await zk.sendMessage(dest,   {video:  {url:videoRpd},caption:titreVid,mentions:membres.map((i)=>i.id)},{quoted:ms})  
+}else if(isTextRpd)
+{ 
+
+  /*repondre(msgRepondu.extendedTextMessage?.text)*/
+  
+   await zk.sendMessage(dest,{text:textRpd,mentions:membres.map((i)=>i.id)})
+}
+            
+
+
+}else if(arg.join(" "))
+{ 
+    const txt =arg.join(" ")
+      await zk.sendMessage(dest,{text:txt,mentions:membres.map((i)=>i.id)})
+}
+
+
+}catch(e){return repondre("oups une erreur : "+e);}
+
+
+})
+/******/
