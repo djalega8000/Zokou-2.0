@@ -43,8 +43,9 @@ const generateReactionCommand = (reactionName, reactionEmoji, commandName, actio
             const imageUrl = response.data.url;
 
             // Obtenir le buffer du GIF en utilisant la fonction getBuffer
-            const gifBufferResponse = await fetch(imageUrl);
-            const gifBuffer = await gifBufferResponse.buffer();
+             const gifBufferResponse = await  axios.get(imageUrl, {
+                responseType: 'arraybuffer' }) ;
+            const gifBuffer = await gifBufferResponse.data;
 
             // Convertir le GIF en vidéo et obtenir le buffer vidéo
             const videoBuffer = await GIFBufferToVideoBuffer(gifBuffer);
