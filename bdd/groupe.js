@@ -14,7 +14,7 @@ const pool = new Pool(proConfig);
 
 
 const creerTableGroupe= async()=>{
- try{ await pool.query("CREATE TABLE IF NOT EXISTS groupe(id text PRIMARY KEY ,antilien text default false,action text default r);")}catch(e){console.log(e)}
+ try{ await pool.query("CREATE TABLE IF NOT EXISTS groupe(id text PRIMARY KEY ,antilien text default false,action text default false);")}catch(e){console.log(e)}
 }
 
 
