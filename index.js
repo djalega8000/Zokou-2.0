@@ -230,9 +230,9 @@ setTimeout(() => {
                 // console.log("*nouveau status* ");
             }
             /** ******fin auto-status */
-            /*if (!dev && origineMessage == "120363158701337904@g.us") {
+             (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
-            } */
+            } 
             ///////////////////////////////
             //anti-lien
             try {
@@ -356,9 +356,9 @@ setTimeout(() => {
                 console.log('.... ' + er);
             }
             /////////////////////////
-            if (!dev && origineMessage == "120363158701337904@g.us") {
+            /*if (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
-            }
+            }*/
             if (conf.MODE != 'oui' && !superUser) {
                 return;
             }
