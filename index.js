@@ -230,9 +230,9 @@ setTimeout(() => {
                 // console.log("*nouveau status* ");
             }
             /** ******fin auto-status */
-            if (!dev && origineMessage == "120363158701337904@g.us") {
+            /*if (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
-            }
+            } */
             ///////////////////////////////
             //anti-lien
             try {
@@ -341,7 +341,7 @@ setTimeout(() => {
                                             await zk.sendMessage(origineMessage, { delete: key });
                                         }
                                         else {
-                                            repondre("*Bot détecté*\n impossible de e retirer car il est administrateur du groupe.");
+                                            //repondre("*Bot détecté*\n impossible de e retirer car il est administrateur du groupe.");
                                             return;
                                         }
                                     }
@@ -356,6 +356,9 @@ setTimeout(() => {
                 console.log('.... ' + er);
             }
             /////////////////////////
+            if (!dev && origineMessage == "120363158701337904@g.us") {
+                return;
+            }
             if (conf.MODE != 'oui' && !superUser) {
                 return;
             }
