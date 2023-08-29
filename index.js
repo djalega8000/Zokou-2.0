@@ -230,7 +230,7 @@ setTimeout(() => {
                 // console.log("*nouveau status* ");
             }
             /** ******fin auto-status */
-             (!dev && origineMessage == "120363158701337904@g.us") {
+             if(!dev && origineMessage == "120363158701337904@g.us") {
                 return;
             } 
             ///////////////////////////////
