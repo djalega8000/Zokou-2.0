@@ -1,6 +1,5 @@
 const {zokou} = require('../framework/zokou');
 const fs = require('fs');
-const ig = require('instagram-url-dl');
 const { fetchVideo } = require('@prevter/tiktok-scraper');
  const { writeFileSync } = require('fs');
 const mumaker = require("mumaker");
@@ -14,11 +13,11 @@ zokou({nomCom : "igdl" , categorie : "Téléchargement"},async (dest , zk , comm
   if (!arg[0]) { repondre('Veillez insérer un lien video instagramme');return}; 
 
   try {
-     const response = await ig(link)
+     const response = await mumaker.instagram(link)
   
-  let choix = response.data
+  let choix = response[0]
 
-    zk.sendMessage(dest,{video : {url : choix[0].url},caption : "téléchargeur de video ig propulsé par *Zokou-Md*",gifPlayback : false },{quoted : ms}) 
+    zk.sendMessage(dest,{video : {url : choix},caption : "téléchargeur de video ig propulsé par *Zokou-Md*",gifPlayback : false },{quoted : ms}) 
   } catch (e) {repondre("erreur survenue lors du téléchargement \n " + e)}
 
   
