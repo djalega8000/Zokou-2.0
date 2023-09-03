@@ -636,7 +636,7 @@ if(isImgRpd)
 { 
     const txt =arg.join(" ")
       await zk.sendMessage(dest,{text:txt,mentions:membres.map((i)=>i.id)})
-}
+} else { repondre("que dois-je annoncer svp") }
 
 
 }catch(e){return repondre("oups une erreur : "+e);}
