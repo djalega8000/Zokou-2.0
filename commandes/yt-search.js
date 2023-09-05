@@ -4,10 +4,10 @@ const yts = require("yt-search");
 const ytdl = require('ytdl-core');
 const fs = require('fs');
 
-zokou({ nomCom: "yts", categorie: "Recherche", reaction: "✋" }, async ( dest,zk, commandeOptions) => {
+zokou({ nomCom: "yts", categorie: "Recherche", reaction: "✋" }, async (dest, zk, commandeOptions) => {
   const { ms, repondre, arg } = commandeOptions;
   const query = arg.join(" ");
-  
+
   if (!query[0]) {
     repondre("Veuillez entrer un terme de recherche s'il vous plaît.");
     return;
@@ -20,15 +20,15 @@ zokou({ nomCom: "yts", categorie: "Recherche", reaction: "✋" }, async ( dest,z
     let captions = "";
     for (let i = 0; i < 10; i++) {
       captions += `----------------\nTitre : ${resultat[i].title}\nDurée : ${resultat[i].timestamp}\nLien : ${resultat[i].url}\n`;
-    } captions += "\n======\n*powered by Zokou-Md*";
+    }
+    captions += "\n======\n*powered by Zokou-Md*";
 
-    //repondre(captions)
+    // repondre(captions)
     zk.sendMessage(dest, { image: { url: resultat[0].thumbnail }, caption: captions }, { quoted: ms });
   } catch (error) {
     repondre("Erreur lors de la procédure : " + error);
-  } 
+  }
 });
-
 
 zokou({
   nomCom: "ytmp4",
@@ -38,13 +38,13 @@ zokou({
   const { arg, ms, repondre } = commandeOptions;
 
   if (!arg[0]) {
-    repondre("Veillez entrer lien youtube  s'il vous plaît");
+    repondre("Veillez entrer un lien youtube  s'il vous plaît");
     return;
   }
 
   const topo = arg.join(" ");
   try {
-   /* const search = await yts(topo);
+    /* const search = await yts(topo);
     const videos = search.videos;
 
     if (videos && videos.length > 0 && videos[0]) {
@@ -58,45 +58,45 @@ zokou({
 _*En cours de téléchargement...*_\n\n`
       };
 
-      zk.sendMessage(origineMessage, InfoMess, { quoted: ms }); */
+      zk.sendMessage(origineMessage, InfoMess, { quoted: ms });
+    */
 
-      // Obtenir les informations de la vidéo à partir du lien YouTube
-      const videoInfo = await ytdl.getInfo(topo);
-      // Format vidéo avec la meilleure qualité disponible
-      const format = ytdl.chooseFormat(videoInfo.formats, { quality: '18' });
-      // Télécharger la vidéo
-      const videoStream = ytdl.downloadFromInfo(videoInfo, { format });
+    // Obtenir les informations de la vidéo à partir du lien YouTube
+    const videoInfo = await ytdl.getInfo(topo);
+    // Format vidéo avec la meilleure qualité disponible
+    const format = ytdl.chooseFormat(videoInfo.formats, { quality: '18' });
+    // Télécharger la vidéo
+    const videoStream = ytdl.downloadFromInfo(videoInfo, { format });
 
-      // Nom du fichier local pour sauvegarder la vidéo
-      const filename = 'video.mp4';
+    // Nom du fichier local pour sauvegarder la vidéo
+    const filename = 'video.mp4';
 
-      // Écrire le flux vidéo dans un fichier local
-      const fileStream = fs.createWriteStream(filename);
-      videoStream.pipe(fileStream);
+    // Écrire le flux vidéo dans un fichier local
+    const fileStream = fs.createWriteStream(filename);
+    videoStream.pipe(fileStream);
 
-      fileStream.on('finish', () => {
-        // Envoi du fichier vidéo en utilisant l'URL du fichier local
-        zk.sendMessage(origineMessage, { video: { url :"./video.mp4"} , caption: "Powered by *Zokou-Md*", gifPlayback: false }, { quoted: ms });
+    fileStream.on('finish', () => {
+      // Envoi du fichier vidéo en utilisant l'URL du fichier local
+      zk.sendMessage(origineMessage, { video: { url: `./${filename}` }, caption: "Powered by *Zokou-Md*", gifPlayback: false }, { quoted: ms });
 
-
-          fs.unlink(filename, (err) => {
-    if (err) {
-      console.error('Erreur lors de la suppression du fichier audio :', err);
-    } else {
-      console.log('Fichier audio supprimé avec succès.');
-    };
+      // Supprimer le fichier vidéo après l'envoi
+      fs.unlink(filename, (err) => {
+        if (err) {
+          console.error('Erreur lors de la suppression du fichier vidéo :', err);
+        } else {
+          console.log('Fichier vidéo supprimé avec succès.');
+        }
       });
+    });
 
-    
+    fileStream.on('error', (error) => {
+      console.error('Erreur lors de l\'écriture du fichier vidéo :', error);
+      repondre('Une erreur est survenue lors de l\'écriture du fichier vidéo.');
+    });
 
-      fileStream.on('error', (error) => {
-        console.error('Erreur lors de l\'écriture du fichier vidéo :', error);
-        repondre('Une erreur est survenue lors de l\'écriture du fichier vidéo.');
-      });
-    
   } catch (error) {
     console.error('Erreur lors de la recherche ou du téléchargement de la vidéo :', error);
-    repondre('Une erreur est survenue lors de la recherche ou du téléchargement de la vidéo.'+ error);
+    repondre('Une erreur est survenue lors de la recherche ou du téléchargement de la vidéo.' + error);
   }
 });
 
@@ -106,47 +106,46 @@ zokou({
   reaction: "💿"
 }, async (origineMessage, zk, commandeOptions) => {
   const { ms, repondre, arg } = commandeOptions;
-     
+
   if (!arg[0]) {
     repondre("Veuillez insérer un lien youtube svp s'il vous plaît.");
     return;
   }
 
   try {
-    let topo = arg.join(" ")
+    let topo = arg.join(" ");
 
+    const audioStream = ytdl(topo, { filter: 'audioonly', quality: 'highestaudio' });
 
-      const audioStream = ytdl(topo, { filter: 'audioonly', quality: 'highestaudio' });
+    // Nom du fichier local pour sauvegarder le fichier audio
+    const filename = 'audio.mp3';
 
-      // Nom du fichier local pour sauvegarder le fichier audio
-      const filename = 'audio.mp3';
+    // Écrire le flux audio dans un fichier local
+    const fileStream = fs.createWriteStream(filename);
+    audioStream.pipe(fileStream);
 
-      // Écrire le flux audio dans un fichier local
-      const fileStream = fs.createWriteStream(filename);
-      audioStream.pipe(fileStream);
+    fileStream.on('finish', () => {
+      // Envoi du fichier audio en utilisant l'URL du fichier local
+      zk.sendMessage(origineMessage, { audio: { url: `./${filename}` }, mimetype: 'audio/mp4' }, { quoted: ms, ptt: false });
+      console.log("Envoi du fichier audio terminé !");
 
-      fileStream.on('finish', () => {
-        // Envoi du fichier audio en utilisant l'URL du fichier local
-
-        zk.sendMessage(origineMessage, { audio: { url:"./audio.mp3"},mimetype:'audio/mp4' }, { quoted: ms,ptt: false });
-        console.log("Envoi du fichier audio terminé !");
-
-        fs.unlink(filename, (err) => {
-    if (err) {
-      console.error('Erreur lors de la suppression du fichier audio :', err);
-    } else {
-      console.log('Fichier audio supprimé avec succès.');
-    }
+      // Supprimer le fichier audio après l'envoi
+      fs.unlink(filename, (err) => {
+        if (err) {
+          console.error('Erreur lors de la suppression du fichier audio :', err);
+        } else {
+          console.log('Fichier audio supprimé avec succès.');
+        }
       });
+    });
 
-      fileStream.on('error', (error) => {
-        console.error('Erreur lors de l\'écriture du fichier audio :', error);
-        repondre('Une erreur est survenue lors de l\'écriture du fichier audio.');
-      });
-    
+    fileStream.on('error', (error) => {
+      console.error('Erreur lors de l\'écriture du fichier audio :', error);
+      repondre('Une erreur est survenue lors de l\'écriture du fichier audio.');
+    });
+
   } catch (error) {
     console.error('Erreur lors de la recherche ou du téléchargement de la vidéo :', error);
     repondre('Une erreur est survenue lors de la recherche ou du téléchargement de la vidéo.');
   }
-}); 
-
+});
