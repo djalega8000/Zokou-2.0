@@ -90,12 +90,7 @@ _*En cours de téléchargement...*_\n\n`
      zk.sendMessage(origineMessage, { audio: { url:"audio.mp3"},mimetype:'audio/mp4' }, { quoted: ms,ptt: false });
         console.log("Envoi du fichier audio terminé !");
 
-          fs.unlink(filename, (err) => {
-    if (err) {
-      console.error('Erreur lors de la suppression du fichier audio :', err);
-    } else {
-      console.log('Fichier audio supprimé avec succès.');
-    } }) ;
+     
       });
 
       fileStream.on('error', (error) => {
@@ -161,13 +156,6 @@ _*En cours de téléchargement...*_\n\n`
       fileStream.on('finish', () => {
         // Envoi du fichier vidéo en utilisant l'URL du fichier local
         zk.sendMessage(origineMessage, { video: { url :"./video.mp4"} , caption: "*Zokou-Md", gifPlayback: false }, { quoted: ms });
-
-          fs.unlink(filename, (err) => {
-    if (err) {
-      console.error('Erreur lors de la suppression du fichier audio :', err);
-    } else {
-      console.log('Fichier audio supprimé avec succès.');
-    } });
       });
 
       fileStream.on('error', (error) => {
