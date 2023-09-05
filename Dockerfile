@@ -6,6 +6,7 @@ RUN apt-get update && \
   imagemagick \
   webp && \
   apt-get upgrade -y && \
+  npm i pm2 -g && \
   rm -rf /var/lib/apt/lists/*
   
 RUN git clone https://github.com/djalega8000/Zokou-2.0  /root/Zokou_BOt
