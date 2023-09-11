@@ -2,6 +2,10 @@ const { zokou } = require('../framework/zokou');
 const axios = require("axios")
 let { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
 const conf = require("../set");
+const sleep =  (ms) =>{
+  return new Promise((resolve) =>{ setTimeout (resolve, ms)})
+  
+  } ;
 
 zokou({ nomCom: "tgs", categorie: "Mods" }, async (dest, zk, commandeOptions) => {
   const { ms, repondre, arg, nomAuteurMessage, superUser } = commandeOptions;
@@ -186,3 +190,38 @@ zokou({ nomCom: "deblock", categorie: "Mods" }, async (dest, zk, commandeOptions
     .then( repondre('succes'))   } ;
   
     });
+
+zokou({ nomCom: "purge", categorie: "Groupe", reaction: "📣" }, async (dest, zk, commandeOptions) => {
+
+  const { auteurMessage ,ms, repondre, arg, verifGroupe, nomGroupe, infosGroupe, nomAuteurMessage, verifAdmin, superUser,prefixe } = commandeOptions
+
+  const metadata = await zk.groupMetadata(dest) ;
+ 
+
+  if (!verifGroupe) { repondre("✋🏿 ✋🏿cette commande est réservée aux groupes ❌"); return; }
+  if (superUser || auteurMessage == metadata.owner) { 
+  
+   repondre('Les membres non admins seront retiré du groupe vous avez 5 secondes pour revandiquer votre choix en redemarrant le bot') ;
+   await sleep(5000)
+  let membresGroupe = verifGroupe ? await infosGroupe.participants : "";
+try {
+  let users = membresGroupe.filter((member) => !member.admin)
+
+  for (const membre of users) {
+
+    
+
+   
+    
+await zk.groupParticipantsUpdate(
+        dest, 
+        [membre.id],
+        "remove" 
+    ) 
+    await sleep(500)
+    
+  }  
+} catch (e) {repondre("j'ai besoins des droit d'administration")} } else {
+  repondre("Commande reserver au proprietaire du groupe pour des raisons de securitée"); return
+}
+});
