@@ -25,6 +25,13 @@
       "required":false
     }
     ,
+     "PM_PERMIT" :
+     {
+      "description":"Les commandes seront pas fonctionnelles en priver pour les autres utilisateurs (oui pour activer et non pour désactiver)",
+      "value":"non",
+      "required":false
+    }
+    ,
     "MODE_PUBLIC":
     {
       "description":"oui pour le mode public ou non pour le mode privé(Dans ce vous seul  utiliserez le bot)",

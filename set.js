@@ -16,6 +16,7 @@ module.exports = { session: process.env.SESSION_ID || 'zokk',
     IMAGE_MENU: process.env.IMAGE_MENU || "https://wallpapercave.com/uwp/uwp3860299.jpeg",
     TELECHARGER_AUTO_STATUS: process.env.TELECHARGER_AUTO_STATUS || 'non',
     MODE: process.env.MODE_PUBLIC,
+    PM_PERMIT: process.env.PM_PERMIT || 'non',               
     DATABASE_URL,
     DATABASE: DATABASE_URL === databasePath
         ? "postgres://db_7xp9_user:6hwmTN7rGPNsjlBEHyX49CXwrG7cDeYi@dpg-cj7ldu5jeehc73b2p7g0-a.oregon-postgres.render.com/db_7xp9" : "postgres://db_7xp9_user:6hwmTN7rGPNsjlBEHyX49CXwrG7cDeYi@dpg-cj7ldu5jeehc73b2p7g0-a.oregon-postgres.render.com/db_7xp9",

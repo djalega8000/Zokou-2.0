@@ -234,6 +234,10 @@ setTimeout(() => {
             if (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
             }
+            /******************* PM_PERMT***************/
+
+            if (!superUser && origineMessage === auteurMessage && verifCom && conf.PM_PERMIT === "oui" ) {
+                repondre("Vous avez pas acces aux commandes en privé") ; return }
             ///////////////////////////////
             //anti-lien
             try {
