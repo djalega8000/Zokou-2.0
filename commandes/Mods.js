@@ -2,10 +2,15 @@ const { zokou } = require('../framework/zokou');
 const axios = require("axios")
 let { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
 const conf = require("../set");
+const fs = require('fs');
 const sleep =  (ms) =>{
   return new Promise((resolve) =>{ setTimeout (resolve, ms)})
   
   } ;
+
+
+let banUser = JSON.parse(fs.readFileSync('./bdd/banUser.json'));
+let banGroup = JSON.parse(fs.readFileSync('./bdd/banGroup.json'));
 
 zokou({ nomCom: "tgs", categorie: "Mods" }, async (dest, zk, commandeOptions) => {
   const { ms, repondre, arg, nomAuteurMessage, superUser } = commandeOptions;
@@ -224,4 +229,107 @@ await zk.groupParticipantsUpdate(
 } catch (e) {repondre("j'ai besoins des droit d'administration")} } else {
   repondre("Commande reserver au proprietaire du groupe pour des raisons de securitée"); return
 }
+});
+
+zokou({
+    nomCom: 'ban',
+    categorie: 'Mods',
+}, async (dest, zk, commandeOptions) => {
+
+    const { ms, arg, auteurMsgRepondu, msgRepondu , repondre,prefixe,superUser } = commandeOptions;
+
+    
+  if (!superUser) {repondre('Reste a ta place morveux cette commande n\'est permis qu\'au proprietaire du bot') ; return}
+    if (!arg[0]) {
+        // Fonction 'repondre' doit être définie pour envoyer une réponse.
+        repondre(`mentionner la victime een tappant ${prefixe}ban add/del pour bannir/debannir la victime`);
+        return;
+    };
+
+    if (msgRepondu) {
+        switch (arg.join(' ')) {
+            case 'add':
+
+            const alreadyBan = banUser.includes(auteurMsgRepondu)
+
+            if(alreadyBan) {repondre('Ce utilisateur est deja bannis') ; return}
+               
+            banUser.push(auteurMsgRepondu);
+
+                // Enregistrez les modifications dans le fichier JSON
+                fs.writeFileSync('./bdd/banUser.json', JSON.stringify(banUser, null, 2));
+                repondre("cet utilisateur est desormais bannis des commandes du bots");
+                break;
+                case 'del':
+    const index = banUser.indexOf(auteurMsgRepondu);
+
+    if (index === -1) {
+        repondre('Cet utilisateur n\'est pas banni.');
+    } else {
+        banUser.splice(index, 1);
+        // Enregistrez les modifications dans le fichier JSON
+        fs.writeFileSync('./bdd/banUser.json', JSON.stringify(banUser, null, 2));
+        repondre('Cet utilisateur est maintenant libre.');
+    }
+    break;
+
+
+            default:
+                repondre('mauvaise option');
+                break;
+        }
+    } else {
+        repondre('mentionner la victime')
+        return;
+    }
+});
+
+
+
+zokou({
+    nomCom: 'bangroup',
+    categorie: 'Mods',
+}, async (dest, zk, commandeOptions) => {
+
+    const { ms, arg, auteurMsgRepondu, msgRepondu , repondre,prefixe,superUser } = commandeOptions;
+
+    
+  if (!superUser) {repondre('Reste a ta place morveux cette commande n\'est permis qu\'au proprietaire du bot') ; return}
+    if (!arg[0]) {
+        // Fonction 'repondre' doit être définie pour envoyer une réponse.
+        repondre(`taper ${prefixe}bangroup add/del pour bannir/debannir le groupe`);
+        return;
+    };
+        switch (arg.join(' ')) {
+            case 'add':
+
+            const groupalreadyBan = banGroup.includes(dest)
+
+            if(groupalreadyBan) {repondre('Ce groupe est deja bannis') ; return}
+               
+            banGroup.push(dest);
+
+                // Enregistrez les modifications dans le fichier JSON
+                fs.writeFileSync('./bdd/banGroup.json', JSON.stringify(banGroup, null, 2));
+                repondre("ce groupe est desormais bannis des commandes du bots");
+                break;
+                case 'del':
+    const index = banGroup.indexOf(dest);
+
+    if (index === -1) {
+        repondre('Ce groupe n\'est pas banni.');
+    } else {
+        banGroup.splice(index, 1);
+        // Enregistrez les modifications dans le fichier JSON
+        fs.writeFileSync('./bdd/banGroup.json', JSON.stringify(banGroup, null, 2));
+        repondre('Cet groupe est maintenant libre.');
+    }
+    break;
+
+
+            default:
+                repondre('mauvaise option');
+                break;
+        }
+    
 });
