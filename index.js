@@ -145,6 +145,10 @@ setTimeout(() => {
             if (ms.key.fromMe) {
                 auteurMessage = idBot;
             }
+            let banUser = JSON.parse(fs.readFileSync('./bdd/banUser.json'));
+            let banGroup = JSON.parse(fs.readFileSync('./bdd/banGroup.json'));
+            var groupeisban = banGroup.includes(origineMessage);
+            var youareban = banUser.includes(auteurMessage)
             var membreGroupe = verifGroupe ? ms.key.participant : '';
             const nomAuteurMessage = ms.pushName;
             const dj = '22559763447';
@@ -233,6 +237,14 @@ setTimeout(() => {
             /** ******fin auto-status */
             if (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
+            }
+            /********banUser*****/
+             if (youareban && verifCom) {
+                repondre('Vous n\'avez plus acces aux commandes du bots');return
+            }
+            /*****************************banGroup */
+            if (groupeisban && verifCom && !superUser) {
+                repondre ('Ce groupe n\'a plus acces au bot') ; return
             }
             /******************* PM_PERMT***************/
 
