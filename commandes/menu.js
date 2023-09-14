@@ -7,7 +7,7 @@ const moment = require("moment-timezone");
 const s = require(__dirname + "/../set");
 
 zokou({ nomCom: "menu", categorie: "Général" }, async (dest, zk, commandeOptions) => {
-    let { ms, repondre ,prefixe,nomAuteurMessage} = commandeOptions;
+    let { ms, repondre ,prefixe,nomAuteurMessage,botpic} = commandeOptions;
     let { cm } = require(__dirname + "/../framework//zokou");
     var coms = {};
     var mode = "public";
@@ -63,10 +63,10 @@ Je suis *${s.NOM_BOT}*, un bot développé par *La team Zokou*.
 🔰 Fait avec node.js || Zokou_2.0-MD
 `;
 
-    var link = s.IMAGE_MENU;
+   // var link = s.IMAGE_MENU;
 
     try {
-        zk.sendMessage(dest, { image: { url: link }, caption:infoMsg + menuMsg, footer: "Je suis *Zokou-MD*, développé par Djalega++" }, { quoted: ms });
+        zk.sendMessage(dest, { image: { url: botpic() }, caption:infoMsg + menuMsg, footer: "Je suis *Zokou-MD*, développé par Djalega++" }, { quoted: ms });
     }
     catch (e) {
         console.log("🥵🥵 Menu erreur " + e);
