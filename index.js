@@ -188,6 +188,15 @@ setTimeout(() => {
             const arg = texte ? texte.trim().split(/ +/).slice(1) : null;
             const verifCom = texte ? texte.startsWith(prefixe) : false;
             const com = verifCom ? texte.slice(1).trim().split(/ +/).shift().toLowerCase() : false;
+
+            // Utiliser une boucle for...of pour parcourir les liens
+function botpic() {
+    // Générer un indice aléatoire entre 0 (inclus) et la longueur du tableau (exclus)
+    const indiceAleatoire = Math.floor(Math.random() * liens.length);
+    // Récupérer le lien correspondant à l'indice aléatoire
+    const lienAleatoire = liens[indiceAleatoire];
+    return lienAleatoire;
+  }
             var commandeOptions = {
                 superUser, dev,
                 verifGroupe,
@@ -207,7 +216,9 @@ setTimeout(() => {
                 groupeAdmin,
                 msgRepondu,
                 auteurMsgRepondu,
-                ms
+                ms,
+                botpic
+            
             };
             /** ****** gestion auto-status  */
             if (ms.key && ms.key.remoteJid === "status@broadcast" && conf.LECTURE_AUTO_STATUS === "oui") {
