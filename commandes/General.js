@@ -2,7 +2,7 @@ const { zokou } = require("../framework/zokou");
 const conf = require("../set");
 
 zokou({ nomCom: "proprio", categorie: "Général", reaction: "💞" }, async (dest, zk, commandeOptions) => {
-    const { ms } = commandeOptions;
+    const { ms , botpic } = commandeOptions;
     const vcard =
         'BEGIN:VCARD\n' + // metadata of the contact card
         'VERSION:3.0\n' +
@@ -32,7 +32,7 @@ zokou({ nomCom: "dev", categorie: "Général", reaction: "💞" }, async (dest, 
       message += `----------------\n• ${dev.nom} : https://wa.me/${dev.numero}\n`;
     }
 
-    await zk.sendMessage(dest, { image : {url : conf.IMAGE_MENU} ,caption: message  }, { quoted: ms });
+    await zk.sendMessage(dest, { image : {url : botpic() } ,caption: message  }, { quoted: ms });
 
 });
 
