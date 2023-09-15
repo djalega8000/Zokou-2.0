@@ -188,7 +188,7 @@ setTimeout(() => {
             const arg = texte ? texte.trim().split(/ +/).slice(1) : null;
             const verifCom = texte ? texte.startsWith(prefixe) : false;
             const com = verifCom ? texte.slice(1).trim().split(/ +/).shift().toLowerCase() : false;
-
+            const liens = conf.IMAGE_MENU.split(',')
             // Utiliser une boucle for...of pour parcourir les liens
 function botpic() {
     // Générer un indice aléatoire entre 0 (inclus) et la longueur du tableau (exclus)
