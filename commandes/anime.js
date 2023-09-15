@@ -24,7 +24,7 @@ async (origineMessage, zk, commandeOptions) => {
     const message = `📺 Titre: ${title}\n🎬 Épisodes: ${episodes}\n📡 Statut: ${status}\n📝 Synopsis: ${synopsis}\n🔗 URL: ${data.url}`;
 
     // Envoyer l'image et les informations
-    zk.sendMessage(origineMessage, { image: { url: imageUrl }, text: message }, { quoted: ms });
+    zk.sendMessage(origineMessage, { image: { url: imageUrl }, caption: message }, { quoted: ms });
   } catch (error) {
     console.error('Erreur lors de la récupération des données depuis le JSON :', error);
     repondre('Erreur lors de la récupération des données depuis le JSON.');
