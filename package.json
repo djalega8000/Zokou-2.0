@@ -38,6 +38,7 @@
     "form-data": "^4.0.0",
     "fs-extra": "^11.1.1",
     "gist": "^0.2.0",
+    "google-it": "^1.6.4",
     "human-readable": "^0.2.1",
     "jimp": "^0.22.10",
     "latest": "^0.2.0",
