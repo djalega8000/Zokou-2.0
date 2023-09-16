@@ -171,7 +171,7 @@ zokou(
 zokou(
     {
       nomCom: 'smooth',
-      categorie: 'Editeur-audio-video',
+      categorie: 'Editeur-audio',
     },
     async (dest, zk, commandeOptions) => {
       const { ms, repondre, msgRepondu } = commandeOptions;
