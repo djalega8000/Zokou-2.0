@@ -291,10 +291,11 @@ zokou({
     categorie: 'Mods',
 }, async (dest, zk, commandeOptions) => {
 
-    const { ms, arg, auteurMsgRepondu, msgRepondu , repondre,prefixe,superUser } = commandeOptions;
+    const { ms, arg, auteurMsgRepondu, msgRepondu , repondre,prefixe,superUser,verifGroupe } = commandeOptions;
 
     
-  if (!superUser) {repondre('Reste a ta place morveux cette commande n\'est permis qu\'au proprietaire du bot') ; return}
+  if (!superUser) {repondre('Reste a ta place morveux cette commande n\'est permis qu\'au proprietaire du bot') ; return};
+  if(!verifGroupe) {repondre('commande reserver pour les groupes' ) ; return };
     if (!arg[0]) {
         // Fonction 'repondre' doit être définie pour envoyer une réponse.
         repondre(`taper ${prefixe}bangroup add/del pour bannir/debannir le groupe`);
