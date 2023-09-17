@@ -265,7 +265,7 @@ function botpic() {
                 repondre("Vous avez pas acces aux commandes en privé") ; return }
             ///////////////////////////////
 
-             if(!verifAdmin && isonlyadmin) {
+             if(!verifAdmin && isonlyadmin && verifCom) {
               repondre('le bot est en mode onlyadmin');  return  }
             //anti-lien
             try {
