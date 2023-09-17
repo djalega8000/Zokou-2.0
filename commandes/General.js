@@ -19,7 +19,7 @@ zokou({ nomCom: "proprio", categorie: "Général", reaction: "💞" }, async (de
 });
 
 zokou({ nomCom: "dev", categorie: "Général", reaction: "💞" }, async (dest, zk, commandeOptions) => {
-    const { ms } = commandeOptions;
+    const { ms, botpic } = commandeOptions;
 
     const devs = [
       { nom: "Djalega++", numero: "22559763447" },
