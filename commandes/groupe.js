@@ -642,5 +642,57 @@ if(isImgRpd)
 }catch(e){return repondre("oups une erreur : "+e);}
 
 
-})
+});
 /******/
+let onlyadmin = JSON.parse(fs.readFileSync('./bdd/onlyadmin.json'));
+
+zokou({
+    nomCom: 'onlyadmin',
+    categorie: 'Groupe',
+}, async (dest, zk, commandeOptions) => {
+
+    const { ms, arg, auteurMsgRepondu, msgRepondu , repondre,prefixe,superUser,verifAdmin, verifGroupe } = commandeOptions;
+
+    
+  if (superUser || verifAdmin) { 
+  if(!verifGroupe) { repondre('Commandes uniquement pour les groupes') ; return};
+    if (!arg[0]) {
+        // Fonction 'repondre' doit être définie pour envoyer une réponse.
+        repondre(`taper ${prefixe}anlyadmin oui/non pour autoriser/interdire l'utilisation du bot aux membres non admins le groupe`);
+        return;
+    };
+        switch (arg.join(' ')) {
+            case 'oui':
+
+            const groupalreadyonlyadmin = onlyadmin.includes(dest)
+
+            if(groupalreadyonlyadmin) {repondre('Ce groupe est deja en mode only admins') ; return}
+               
+            onlyadmin.push(dest);
+
+                // Enregistrez les modifications dans le fichier JSON
+                fs.writeFileSync('./bdd/onlyadmin.json', JSON.stringify(onlyadmin, null, 2));
+                repondre("ce groupe est desormais en mode only admins");
+                break;
+                case 'non':
+    const index = onlyadmin.indexOf(dest);
+
+    if (index === -1) {
+        repondre('Ce groupe n\'est pas en mode onlyadmins.');
+    } else {
+        banGroup.splice(index, 1);
+        // Enregistrez les modifications dans le fichier JSON
+        fs.writeFileSync('./bdd/onlyadmin.json', JSON.stringify(onlyadmin, null, 2));
+        repondre('Cet groupe est en mode free for all.');
+    }
+    break;
+
+
+            default:
+                repondre('mauvaise option');
+                break;
+        }
+  } else {  repondre('Reste a ta place morveux cette commande n\'est permis qu\'aux admins du groupe du bot')}
+});
+
+
