@@ -54,21 +54,21 @@
     "NOM_OWNER":
     {
     
-    "desc": "Le nom du propriétaire",
+    "desc": "Votre nom",
     "required": false,
-    "value": "Zokou-2.0"
+    "value": "Djalega++"
   },
     "NUMERO_OWNER":
   {
     
-    "desc": "Le numéro du propriétaire",
+    "desc": "Votre numero de telephone; il doit etre dans le format ID+numero",
     "required":false,
-    "value": "225XXXXXXXXX"
+    "value": "22891733300"
   },
     "IMAGE_MENU":
    {
     
-    "desc": "L'URL de l'image du menu",
+    "desc": "Les liens d'images pour le menu de votre bot , vous pouvez en mettre plusieur et separer par un virlgule(lien1,lien2,...,lienn)",
     "required":false,
     "value": "https://raw.githubusercontent.com/djalega8000/Zokou-2.0/main/Zokou.jpg"
   },
