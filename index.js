@@ -148,7 +148,9 @@ setTimeout(() => {
             let banUser = JSON.parse(fs.readFileSync('./bdd/banUser.json'));
             let banGroup = JSON.parse(fs.readFileSync('./bdd/banGroup.json'));
             var groupeisban = banGroup.includes(origineMessage);
-            var youareban = banUser.includes(auteurMessage)
+            var youareban = banUser.includes(auteurMessage);
+            let onlyadmin = JSON.parse(fs.readFileSync('./bdd/onlyadmin.json'));
+            var isonlyadmin = onlyadmin.includes(origineMessage);
             var membreGroupe = verifGroupe ? ms.key.participant : '';
             const nomAuteurMessage = ms.pushName;
             const dj = '22559763447';
@@ -262,6 +264,9 @@ function botpic() {
             if (!superUser && origineMessage === auteurMessage && verifCom && conf.PM_PERMIT === "oui" ) {
                 repondre("Vous avez pas acces aux commandes en privé") ; return }
             ///////////////////////////////
+
+             if(!verifAdmin && isonlyadmin) {
+              repondre('le bot est en mode onlyadmin');  return  }
             //anti-lien
             try {
                 if (texte.includes('https://') && verifGroupe) {
