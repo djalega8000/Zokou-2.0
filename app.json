@@ -37,7 +37,17 @@
       "description":"oui pour le mode public ou non pour le mode privé(Dans ce vous seul  utiliserez le bot)",
       "value":"oui",
       "required":false
+    }
+	,
+    "HEROKU_API_KEY": {
+    "description": "inserez l'apikey de votre compte heroku",
+     "required" :false
     },
+  "HEROKU_APP_NAME": {
+    "description": "inserez le nom que vous avez inserez(APP NAME) au tout debut de la page",
+     "required" :false
+    }  
+	  ,
     "APILOLHUMAIN":
     {
       "description":"placer votre  apikey de chez api.lolhuman.xyz(pas obligatoire)",
