@@ -39,7 +39,7 @@
       "required":false
     }
 	,
-    "HEROKU_API_KEY": {
+    "HEROKU_APY_KEY": {
     "description": "inserez l'apikey de votre compte heroku",
      "required" :false
     },
