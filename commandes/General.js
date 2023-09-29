@@ -31,9 +31,31 @@ zokou({ nomCom: "dev", categorie: "Général", reaction: "💞" }, async (dest, 
     for (const dev of devs) {
       message += `----------------\n• ${dev.nom} : https://wa.me/${dev.numero}\n`;
     }
-
-    await zk.sendMessage(dest, { image : {url : botpic() } ,caption: message  }, { quoted: ms });
-
+  var lien = botpic()
+    if (lien.match(/\.(mp4|gif)$/i)) {
+    try {
+        zk.sendMessage(dest, { video: { url: lien }, caption:message }, { quoted: ms });
+    }
+    catch (e) {
+        console.log("🥵🥵 Menu erreur " + e);
+        repondre("🥵🥵 Menu erreur " + e);
+    }
+} 
+// Vérification pour .jpeg ou .png
+else if (lien.match(/\.(jpeg|png|jpg)$/i)) {
+    try {
+        zk.sendMessage(dest, { image: { url: lien }, caption:message }, { quoted: ms });
+    }
+    catch (e) {
+        console.log("🥵🥵 Menu erreur " + e);
+        repondre("🥵🥵 Menu erreur " + e);
+    }
+} 
+else {
+    repondre(lien)
+    repondre("Le lien ne se termine ni par .mp4 ou .gif ni par .jpeg , jpg ou .png");
+    
+}
 });
 
 zokou({ nomCom: "support", categorie: "Général" }, async (dest, zk, commandeOptions) => {
