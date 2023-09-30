@@ -42,6 +42,9 @@ const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter')
 const { getGroupe, getAntibot, ajouterAntibot } = require("./bdd");
 const { ajouterGroupe } = require("./bdd/groupe");
 let evt = require(__dirname + "/framework/zokou");
+const {isUserBanned , addUserToBanList , removeUserFromBanList} = require("./bdd/banUser");
+const  {addGroupToBanList,isGroupBanned,removeGroupFromBanList} = require("./bdd/banGroup");
+const {isGroupOnlyAdmin,addGroupToOnlyAdminList,removeGroupFromOnlyAdminList} = require("./bdd/onlyAdmin");
 //const //{loadCmd}=require("/framework/mesfonctions")
 let { reagir } = require(__dirname + "/framework/app");
 var session = conf.session;
@@ -145,12 +148,7 @@ setTimeout(() => {
             if (ms.key.fromMe) {
                 auteurMessage = idBot;
             }
-            let banUser = JSON.parse(fs.readFileSync('./bdd/banUser.json'));
-            let banGroup = JSON.parse(fs.readFileSync('./bdd/banGroup.json'));
-            var groupeisban = banGroup.includes(origineMessage);
-            var youareban = banUser.includes(auteurMessage);
-            let onlyadmin = JSON.parse(fs.readFileSync('./bdd/onlyadmin.json'));
-            var isonlyadmin = onlyadmin.includes(origineMessage);
+            
             var membreGroupe = verifGroupe ? ms.key.participant : '';
             const nomAuteurMessage = ms.pushName;
             const dj = '22559763447';
@@ -251,22 +249,45 @@ function botpic() {
             if (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
             }
-            /********banUser*****/
-             if (youareban && verifCom) {
-                repondre('Vous n\'avez plus acces aux commandes du bots');return
-            }
-            /*****************************banGroup */
-            if (groupeisban && verifCom && !superUser) {
-                repondre ('Ce groupe n\'a plus acces au bot') ; return
-            }
+            
             /******************* PM_PERMT***************/
 
             if (!superUser && origineMessage === auteurMessage && verifCom && conf.PM_PERMIT === "oui" ) {
                 repondre("Vous avez pas acces aux commandes en privé") ; return }
             ///////////////////////////////
 
-             if(!verifAdmin && isonlyadmin && verifCom) {
-              repondre('le bot est en mode onlyadmin');  return  }
+             
+            /*****************************banGroup  */
+            if (verifCom && !superUser && verifGroupe) {
+
+                 let req = await isGroupBanned(origineMessage);
+                    
+                        if (req) {
+                repondre ('Ce groupe n\'a plus acces au bot') ; return }
+            }
+
+              /***************************  ONLY-ADMIN  */
+
+            if(!verifAdmin && verifGroupe && verifCom) {
+                 let req = await isGroupOnlyAdmin(origineMessage);
+                    
+                        if (req) {
+                
+              repondre('le bot est en mode onlyadmin');  return  }}
+
+              /**********************banuser */
+         
+            
+                if(verifCom && !superUser) {
+                    let req = await isUserBanned(auteurMessage);
+                    
+                        if (req) {repondre("Vous n'avez plus acces au commandes du bots"); return}
+                    
+
+                } 
+
+            
+             
             //anti-lien
             try {
                 if (texte.includes('https://') && verifGroupe) {
