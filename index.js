@@ -498,6 +498,11 @@ function botpic() {
 ╔═════◇
 ║『𝗯𝘆 Djalega++』
 ║ 
+ Abonnez vous a la chaine
+de zokou pour ne pas manquer
+les éventuelles informations ;
+
+https://whatsapp.com/channel/0029Va84eBILI8YT1TLuPo1x
 ╚══════════════════╝`;
                 await zk.sendMessage(zk.user.id, { text: cmsg });
             }
