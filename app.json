@@ -51,7 +51,7 @@
     "APILOLHUMAIN":
     {
       "description":"placer votre  apikey de chez api.lolhuman.xyz(pas obligatoire)",
-      "value":"",
+      "value":"9d05ccc5f58e1cf30937",
       "required":false
     },
     "SESSION_ID":
