@@ -100,7 +100,7 @@
   "formation": {
 		"worker": {
 			"quantity": 1,
-			"size": "2X"
+			"size": "standard-2x"
 		}
 	},
 
