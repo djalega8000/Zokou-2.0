@@ -4,6 +4,7 @@ let { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
 const {isUserBanned , addUserToBanList , removeUserFromBanList} = require("../bdd/banUser");
 const  {addGroupToBanList,isGroupBanned,removeGroupFromBanList} = require("../bdd/banGroup");
 const {isGroupOnlyAdmin,addGroupToOnlyAdminList,removeGroupFromOnlyAdminList} = require("../bdd/onlyAdmin");
+const {removeSudoNumber,addSudoNumber,issudo} = require("../bdd/sudo");
 const conf = require("../set");
 const fs = require('fs');
 const sleep =  (ms) =>{
@@ -373,5 +374,53 @@ if(!verifGroupe) {repondre('commande reserver pour les groupes' ) ; return };
               break;
       }
 } else { repondre('Vous avez pas droit a cette commande')}
+});
+
+zokou({
+  nomCom: 'sudo',
+  categorie: 'Mods',
+}, async (dest, zk, commandeOptions) => {
+
+  const { ms, arg, auteurMsgRepondu, msgRepondu , repondre,prefixe,superUser } = commandeOptions;
+
+  
+if (!superUser) {repondre('Cette commande n\'est permis qu\'au proprietaire du bot') ; return}
+  if (!arg[0]) {
+      // Fonction 'repondre' doit être définie pour envoyer une réponse.
+      repondre(`mentionner la personne en tappant ${prefixe}sudo add/del`);
+      return;
+  };
+
+  if (msgRepondu) {
+      switch (arg.join(' ')) {
+          case 'add':
+
+         
+ let youaresudo = await issudo(auteurMsgRepondu)
+         if(youaresudo) {repondre('Ce utilisateur est deja sudo') ; return}
+             
+         addSudoNumber(auteurMsgRepondu)
+         repondre('succes')
+              break;
+              case 'del':
+                let estsudo = await issudo(auteurMsgRepondu)
+  if (estsudo) {
+      
+      removeSudoNumber(auteurMsgRepondu);
+      repondre('Cet utilisateur est desormais non-sudo.');
+  } else {
+    repondre('Cet utilisateur n\'est pas sudo.');
+  }
+  break;
+
+
+          default:
+              repondre('mauvaise option');
+              break;
+      }
+  } else {
+      repondre('mentionner la victime')
+      return;
+  }
 });
 
