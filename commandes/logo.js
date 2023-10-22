@@ -34,7 +34,7 @@ zokou({ nomCom: "dragonball", categorie: "Logo", reaction: "🐉" }, async (dest
         var lienMaker2 = "https://en.ephoto360.com/create-dragon-ball-style-text-effects-online-809.html";
       
        
-        const imgInfo = await mumaker.ephoto(lienMaker2, arg);
+        const imgInfo = await mumaker.ephoto(lienMaker2, arg.join(' '));
        
         await zk.sendMessage(dest, { text: " *\t Traitement en cours ...*" }, { quoted: ms });
        // var idImg = Object.values(imgInfo)[3];
@@ -57,7 +57,7 @@ zokou({ nomCom: "naruto", categorie: "Logo", reaction: "⛩" }, async (dest, zk,
         //let img= await //mumaker.textpro('https://textpro.me/create-naruto-logo-style-text-effect-online-1125.html',arg);
         repondre("*traitement en cours...*");
         var radio2 = "e0723d60-fc0d-421f-bf8f-a9b9b61e4be6";
-        var img = await mumaker.ephoto("https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html", arg);
+        var img = await mumaker.ephoto("https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html", arg.join(' '));
         
         await zk.sendMessage(dest, { image: { url: img.image }, caption: "\t\t *Logo by Zokou *" }, { quoted: ms });
     }
@@ -98,7 +98,7 @@ zokou({ nomCom: "didong", categorie: "Logo", reaction: "📱" }, async (dest, zk
             return ;
         }
      
-        var maker =await mumaker.ephoto(lien,arg);
+        var maker =await mumaker.ephoto(lien,arg.join(' '));
     
         
      repondre(' Traitement en cours ...')
@@ -474,7 +474,7 @@ zokou({nomCom:"arena",categorie:"Logo",reaction:"🥵"},async(dest,zk,commandeOp
 
     var lien="https://en.ephoto360.com/create-cover-arena-of-valor-by-mastering-360.html";
 
-    var img = await mumaker.ephoto(lien,arg);
+    var img = await mumaker.ephoto(lien,arg.join(' '));
    repondre("Traitement en cour ...")
     await zk.sendMessage(dest,{image:{url:img.image},caption:" *Logo by Zokou-Md*"},{quoted:ms})
   }catch(e){repondre(e)}
@@ -492,7 +492,7 @@ zokou({nomCom:"incandescent",categorie:"Logo",reaction:"😋"},async(dest,zk,com
 
     var lien="https://en.ephoto360.com/text-effects-incandescent-bulbs-219.html";
 
-    var img = await mumaker.ephoto(lien,arg);
+    var img = await mumaker.ephoto(lien,arg.join(' '));
    repondre("Traitement en cour ...")
     await zk.sendMessage(dest,{image:{url:img.image},caption:" *Logo by Zokou-Md*"},{quoted:ms})
   }catch(e){repondre(e)}

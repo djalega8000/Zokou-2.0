@@ -88,6 +88,12 @@
     "desc": "Le nom du bot",
     "required": false,
     "value": "Ƶ𝓞ｋØ𝓊-2.0"
+  },
+    "WARN_COUNT":
+  {
+    "desc": "il s'agit de nombre d'avertissement limite",
+    "required": false,
+    "value": "3"
   }
   },
 

@@ -12,7 +12,7 @@ zokou({nomCom:"redemarrer",categorie:"Mods",reaction:"👨🏿‍💼"},async(de
   
 const{repondre,ms,dev,superUser}=com;
 
-  if(!dev ||!superUser)
+  if(!superUser)
   {
     return repondre("Cette commande est réservée au propriétaire du bot");
   }

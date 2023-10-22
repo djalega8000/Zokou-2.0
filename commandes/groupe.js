@@ -2,11 +2,12 @@
 
 const { zokou } = require("../framework/zokou")
 //const { getGroupe } = require("../bdd/groupe")
-const { ajouterGroupe ,getGroupe,ajouterAction} = require("../bdd/groupe")
 const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
+const {ajouterOuMettreAJourJid,mettreAJourAction,verifierEtatJid} = require("../bdd/antilien")
+const {atbajouterOuMettreAJourJid,atbrecupererActionJid,atbverifierEtatJid,atbmettreAJourAction} = require("../bdd/antibot")
 const fs = require("fs-extra");
 const conf = require("../set");
-  const { uploadImageToImgur } = require('../framework/imgur');
+const { uploadImageToImgur } = require('../framework/imgur');
 
 
 
@@ -352,102 +353,126 @@ zokou({ nomCom: "info", categorie: "Groupe" }, async (dest, zk, commandeOptions)
 
 
     zk.sendMessage(dest, mess, { quoted: ms })
-  })
+  });
 
 
 
+ //------------------------------------antilien-------------------------------
 
-zokou({ nomCom: "antilien", categorie: "Groupe", reaction: "🔗" }, async (dest, zk, commandeOptions) => {
+ zokou({ nomCom: "antilien", categorie: "Groupe", reaction: "🔗" }, async (dest, zk, commandeOptions) => {
 
 
   var { ms, repondre, arg, verifGroupe, auteurMessage, superUser, verifZokouAdmin, verifAdmin,prefixe, dev } = commandeOptions;
-  var b = arg.join(" ")
-  console.log(b)
-  const requeteAntilien=async(from)=>
-    {
-      var result;
-      var tabGr=await getGroupe(dest)
-        for(var i=0;i<tabGr.length;i++)
-          {
-            if(tabGr[i].id===from)
-            {
-              result=tabGr[i].antilien;
-            }
-          }
-      return result;
-    }
+  
+
+  
   if (!verifGroupe) {
     return repondre("*uniquement pour les groupes*");
   }
-  try {
-    if (!arg || arg == "") {
-      repondre(`*Exemple : * ${prefixe}antilien oui (pour activer l'antilien) ou ${prefixe}antilien non (pour désactiver l antilien )`);return;
-    }
+  
+  if( superUser || verifAdmin) {
+    const enetatoui = await verifierEtatJid(dest)
+    try {
+      if (!arg || !arg[0] || arg === ' ') { repondre('Voici une explication du fonctionnement de l\'antilien de zokou:\nPour activer l\'antilien , ajouter apres la commande "oui" ou "non";\nPour modifier l\'action de l\'antilien, tapez apres la commande action/"votre-action" ; les differentes actions sont supp ; warn et retirer') ; return};
+     
+      if(arg[0] === 'oui') {
 
-    if (b == "oui") {
-      if (!dev) {
-        if (!verifAdmin) { repondre("Désolé vous ne pouver activer l'antilien car vous n'êtes pas admistrateur du groupe."); return; }
-        // ajouterGroupe(dest,b);
-        //repondre("antilien activé avec succès!")
-        if (verifZokouAdmin) {
-      if(await requeteAntilien(dest)==="oui"){
-          repondre("L'antilien est déjà activé pour ce groupe.");return
-        }
-          ajouterGroupe(dest, b);
-          repondre("antilien activé avec succès!")
-        } else { repondre("Action impossible car je ne suis pas administrateur de groupe.") }
-      } else {
-        if(await requeteAntilien(dest)==="oui"){
-          repondre("L'antilien est déjà activé pour ce groupe.");return
-        }
-        ajouterGroupe(dest, b);
-        repondre("antilien activé avec succès!")
+      
+       if(enetatoui ) { repondre("l'antilien est deja activer pour se groupe")
+                    } else {
+                  await ajouterOuMettreAJourJid(dest,"oui");
+                
+              repondre("l'antilien est activer avec succes") }
+     
+            } else if (arg[0] === "non") {
 
-      }
+              if (enetatoui) { 
+                await ajouterOuMettreAJourJid(dest , "non");
 
-    } else if (b == "non") {
-      let req = await getGroupe(dest);
-      if (!dev) {
+                repondre("L'antilien a été desactivé avec succes");
+                
+              } else {
+                repondre("l'antilien n'est pas activer pour ce groupe");
+              }
+            } else if (arg.join('').split("/")[0] === 'action') {
 
-        if (!verifAdmin) { repondre("Désolé vous ne pouver désactiver l'antilien car vous n'êtes pas admistrateur du groupe."); return; }
+               await mettreAJourAction(dest,arg.join('').split("/")[1]);
 
-        
-            if(await requeteAntilien(dest)=="non"){
-          repondre("L'antilien est déjà désactivé pour ce groupe.");return
-        }  
-              
+               repondre(`l'action de l'antilien a été actualisée sur ${arg.join('').split("/")[1]}`);
             
-        ajouterGroupe(dest, b);
-        repondre("antilien désactivé avec succès!")
-        /*  if(verifZokouAdmin)
-          {
-            
-            ajouterGroupe(dest);
-            repondre("antilien activé avec succès!")
-          }else{repondre("Action impossible car je ne suis pas administrateur de groupe.")}*/
-      } else {
-          if(await requeteAntilien(dest)=="non"){
-          repondre("L'antilien est déjà désactivé pour ce groupe.");return
-        }
-        ajouterGroupe(dest, b);
-        repondre("antilien désactivé avec succès!")
 
-      }
+            } else repondre('Voici une expliction du fonctionnement de l\'antilien de zokou:\nPour activer l\'antilien , ajouter apres la commande "oui" ou "non";\nPour modifier l\'action de l\'antilien, tapez apres la commande action/"votre-action" ; les differentes actions sont supp ; warn et retirer')
+
+      
+    } catch (error) {
+       repondre(error)
     }
-  /** ******état de l antilien  */
-    if(b==="état"||b==="etat")
-    {
-    //  console.log("at req "+await requeteAntilien(dest))
-          if(await requeteAntilien(dest)==="oui"){
-          repondre(" *état antilien :*\n L'antilien est  activé pour ce groupe.");return
-        } else if(await requeteAntilien(dest)==="non"){
-          repondre("*état antilien :*\n L'antilien est est désactivé pour ce groupe.");return
-        }
-    }
-/** ********fin etat  */
-  } catch (e) { }
+
+  } else { repondre('Vous avez pas droit a cette commande')
+  }
 
 });
+
+
+
+
+ //------------------------------------antibot-------------------------------
+
+ zokou({ nomCom: "antibot", categorie: "Groupe", reaction: "🔗" }, async (dest, zk, commandeOptions) => {
+
+
+  var { ms, repondre, arg, verifGroupe, auteurMessage, superUser, verifZokouAdmin, verifAdmin,prefixe, dev } = commandeOptions;
+  
+
+  
+  if (!verifGroupe) {
+    return repondre("*uniquement pour les groupes*");
+  }
+  
+  if( superUser || verifAdmin) {
+    const enetatoui = await atbverifierEtatJid(dest)
+    try {
+      if (!arg || !arg[0] || arg === ' ') { repondre('Voici une explication du fonctionnement de l\'antibot de zokou:\nPour activer l\'antibot , ajouter apres la commande "oui" ou "non";\nPour modifier l\'action de l\'antibot, tapez apres la commande action/"votre-action" ; les differentes actions sont supp ; warn et retirer') ; return};
+     
+      if(arg[0] === 'oui') {
+
+      
+       if(enetatoui ) { repondre("l'antibot est deja activer pour se groupe")
+                    } else {
+                  await atbajouterOuMettreAJourJid(dest,"oui");
+                
+              repondre("l'antibot est activer avec succes") }
+     
+            } else if (arg[0] === "non") {
+
+              if (enetatoui) { 
+                await atbajouterOuMettreAJourJid(dest , "non");
+
+                repondre("L'antibot a été desactivé avec succes");
+                
+              } else {
+                repondre("l'antibot n'est pas activer pour ce groupe");
+              }
+            } else if (arg.join('').split("/")[0] === 'action') {
+
+               await atbmettreAJourAction(dest,arg.join('').split("/")[1]);
+
+               repondre(`l'action de l'antibot a été actualisée sur ${arg.join('').split("/")[1]}`);
+            
+
+            } else repondre('Voici une explication du fonctionnement de l\'antibot de zokou:\nPour activer l\'antibot , ajouter apres la commande "oui" ou "non";\nPour modifier l\'action de l\'antibot, tapez apres la commande action/"votre-action" ; les differentes actions sont supp ; warn et retirer')
+
+      
+    } catch (error) {
+       repondre(error)
+    }
+
+  } else { repondre('Vous avez pas droit a cette commande')
+  }
+
+});
+
+//----------------------------------------------------------------------------
 
 zokou({ nomCom: "groupe", categorie: "Groupe" }, async (dest, zk, commandeOptions) => {
 
