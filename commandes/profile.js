@@ -9,7 +9,7 @@ zokou( {
    },
       async(dest,zk, commandeOptions)=> {
 
-        const {ms , arg, repondre,auteurMessage,nomAuteurMessage, msgRepondu , auteurMsgRepondu} = commandeOptions ;
+        const {ms , arg, repondre,auteurMessage,nomAuteurMessage, msgRepondu , auteurMsgRepondu , mybotpic} = commandeOptions ;
         let jid = null 
           let nom = null ;
 
@@ -21,7 +21,7 @@ zokou( {
             jid = auteurMessage;
            nom = nomAuteurMessage;
 
-           try { ppUrl = await zk.profilePictureUrl(jid , 'image') ; } catch { ppUrl = conf.IMAGE_MENU};
+           try { ppUrl = await zk.profilePictureUrl(jid , 'image') ; } catch { ppUrl = mybotpic()};
           const status = await zk.fetchStatus(jid) ;
 
            mess = {
@@ -33,7 +33,7 @@ zokou( {
             jid = auteurMsgRepondu;
             nom ="@"+auteurMsgRepondu.split("@")[0] ;
 
-            try { ppUrl = await zk.profilePictureUrl(jid , 'image') ; } catch { ppUrl = conf.IMAGE_MENU};
+            try { ppUrl = await zk.profilePictureUrl(jid , 'image') ; } catch { ppUrl = mybotpic()};
           const status = await zk.fetchStatus(jid) ;
 
              mess = {

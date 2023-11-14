@@ -336,10 +336,10 @@ zokou({ nomCom: "supp", categorie: "Groupe",reaction:"🧹" }, async (dest, zk, 
 });
 
 zokou({ nomCom: "info", categorie: "Groupe" }, async (dest, zk, commandeOptions) => {
-  const { ms, repondre, verifGroupe, verifZokouAdmin } = commandeOptions;
+  const { ms, repondre, verifGroupe, verifZokouAdmin , mybotpic } = commandeOptions;
   if (!verifGroupe) { repondre("commande réservée au groupe uniquement"); return };
 
- try { ppgroup = await zk.profilePictureUrl(dest ,'image') ; } catch { ppgroup = conf.IMAGE_MENU}
+ try { ppgroup = await zk.profilePictureUrl(dest ,'image') ; } catch { ppgroup = mybotpic()}
 
     const info = await zk.groupMetadata(dest)
 
@@ -378,11 +378,11 @@ zokou({ nomCom: "info", categorie: "Groupe" }, async (dest, zk, commandeOptions)
       if(arg[0] === 'oui') {
 
       
-       if(enetatoui ) { repondre("l'antilien est deja activé  pour se groupe")
+       if(enetatoui ) { repondre("l'antilien est deja activer pour se groupe")
                     } else {
                   await ajouterOuMettreAJourJid(dest,"oui");
                 
-              repondre("l'antilien est activé  avec succes") }
+              repondre("l'antilien est activer avec succes") }
      
             } else if (arg[0] === "non") {
 
@@ -392,7 +392,7 @@ zokou({ nomCom: "info", categorie: "Groupe" }, async (dest, zk, commandeOptions)
                 repondre("L'antilien a été desactivé avec succes");
                 
               } else {
-                repondre("l'antilien n'est pas activé  pour ce groupe");
+                repondre("l'antilien n'est pas activer pour ce groupe");
               }
             } else if (arg.join('').split("/")[0] === 'action') {
 
@@ -437,7 +437,7 @@ zokou({ nomCom: "info", categorie: "Groupe" }, async (dest, zk, commandeOptions)
       if(arg[0] === 'oui') {
 
       
-       if(enetatoui ) { repondre("l'antibot est deja activé pour se groupe")
+       if(enetatoui ) { repondre("l'antibot est deja activer pour se groupe")
                     } else {
                   await atbajouterOuMettreAJourJid(dest,"oui");
                 
@@ -451,7 +451,7 @@ zokou({ nomCom: "info", categorie: "Groupe" }, async (dest, zk, commandeOptions)
                 repondre("L'antibot a été desactivé avec succes");
                 
               } else {
-                repondre("l'antibot n'est pas activé  pour ce groupe");
+                repondre("l'antibot n'est pas activer pour ce groupe");
               }
             } else if (arg.join('').split("/")[0] === 'action') {
 

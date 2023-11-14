@@ -51,7 +51,7 @@
     "APILOLHUMAIN":
     {
       "description":"placer votre  apikey de chez api.lolhuman.xyz(pas obligatoire)",
-      "value":"9d05ccc5f58e1cf30937",
+      "value":"",
       "required":false
     },
     "SESSION_ID":
@@ -75,20 +75,8 @@
     "required":false,
     "value": "22891733300"
   },
-    "IMAGE_MENU":
-   {
     
-    "desc": "Les liens d'images pour le menu de votre bot , vous pouvez en mettre plusieur et separer par un virlgule(lien1,lien2,...,lienn)",
-    "required":false,
-    "value": "https://raw.githubusercontent.com/djalega8000/Zokou-2.0/main/Zokou.jpg"
-  },
-    "NOM_BOT":
-{
-    
-    "desc": "Le nom du bot",
-    "required": false,
-    "value": "Ƶ𝓞ｋØ𝓊-2.0"
-  },
+
     "WARN_COUNT":
   {
     "desc": "il s'agit de nombre d'avertissement limite",
@@ -100,7 +88,7 @@
   "formation": {
 		"worker": {
 			"quantity": 1,
-			"size": "standard-2x"
+			"size": "basic"
 		}
 	},
 

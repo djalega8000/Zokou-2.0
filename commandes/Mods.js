@@ -7,6 +7,9 @@ const {isGroupOnlyAdmin,addGroupToOnlyAdminList,removeGroupFromOnlyAdminList} = 
 const {removeSudoNumber,addSudoNumber,issudo} = require("../bdd/sudo");
 const conf = require("../set");
 const fs = require('fs');
+const {updateThemeValue , getThemeChoice ,getAllThemesInfo,getThemeInfoById} = require('../bdd/theme');
+
+
 const sleep =  (ms) =>{
   return new Promise((resolve) =>{ setTimeout (resolve, ms)})
   
@@ -255,7 +258,9 @@ zokou({
    let youareban = await isUserBanned(auteurMsgRepondu)
            if(youareban) {repondre('Ce utilisateur est deja bannis') ; return}
                
-           addUserToBanList(auteurMsgRepondu)
+           addUserToBanList(auteurMsgRepondu) ;
+           
+           repondre('Cet utiisateur est desormais banni des commandes du bot')
                 break;
                 case 'del':
                   let estbanni = await isUserBanned(auteurMsgRepondu)
@@ -424,3 +429,44 @@ if (!superUser) {repondre('Cette commande n\'est permis qu\'au proprietaire du b
   }
 });
 
+
+zokou({ nomCom: "theme",
+ categorie: "Mods",
+  reaction: "💞" }, async (dest, zk, commandeOptions) => {
+
+    const { arg, ms , mybotpic , prefixe, repondre} = commandeOptions;
+
+    if (!arg[0] || arg === '') {
+
+        const allthemes = await getAllThemesInfo() ;
+   
+        let id = await getThemeChoice() ;
+        const imagemenu = await getThemeInfoById(id) ;
+        const {auteur, liens, nom} = imagemenu
+
+        let msg = `
+        Votre theme atuelle est ${nom} ;
+
+   Pour choisir un theme , entrez ${prefixe}theme 1
+    
+  Voici la liste complete des themes du bot zokou ;
+  
+`
+    for (const theme of allthemes) {
+
+msg += `${theme.id} : *${theme.nom}* proposé par ${theme.auteur}\n\n`
+    }
+    msg += `\n\n Vous pouvez proposer vos themes , merci.`
+
+    zk.sendMessage(dest , { image : {url : mybotpic()} , caption : msg} , {quoted : ms})
+
+    } else {
+
+        await updateThemeValue(arg[0]) ;
+
+        repondre('Theme actualiser avec succes')
+    }
+
+  
+
+})
