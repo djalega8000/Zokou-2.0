@@ -53,7 +53,7 @@ const prefixe = conf.PREFIXE;
 
 async function authentification() {
     try {
-        let { data } = await axios.get(lienPaste + priseSession);
+       
         //console.log("le data "+data)
         if (!fs.existsSync(__dirname + "/auth/creds.json")) {
             console.log("connexion en cour ...");
