@@ -189,13 +189,13 @@ setTimeout(() => {
             const com = verifCom ? texte.slice(1).trim().split(/ +/).shift().toLowerCase() : false;
            
            
-            const {getThemeChoice,getThemeInfoById} = require('./bdd/theme');
+          //  const {getThemeChoice,getThemeInfoById} = require('./bdd/theme');
               
-            let id = await getThemeChoice() ;
+          //  let id = await getThemeChoice() ;
             
-           const imagemenu = await getThemeInfoById(id) ;
+          // const imagemenu = await getThemeInfoById(id) ;
         
-            const {auteur, liens, nom} = imagemenu
+            //const {auteur, liens, nom} = imagemenu
         
             const lien = liens.split(',')            
             // Utiliser une boucle for...of pour parcourir les liens
