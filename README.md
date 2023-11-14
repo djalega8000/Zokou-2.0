@@ -29,8 +29,8 @@
 1. Veillez cliquer sur **[Fork](https://github.com/djalega8000/Zokou-2.0/fork)** afin de copier le repo sur votre compte github.  veillez bien ajouter une etoile 🌟 pour encourager les développeurs 
 
 2. Obtenez une session du bot : <br>
-  [Session-ID](https://replit.com/@murnoire/Zuk?v=1) <br>
-  [Replit](https://replit.com/@murnoire/Zuk?v=1)
+  [Session-ID](https://replit.com/@zoukoumignon/ZokouQrCode?v=1) <br>
+  [Replit](https://replit.com/@zoukoumignon/ZokouQrCode?v=1)
 3. 
 
 ## Déploiement
