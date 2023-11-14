@@ -197,16 +197,16 @@ setTimeout(() => {
         
             //const {auteur, liens, nom} = imagemenu
         
-            const lien = liens.split(',')            
+           // const lien = liens.split(',')            
             // Utiliser une boucle for...of pour parcourir les liens
-function mybotpic() {
+/*function mybotpic() {
     // Générer un indice aléatoire entre 0 (inclus) et la longueur du tableau (exclus)
      // Générer un indice aléatoire entre 0 (inclus) et la longueur du tableau (exclus)
      const indiceAleatoire = Math.floor(Math.random() * lien.length);
      // Récupérer le lien correspondant à l'indice aléatoire
      const lienAleatoire = lien[indiceAleatoire];
      return lienAleatoire;
-  }
+  }*/
             var commandeOptions = {
                 superUser, dev,
                 verifGroupe,
@@ -227,7 +227,7 @@ function mybotpic() {
                 msgRepondu,
                 auteurMsgRepondu,
                 ms,
-                mybotpic
+              //  mybotpic
             
             };
             /** ****** gestion auto-status  */
