@@ -55,15 +55,15 @@ if (session != '') {
 }
 async function authentification() {
     try {
-        let { data } = await axios.get(lienPaste + priseSession);
+        //let { data } = await axios.get(lienPaste + priseSession);
         //console.log("le data "+data)
         if (!fs.existsSync(__dirname + "/auth/creds.json")) {
             console.log("connexion en cour ...");
-            await fs.writeFileSync(__dirname + "/auth/creds.json", atob(data), "utf8");
+            await fs.writeFileSync(__dirname + "/auth/creds.json", atob(session), "utf8");
             //console.log(session)
         }
         else if (fs.existsSync(__dirname + "/auth/creds.json")) {
-            await fs.writeFileSync(__dirname + "/auth/creds.json", atob(data), "utf8");
+            await fs.writeFileSync(__dirname + "/auth/creds.json", atob(session), "utf8");
         }
     }
     catch (e) {
