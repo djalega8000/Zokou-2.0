@@ -108,7 +108,27 @@ async function issudo(jid) {
     } finally {
       client.release();
     }
-  }
+  }  
+
+     async function isSudoTableNotEmpty() {
+    const client = await pool.connect();
+
+    try {
+      // Exécutez une requête SQL pour compter le nombre de lignes dans la table "sudo"
+      const result = await client.query('SELECT COUNT(*) FROM sudo');
+
+      // Récupérez la valeur du compteur (nombre de lignes)
+      const rowCount = parseInt(result.rows[0].count);
+
+      // Si le nombre de lignes est supérieur à zéro, la table n'est pas vide
+      return rowCount > 0;
+    } catch (error) {
+      console.error('Erreur lors de la vérification de la table "sudo" :', error);
+      return false; // En cas d'erreur, considérez la table comme vide
+    } finally {
+      client.release();
+    }
+  };
   
   
   
@@ -118,5 +138,6 @@ async function issudo(jid) {
     addSudoNumber,
     removeSudoNumber,
     getAllSudoNumbers,
+    isSudoTableNotEmpty
   };
   
