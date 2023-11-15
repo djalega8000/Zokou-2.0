@@ -462,6 +462,8 @@ msg += `${theme.id} : *${theme.nom}* proposé par ${theme.auteur}\n\n`
 
     } else {
   await updateThemeValue(arg[0]);
+
+      repondre('Theme actualiser avec succes')
    }
 
 })
