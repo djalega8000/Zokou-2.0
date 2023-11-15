@@ -462,9 +462,21 @@ msg += `${theme.id} : *${theme.nom}* proposé par ${theme.auteur}\n\n`
 
     } else {
 
-        await updateThemeValue(arg[0]) ;
+      
+      const allthemes = await getAllThemesInfo();
+const allid = [];
 
-        repondre('Theme actualiser avec succes')
+for (const theme of allthemes) {
+  allid.push(theme);
+}
+
+if (allid.includes(arg[0])) {
+  await updateThemeValue(arg[0]);
+  repondre('Thème actualisé avec succès');
+} else {
+  repondre('Entrez le numéro du thème');
+}
+
     }
 
   
