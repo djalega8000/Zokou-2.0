@@ -434,8 +434,8 @@ zokou({ nomCom: "theme",
  categorie: "Mods",
   reaction: "💞" }, async (dest, zk, commandeOptions) => {
 
-    const { arg, ms , mybotpic , prefixe, repondre} = commandeOptions;
-
+    const { arg, ms , mybotpic , prefixe, repondre,superUser} = commandeOptions;
+   if (!superUser) {repondre('Cette commande n\'est permis qu\'au proprietaire du bot') ; return}
     if (!arg[0] || arg === '') {
 
         const allthemes = await getAllThemesInfo() ;
