@@ -461,24 +461,7 @@ msg += `${theme.id} : *${theme.nom}* proposé par ${theme.auteur}\n\n`
     zk.sendMessage(dest , { image : {url : mybotpic()} , caption : msg} , {quoted : ms})
 
     } else {
-
-      
-      const allthemes = await getAllThemesInfo();
-const allid = [];
-
-for (const theme of allthemes) {
-  allid[]= (theme.id);
-} ;
-console.log(allid)
-if (allid.includes(arg[0])) {
   await updateThemeValue(arg[0]);
-  repondre('Thème actualisé avec succès');
-} else {
-  repondre('Entrez le numéro du thème');
-}
-
-    }
-
-  
+   }
 
 })
