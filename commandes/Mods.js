@@ -467,7 +467,7 @@ msg += `${theme.id} : *${theme.nom}* proposé par ${theme.auteur}\n\n`
 const allid = [];
 
 for (const theme of allthemes) {
-  allid.push(theme);
+  allid.push(theme.id);
 }
 
 if (allid.includes(arg[0])) {
