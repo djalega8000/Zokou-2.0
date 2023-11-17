@@ -50,10 +50,9 @@ let { reagir } = require(__dirname + "/framework/app");
 var session = conf.session;
 const prefixe = conf.PREFIXE;
 
-
 async function authentification() {
     try {
-       
+        
         //console.log("le data "+data)
         if (!fs.existsSync(__dirname + "/auth/creds.json")) {
             console.log("connexion en cour ...");
@@ -65,7 +64,7 @@ async function authentification() {
         }
     }
     catch (e) {
-        console.log("Session Invalide " + e);
+        console.log("Session Invalide " + e );
         return;
     }
 }
@@ -190,27 +189,24 @@ setTimeout(() => {
             const com = verifCom ? texte.slice(1).trim().split(/ +/).shift().toLowerCase() : false;
            
            
-            const {getThemeChoice,getThemeInfoById} = require('./bdd/theme');
+          //  const {getThemeChoice,getThemeInfoById} = require('./bdd/theme');
               
-            let id = await getThemeChoice() ;
-            var lien = [] ;
-           try { const imagemenu = await getThemeInfoById(id) ;
+          //  let id = await getThemeChoice() ;
+            
+          // const imagemenu = await getThemeInfoById(id) ;
         
-            const {auteur, liens, nom} = imagemenu
+            //const {auteur, liens, nom} = imagemenu
         
-            lien = liens.split(',') 
-               } catch {  
-               lien = ["https://i.imgur.com/PXRhA8a.jpg","https://i.imgur.com/toWHUsk.jpg","https://i.imgur.com/Ti8LpHk.jpg"]
-                       }
+           // const lien = liens.split(',')            
             // Utiliser une boucle for...of pour parcourir les liens
-function mybotpic() {
+/*function mybotpic() {
     // Générer un indice aléatoire entre 0 (inclus) et la longueur du tableau (exclus)
      // Générer un indice aléatoire entre 0 (inclus) et la longueur du tableau (exclus)
      const indiceAleatoire = Math.floor(Math.random() * lien.length);
      // Récupérer le lien correspondant à l'indice aléatoire
      const lienAleatoire = lien[indiceAleatoire];
      return lienAleatoire;
-  }
+  }*/
             var commandeOptions = {
                 superUser, dev,
                 verifGroupe,
@@ -231,7 +227,7 @@ function mybotpic() {
                 msgRepondu,
                 auteurMsgRepondu,
                 ms,
-                mybotpic
+              //  mybotpic
             
             };
             /** ****** gestion auto-status  */
@@ -570,16 +566,7 @@ function mybotpic() {
 
 ╔═════◇
 ║『𝗯𝘆 Djalega++』
-
-
- chaine de Zokou :
-
- https://whatsapp.com/channel/0029Va84eBILI8YT1TLuPo1x
-
- site officiel :
-
- https://zokoumd.000webhostapp.com/
-
+║ 
 ╚══════════════════╝`;
                 await zk.sendMessage(zk.user.id, { text: cmsg });
             }
