@@ -195,7 +195,8 @@ setTimeout(() => {
             
            const imagemenu = await getThemeInfoById(id) ;
         
-            const {auteur, liens, nom} = imagemenu
+            //const {auteur, liens, nom} = imagemenu
+            const liens=imagemenu.liens;
         
             const lien = liens.split(',')            
             // Utiliser une boucle for...of pour parcourir les liens
