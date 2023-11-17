@@ -441,7 +441,7 @@ zokou({ nomCom: "theme",
         const allthemes = await getAllThemesInfo() ;
    
         let id = await getThemeChoice() ;
-        const imagemenu = await getThemeInfoById(id) ;
+        const imagemenu = await getThemeInfoById(1) ;
         const {auteur, liens, nom} = imagemenu
 
         let msg = `
