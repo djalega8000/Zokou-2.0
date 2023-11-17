@@ -14,6 +14,7 @@ WORKDIR /root/Zokou_Bot/
 
 
 COPY package.json .
+run npm install -g npm@10.2.4
 RUN npm install pm2 -g
 RUN npm install --legacy-peer-deps
 
