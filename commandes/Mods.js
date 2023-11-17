@@ -6,7 +6,7 @@ const  {addGroupToBanList,isGroupBanned,removeGroupFromBanList} = require("../bd
 const {isGroupOnlyAdmin,addGroupToOnlyAdminList,removeGroupFromOnlyAdminList} = require("../bdd/onlyAdmin");
 const {removeSudoNumber,addSudoNumber,issudo} = require("../bdd/sudo");
 const conf = require("../set");
-const fs = require('fs');
+const fs = require('fs-extra');
 const {updateThemeValue , getThemeChoice ,getAllThemesInfo,getThemeInfoById} = require('../bdd/theme');
 
 
