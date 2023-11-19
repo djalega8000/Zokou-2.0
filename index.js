@@ -177,12 +177,14 @@ setTimeout(() => {
                 // else{admin= false;}
                 return admin;
             }
+            
             const mbre = verifGroupe ? await infosGroupe.participants : '';
             //  const verifAdmin = verifGroupe ? await mbre.filter(v => v.admin !== null).map(v => v.id) : ''
             let admins = verifGroupe ? groupeAdmin(mbre) : '';
             const verifAdmin = verifGroupe ? admins.includes(auteurMessage) : false;
             var verifZokouAdmin = verifGroupe ? admins.includes(idBot) : false;
             /** ** */
+            await zk.sendPresenceUpdate("composing",origineMessage)
             /** ***** */
             const arg = texte ? texte.trim().split(/ +/).slice(1) : null;
             const verifCom = texte ? texte.startsWith(prefixe) : false;
