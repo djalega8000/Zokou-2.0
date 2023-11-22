@@ -262,6 +262,8 @@ function mybotpic() {
             if (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
             }
+
+             try { zk.sendPresenceUpdate('unavailable') } catch (e) { console.log(e)}
             
             /******************* PM_PERMT***************/
 
