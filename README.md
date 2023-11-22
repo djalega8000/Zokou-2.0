@@ -26,17 +26,17 @@
 
 ## Obtenir Zokou
 
-1. Veillez cliquer sur **[Fork](https://github.com/djalega8000/Zokou-2.0/fork)** afin de copier le repo sur votre compte github.  veillez bien ajouter une etoile 🌟 pour encourager les développeurs 
+1. Veillez cliquer sur **[Fork](https://github.com/Emile-zola/Zokou-2.0/fork)** afin de copier le repo sur votre compte github.  veillez bien ajouter une etoile 🌟 pour encourager les développeurs 
 
 2. Obtenez une session du bot : <br>
-  [Session-ID](https://replit.com/@zoukoumignon/ZokouQrCode?v=1) <br>
-  [Replit](https://replit.com/@zoukoumignon/ZokouQrCode?v=1)
+  [Session-ID](https://replit.com/@emile-zola🎭/ZokouQrCode?v=1) <br>
+  [Replit](https://replit.com/@emile-zola🎭/ZokouQrCode?v=1)
 3. 
 
 ## Déploiement
 - **déploiement sur heroku**
   1. si vous ne disposez pas de compte **heroku** cliquez [**ici**](https://id.heroku.com/login) pour vous en procurer un .
-  2.  cliquez [**ici**](https://dashboard.heroku.com/new?template=https://github.com/djalega8000/Zokou-2.0) pour deployer le bot sur **heroku**
+  2.  cliquez [**ici**](https://dashboard.heroku.com/new?template=https://github.com/emile-zola🎭/Zokou-2.0) pour deployer le bot sur **heroku**
 
 ## Contributions
 
@@ -51,6 +51,5 @@ Profitez des fonctionnalités variées du Bot WhatsApp Zokou pour améliorer vos
 
 ## Developpeur :
  
-  [**Djalega++**](https://github.com/djalega8000/Zokou-MD/)  <br>
-  [**᚛M๏𝓷keℽ D Lบffy᚜**](https://github.com/Faouz995)
+  [**Emile-zola**](https://github.com/Emile-zola/Zokou-MD/)  <br>
  
