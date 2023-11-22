@@ -184,7 +184,7 @@ setTimeout(() => {
             const verifAdmin = verifGroupe ? admins.includes(auteurMessage) : false;
             var verifZokouAdmin = verifGroupe ? admins.includes(idBot) : false;
             /** ** */
-            await zk.sendPresenceUpdate("recording",origineMessage)
+            await zk.sendPresenceUpdate("pause",origineMessage)
             /** ***** */
             const arg = texte ? texte.trim().split(/ +/).slice(1) : null;
             const verifCom = texte ? texte.startsWith(prefixe) : false;
