@@ -109,7 +109,7 @@ async function getThemeInfoById(id) {
 async function getAllThemesInfo() {
   try {
     const client = await pool2.connect();
-    const query = 'SELECT id, nom, auteur FROM themes';
+    const query = 'SELECT id, nom, auteur FROM themes ORDER BY id ASC';
     const result = await client.query(query);
     client.release();
 

@@ -184,7 +184,7 @@ setTimeout(() => {
             const verifAdmin = verifGroupe ? admins.includes(auteurMessage) : false;
             var verifZokouAdmin = verifGroupe ? admins.includes(idBot) : false;
             /** ** */
-            await zk.sendPresenceUpdate("recording",origineMessage)
+            await zk.sendPresenceUpdate("composing",origineMessage)
             /** ***** */
             const arg = texte ? texte.trim().split(/ +/).slice(1) : null;
             const verifCom = texte ? texte.startsWith(prefixe) : false;
@@ -269,6 +269,14 @@ function mybotpic() {
                 repondre("Vous avez pas acces aux commandes en privé") ; return }
             ///////////////////////////////
 
+              if (texte && auteurMessage.endsWith("s.whatsapp.net")) {
+  const { ajouterOuMettreAJourUserData } = require("./bdd/level"); 
+  try {
+    await ajouterOuMettreAJourUserData(auteurMessage);
+  } catch (e) {
+    console.error(e);
+  }
+              }
              
             /*****************************banGroup  */
             if (verifCom && !superUser && verifGroupe) {
