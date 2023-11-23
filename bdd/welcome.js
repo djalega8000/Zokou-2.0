@@ -43,49 +43,48 @@ creerTableevents();
 
 
 // Fonction pour ajouter un utilisateur à la liste des bannis
-async function attribuerUnevaleur(jid,row,valeur) {
-  const client = await pool.connect();
-  try {
-    // Verifions si le jid existe dans la table 
-     const result = await client.query( 'SELECT * FROM events WHERE jid = $1', [jid] ) ;
-    // Insérez l'utilisateur dans la table "banUser"
-    const query = "INSERT INTO events WHERE (jid) VALUES ($1)";
-    const jidExiste = result.row.length > 0 ;
-
-         if (jidExiste) {
-    //si le jid existe on lui atribue la valeur choisie 
-    await client.query('UPDATE events SET'+ ' ' + row + ' ' + '= $1 WHERE jid = $2', [valeur, jid]);
-        console.log('le row' + ' ' + row + ' ' + 'a été actualiser sur' + ' ' + valeur  )   
-         } 
-     else {
-      // Si le jid n'existe pas, ajoutez-le avec l'état passé en argument et l'action 'supp' par défaut
-      await client.query('INSERT INTO antilien (jid,'+ ' ' + row + ') VALUES ($1, $2)', [jid, valeur]);
-       
-     console.log('le row' + ' ' + row + ' ' + 'a été actualiser sur' + ' ' + valeur  )
-    } 
-  } catch (error) {
-    console.error("Erreur lors de l'actualisation de events :", error);
-  } finally {
-    client.release();
-  }
-} ;
-
-async function recupevents(jid,row) {
+async function attribuerUnevaleur(jid, row, valeur) {
+    const client = await pool.connect();
 
     try {
+        // Vérifions si le jid existe dans la table
+        const result = await client.query('SELECT * FROM events WHERE jid = $1', [jid]);
+        
+        // Vérifiez la longueur des lignes (rows) pour déterminer si le jid existe
+        const jidExiste = result.rows.length > 0;
 
-     const result = await client.query('SELECT' + ' ' + row + ' ' + 'FROM events WHERE jid = $1', [jid] )
-     const jidExiste = result.row.length > 0 ;
+        if (jidExiste) {
+            // Si le jid existe, mettez à jour la valeur de la colonne spécifiée (row)
+            await client.query(`UPDATE events SET ${row} = $1 WHERE jid = $2`, [valeur, jid]);
+            console.log(`La colonne ${row} a été actualisée sur ${valeur} pour le jid ${jid}`);
+        } else {
+            // Si le jid n'existe pas, ajoutez une nouvelle ligne avec le jid et la valeur spécifiés
+            await client.query(`INSERT INTO events (jid, ${row}) VALUES ($1, $2)`, [jid, valeur]);
+            console.log(`Nouveau jid ${jid} ajouté avec la colonne ${row} ayant la valeur ${valeur}`);
+        }
+    } catch (error) {
+        console.error("Erreur lors de l'actualisation de events :", error);
+    } finally {
+        client.release();
+    }
+};
 
-      if (jidExiste) {
-      return result.row[0]
-      } else {
-        return 'non'
-      }
-      
-    } catch (e) { console.log(e) )
-      finally { client.release() }
 
+async function recupevents(jid, row) {
+    try {
+        const result = await client.query('SELECT ' + row + ' FROM events WHERE jid = $1', [jid]);
+        const jidExists = result.rows.length > 0;
+
+        if (jidExists) {
+            return result.rows[0][row];
+        } else {
+            return 'non';
+        }
+    } catch (e) {
+        console.error(e);
+    } finally {
+        client.release();
+    }
 }
 
 
