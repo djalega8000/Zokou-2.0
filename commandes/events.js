@@ -10,7 +10,7 @@ async function events(nomCom) {
 
         if (verifAdmin || superUser) {
             if (!arg[0] || arg.join(' ') === ' ') {
-                repondre('welcome oui pour activer et welcome non pour désactiver');
+                repondre(nomCom + ' ' + ' oui pour activer et ' + ' ' + nomCom + ' ' + 'non pour désactiver');
             } else {
                 if (arg[0] === 'oui' || arg[0] === 'non') {
                     // Correction de l'erreur ici : arg[non] à arg[0]
