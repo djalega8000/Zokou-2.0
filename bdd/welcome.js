@@ -68,10 +68,29 @@ async function attribuerUnevaleur(jid,row,valeur) {
   } finally {
     client.release();
   }
+} ;
+
+async function recupevents(jid,row) {
+
+    try {
+
+     const result = await client.query('SELECT' + ' ' + row + ' ' + 'FROM events WHERE jid = $1', [jid] )
+     const jidExiste = result.row.length > 0 ;
+
+      if (jidExiste) {
+      return result.row[0]
+      } else {
+        return 'non'
+      }
+      
+    } catch (e) { console.log(e) )
+      finally { client.release() }
+
 }
 
 
 
 module.exports = {
   attribuerUnevaleur,
+  recupevents,
 };
