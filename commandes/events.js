@@ -1,35 +1,31 @@
 const { zokou } = require('../framework/zokou');
-const {attribuerUnevaleur} = require('../bdd/welcome')
+const { attribuerUnevaleur } = require('../bdd/welcome');
 
-async fonction events(nomCom) {
+async function events(nomCom) {
+    zokou({
+        nomCom: nomCom,
+        categorie: 'Groupe'
+    }, async (dest, zk, commandeOptions) => {
+        const { ms, arg, repondre, superUser, verifAdmin } = commandeOptions;
 
-zokou(
-    {
-        nomCom : nomCom,
-        categorie : 'Groupe'
-        
-    },async (dest,zk,commandeOptions) => {
-
- const {ms , arg, repondre,superUser , verifAdmin } = commandeOptions;
- if ( verifAdmin || superUser ) {
-
-if (!arg[0] || arg.join(' ') == ' ') { repondre('welcome oui pour activer et welcome non pour desactiver')}
-
-   else {
-      
-if ( arg[0] == 'oui' || arg[0] == 'non') {
-
-     await attribuerUnevaleur(dest,nomCom,arg[0]) ;
-    repondre("le welcome a été actualisé sur " + arg[non]) ;
-} else {
-   repondre('oui pour activer et non pour desactiver') ;
+        if (verifAdmin || superUser) {
+            if (!arg[0] || arg.join(' ') === ' ') {
+                repondre('welcome oui pour activer et welcome non pour désactiver');
+            } else {
+                if (arg[0] === 'oui' || arg[0] === 'non') {
+                    // Correction de l'erreur ici : arg[non] à arg[0]
+                    await attribuerUnevaleur(dest, nomCom, arg[0]);
+                    repondre("Le welcome a été actualisé sur " + arg[0]);
+                } else {
+                    repondre('oui pour activer et non pour désactiver');
+                }
+            }
+        } else {
+            repondre('Vous ne pouvez pas utiliser cette commande');
+        }
+    });
 }
-   }
- } else {repondre('Vous pouvez pas utiliser cette commande') }
- 
-  })
 
-} ;
-
-events('welcome') ;
-events('goodbye') ;
+// Appel de la fonction events pour les valeurs 'welcome' et 'goodbye'
+events('welcome');
+events('goodbye');
