@@ -15,7 +15,7 @@ async function events(nomCom) {
                 if (arg[0] === 'oui' || arg[0] === 'non') {
                     // Correction de l'erreur ici : arg[non] à arg[0]
                     await attribuerUnevaleur(dest, nomCom, arg[0]);
-                    repondre( nomCOM + " a été actualisé sur " + arg[0]);
+                    repondre( nomCom + " a été actualisé sur " + arg[0]);
                 } else {
                     repondre('oui pour activer et non pour désactiver');
                 }
