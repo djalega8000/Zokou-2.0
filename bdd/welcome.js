@@ -71,6 +71,7 @@ async function attribuerUnevaleur(jid, row, valeur) {
 
 
 async function recupevents(jid, row) {
+     const client = await pool.connect()
     try {
         const result = await client.query('SELECT ' + row + ' FROM events WHERE jid = $1', [jid]);
         const jidExists = result.rows.length > 0;
