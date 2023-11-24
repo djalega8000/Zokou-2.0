@@ -515,7 +515,7 @@ function mybotpic() {
         //fin événement message
 
 /******** evenement groupe update ****************/
-const { recupevents } = require('./bdd/welcome'); // Assurez-vous que le chemin d'accès au fichier welcome est correct
+const { recupevents } = require('./bdd/welcome');
 
 zk.ev.on('group-participants.update', async (group) => {
     console.log(group);
@@ -532,8 +532,8 @@ zk.ev.on('group-participants.update', async (group) => {
 
         if (group.action == 'add' && (await recupevents(group.id, "welcome") == 'oui')) {
             let msg = `╔════◇◇◇═════╗
-║ Souhaitons la bienvenue au(x) nouveau(x) membre(s) du groupe
-║ *Nouveau(x) Membre(s) :
+║ Souhaitons la bienvenue au(x) nouveau(x) membre(s)
+║ *Nouveau(x) Membre(s) :*
 `;
 
             let membres = group.participants;
@@ -543,7 +543,7 @@ zk.ev.on('group-participants.update', async (group) => {
 
             msg += `║
 ╚════◇◇◇═════╝
-◇ *Règles du groupe*   ◇
+◇ *Description*   ◇
 
 ${metadata.desc}`;
 
