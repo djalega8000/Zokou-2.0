@@ -190,20 +190,18 @@ setTimeout(() => {
             const verifCom = texte ? texte.startsWith(prefixe) : false;
             const com = verifCom ? texte.slice(1).trim().split(/ +/).shift().toLowerCase() : false;
            
-           
-            
-            const liens= [conf.URL]
-        
-            const lien = liens.split(',')            
-            // Utiliser une boucle for...of pour parcourir les liens
+           const liens = conf.URL.split(',');
+
 function mybotpic() {
-    // Générer un indice aléatoire entre 0 (inclus) et la longueur du tableau (exclus)
-     // Générer un indice aléatoire entre 0 (inclus) et la longueur du tableau (exclus)
-     const indiceAleatoire = Math.floor(Math.random() * lien.length);
-     // Récupérer le lien correspondant à l'indice aléatoire
-     const lienAleatoire = lien[indiceAleatoire];
-     return lienAleatoire;
-  }
+  // Générer un indice aléatoire entre 0 (inclus) et la longueur du tableau (exclus)
+  const indiceAleatoire = Math.floor(Math.random() * liens.length);
+  // Récupérer le lien correspondant à l'indice aléatoire
+  const lienAleatoire = liens[indiceAleatoire];
+  return lienAleatoire;
+}
+
+            
+            
             var commandeOptions = {
                 superUser, dev,
                 verifGroupe,
