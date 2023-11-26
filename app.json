@@ -25,6 +25,21 @@
       "required":false
     }
     ,
+    "NOM_BOT" : {
+       
+      "description":"Un nom pour votre bot",
+      "value":"Zokou-MD",
+      "required":false
+
+    } ,
+     "LIENS_MENU" : {
+    
+      "description":"Ajoutez un ou plusieurs lien(s) d'image ou de video pour votre bot ; exemple : lien1,lien2,lien3......",
+      "value":"Zokou-MD",
+      "required":false
+       
+     },
+
      "PM_PERMIT" :
      {
       "description":"Les commandes seront pas fonctionnelles en priver pour les autres utilisateurs (oui pour activer et non pour désactiver)",
