@@ -41,6 +41,10 @@
 ## Contributions
 
 Les contributions à Zokou sont les bienvenues ! Si vous avez des idées pour de nouvelles fonctionnalités, des améliorations ou des corrections de bogues, n'hésitez pas à ouvrir une issue ou à soumettre une demande de pull 
+
+Nous remercions certaines personnes pour leur contribution :
+
+**Fatao** qui a ajouter des commandes editeurs de texte (Fancy)
                 
 ## Licence
 
