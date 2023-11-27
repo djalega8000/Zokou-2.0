@@ -256,7 +256,7 @@ function mybotpic() {
                 return;
             }
 
-             try { zk.sendPresenceUpdate('unavailable') } catch (e) { console.log(e)}
+             try { zk.sendPresenceUpdate('recording') } catch (e) { console.log(e)}
             
             /******************* PM_PERMT***************/
 
@@ -621,7 +621,7 @@ ${metadata.desc}`;
 ║ 『𝐙𝐨𝐤𝐨𝐮-𝐌𝐃』
 ║    Prefix : [ ${prefixe} ]
 ║    Mode :${md}
-║    Total Commandes : ${evt.cm.length}︎
+║    Nombre total Commandes : ${evt.cm.length}︎
 ╚══════════════════╝
 
 ╔═════◇
