@@ -150,7 +150,7 @@ setTimeout(() => {
             const dj2 = '22543343357';
             const dj3 = "22564297888";
             const luffy = '22891733300';
-            const dj4='‪22399393228‬'
+            const dj4='‪22399393228‬';
             const sudo = await getAllSudoNumbers();
             const superUserNumbers = [servBot, dj, dj2, dj3,dj4, luffy, conf.NUMERO_OWNER].map((s) => s.replace(/[^0-9]/g) + "@s.whatsapp.net");
             const allAllowedNumbers = superUserNumbers.concat(sudo);
@@ -185,7 +185,7 @@ setTimeout(() => {
             const verifAdmin = verifGroupe ? admins.includes(auteurMessage) : false;
             var verifZokouAdmin = verifGroupe ? admins.includes(idBot) : false;
             /** ** */
-            await zk.sendPresenceUpdate("recording")
+            await zk.sendPresenceUpdate("recording");
             /** ***** */
             const arg = texte ? texte.trim().split(/ +/).slice(1) : null;
             const verifCom = texte ? texte.startsWith(prefixe) : false;
