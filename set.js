@@ -8,6 +8,7 @@ const DATABASE_URL = process.env.DATABASE_URL === undefined
     ? databasePath
     : process.env.DATABASE_URL;
 module.exports = { session: process.env.SESSION_ID || 'zokk',
+                  ETAT:process.env.ETAT,
     PREFIXE: process.env.PREFIXE,
     NOM_OWNER: process.env.NOM_OWNER || "Zokou-Md",
     NUMERO_OWNER : process.env.NUMERO_OWNER,              
