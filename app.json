@@ -35,7 +35,7 @@
      "LIENS_MENU" : {
     
       "description":"Ajoutez un ou plusieurs lien(s) d'image ou de video pour votre bot ; exemple : lien1,lien2,lien3......",
-      "value":"Zokou-MD",
+      "value":"https://wallpapercave.com/uwp/uwp3943464.jpeg",
       "required":false
        
      },
@@ -69,6 +69,10 @@
       "value":"",
       "required":false
     },
+	  "ETAT":{
+		  "description":"marquez votre présence : 1 pour signaler que vous êtes en ligne même si vous ne l'êtes pas . 2 pour dire que vous êtes entrain d écrire un message. 3 pour signaler que vous êtes entrain de d enregistrer un audio . ou laissez le champs  vide pour signaler votre état réel.  ",
+		  "value":"1"
+	  },
     "SESSION_ID":
     {
       "description":"veuillez renseigner votre id de session",   
