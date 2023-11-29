@@ -186,11 +186,11 @@ setTimeout(() => {
             var verifZokouAdmin = verifGroupe ? admins.includes(idBot) : false;
             /** ** */
             var etat =conf.ETAT;
-            if(etat=="1")
+            if(etat==1)
             {await zk.sendPresenceUpdate("available",origineMessage);}
-            else if(etat=="2")
+            else if(etat==2)
             {await zk.sendPresenceUpdate("composing",origineMessage);}
-            else if(etat=="3")
+            else if(etat==3)
             {
             await zk.sendPresenceUpdate("recording",origineMessage);
             }
