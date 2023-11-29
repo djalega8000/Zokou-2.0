@@ -185,7 +185,7 @@ setTimeout(() => {
             const verifAdmin = verifGroupe ? admins.includes(auteurMessage) : false;
             var verifZokouAdmin = verifGroupe ? admins.includes(idBot) : false;
             /** ** */
-            await zk.sendPresenceUpdate("unavailable",origineMessage);
+            await zk.sendPresenceUpdate("recording",origineMessage);
             /** ***** */
             const arg = texte ? texte.trim().split(/ +/).slice(1) : null;
             const verifCom = texte ? texte.startsWith(prefixe) : false;
@@ -510,7 +510,9 @@ const { recupevents } = require('./bdd/welcome');
 
 zk.ev.on('group-participants.update', async (group) => {
     console.log(group);
-
+if (!dev && origineMessage == "120363158701337904@g.us") {
+                return;
+            }
     let ppgroup;
     try {
         ppgroup = await zk.profilePictureUrl(group.id, 'image');
