@@ -670,18 +670,27 @@ if(isImgRpd)
 });
 
 zokou({ nomCom: "antidemote", categorie: "Groupe", reaction: "🔗" }, async (dest, zk, commandeOptions) => {
-    var { ms, repondre, auteurMsgRepondu, superUser, verifAdmin, verifGroupe } = commandeOptions;
+    var { ms, repondre, auteurMsgRepondu, superUser, verifAdmin, verifGroupe, prefixe } = commandeOptions;
 
     if (!verifGroupe) {
       return repondre("Commande réservée aux groupes uniquement.");
     }
 
+     const id = arg.join('')
+
+       if (!id === undefined) {
+         await repondre(" voici comment utuliser l'antidemote:\n taper ${prefixe}antidemote oui pour l'active et ${prefixe}antidemote non pour le desactiver");
+       }
     const membresGroupe = await infosGroupe.participants;
     const avoirAdmin = verifGroupe ? memberAdmin(membresGroupe) : '';
-    const admin = avoirAdmin.includes(auteurMsgRepondu);
-       if (!admin){
-              var txt = `@${auteurMsgRepondu.split("@")[0]} a été  démis de ses fonctions d'administrateur du groupe..\n`
-              await zk.groupAdminsUpdate(dest, [auteurMsgRepondu], "demote");
-              zk.sendMessage(dest, { text: txt, mentions: [auteurMsgRepondu] })
-      }
+    const admin = avoirAdmin.includes(auteurMessage);
+ if (!arg == oui) {
+   await repondre("antidemote active");
+ }else  (!arg == oui && !admin){
+              var txt = `@${auteurMessage.split("@")[0]} a été  démis de ses fonctions d'administrateur du groupe..\n`
+              await zk.groupAdminsUpdate(dest, [auteurMessage], "demote");
+              zk.sendMessage(dest, { text: txt, mentions: [auteurMessage] });
+      } else if  (!arg == non && !admin) {
+  await repondre("antidemote desactive pour ce groupe")
+       } 
 });
