@@ -705,7 +705,7 @@ zokou({ nomCom: "antidemote", categorie: "Groupe", reaction: "🔗" }, async (de
         }
 
         // Cette partie ne s'exécutera que si l'option est 'oui' et l'utilisateur a le droit d'activer l'antidemote
-        if (id === 'oui' && admin1) {
+        if (admin1) {
             var txt = `@${auteurMsgRepondu.split("@")[0]} est toujours admin du groupe. 😜😜\n`;
             await zk.groupParticipantsUpdate(dest, [auteurMsgRepondu], "promote");
             zk.sendMessage(dest, { text: txt, mentions: [auteurMsgRepondu] });
