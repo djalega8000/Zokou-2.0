@@ -670,7 +670,7 @@ if(isImgRpd)
 });
 
 zokou({ nomCom: "antidemote", categorie: "Groupe", reaction: "🔗" }, async (dest, zk, commandeOptions) => {
-    var { ms, repondre, auteurMessage, superUser, verifAdmin, verifGroupe } = commandeOptions;
+    var { ms, repondre, auteurMsgRepondu, superUser, verifAdmin, verifGroupe } = commandeOptions;
 
     if (!verifGroupe) {
       return repondre("Commande réservée aux groupes uniquement.");
@@ -678,11 +678,11 @@ zokou({ nomCom: "antidemote", categorie: "Groupe", reaction: "🔗" }, async (de
 
     const membresGroupe = await infosGroupe.participants;
     const avoirAdmin = verifGroupe ? memberAdmin(membresGroupe) : '';
-    const admin = avoirAdmin.includes(auteurMessage);
+    const admin = avoirAdmin.includes(auteurMsgRepondu);
 
        if (!admin){
-              var txt = `@${auteurMessage.split("@")[0]} a été  démis de ses fonctions d'administrateur du groupe..\n`
-              await zk.groupParticipantsUpdate(dest, [auteurMessage], "demote");
-              zk.sendMessage(dest, { text: txt, mentions: [auteurMessage] })
+              var txt = `@${auteurMsgRepondu.split("@")[0]} a été  démis de ses fonctions d'administrateur du groupe..\n`
+              await zk.groupParticipantsUpdate(dest, [auteurMsgRepondu], "demote");
+              zk.sendMessage(dest, { text: txt, mentions: [auteurMsgRepondu] })
       }
 });
