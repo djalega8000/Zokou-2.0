@@ -681,20 +681,20 @@ zokou({ nomCom: "antidemote", categorie: "Groupe", reaction: "🔗" }, async (de
             return repondre(`Voici comment utiliser l'antidemote:\nTapez ${prefixe}antidemote oui pour l'activer et ${prefixe}antidemote non pour le désactiver`);
         }
 
-        const id = arg[0];
+        const id = arg[0].toLowerCase();  // Convertir en minuscules pour éviter les problèmes de casse
 
         const membresGroupe = await infosGroupe.participants;
         const avoirAdmin = verifGroupe ? memberAdmin(membresGroupe) : '';
         const admin = avoirAdmin.includes(auteurMessage);
-        let admin1 = verifGroupe ? avoirAdmin.includes(auteurMsgRepondu) : true;
+        let admin1 = verifGroupe ? avoirAdmin.includes(auteurMsgRepondu) : false;
 
-        if (id.toLowerCase() === 'oui') {
+        if (id === 'oui') {
             if (admin || superUser) {
                 await repondre("Antidemote activé pour ce groupe.");
             } else {
                 await repondre("Vous n'avez pas le droit d'activer l'antidemote pour ce groupe.");
             }
-        } else if (id.toLowerCase() === 'non') {
+        } else if (id === 'non') {
             if (admin || superUser) {
                 await repondre("Antidemote désactivé pour ce groupe.");
             } else {
@@ -705,8 +705,8 @@ zokou({ nomCom: "antidemote", categorie: "Groupe", reaction: "🔗" }, async (de
         }
 
         // Cette partie ne s'exécutera que si l'option est 'oui' et l'utilisateur a le droit d'activer l'antidemote
-        if (id.toLowerCase() === 'oui' && admin1) {
-            var txt = `@${auteurMsgRepondu.split("@")[0]} est toujours admin du groupe😜😜\n`;
+        if (id === 'oui' && admin1) {
+            var txt = `@${auteurMsgRepondu.split("@")[0]} est toujours admin du groupe. 😜😜\n`;
             await zk.groupParticipantsUpdate(dest, [auteurMsgRepondu], "promote");
             zk.sendMessage(dest, { text: txt, mentions: [auteurMsgRepondu] });
         }
