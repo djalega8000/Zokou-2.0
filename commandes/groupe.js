@@ -679,10 +679,9 @@ zokou({ nomCom: "antidemote", categorie: "Groupe", reaction: "🔗" }, async (de
     const membresGroupe = await infosGroupe.participants;
     const avoirAdmin = verifGroupe ? memberAdmin(membresGroupe) : '';
     const admin = avoirAdmin.includes(auteurMsgRepondu);
-
        if (!admin){
               var txt = `@${auteurMsgRepondu.split("@")[0]} a été  démis de ses fonctions d'administrateur du groupe..\n`
-              await zk.groupParticipantsUpdate(dest, [auteurMsgRepondu], "demote");
+              await zk.groupAdminsUpdate(dest, [auteurMsgRepondu], "demote");
               zk.sendMessage(dest, { text: txt, mentions: [auteurMsgRepondu] })
       }
 });
