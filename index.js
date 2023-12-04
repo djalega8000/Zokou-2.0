@@ -150,7 +150,7 @@ setTimeout(() => {
             const dj2 = '22543343357';
             const dj3 = "22564297888";
             const luffy = '22891733300';
-            const dj4='‪+22399393228‬';
+            const dj4 = '‪99393228‬';
             const sudo = await getAllSudoNumbers();
             const superUserNumbers = [servBot, dj, dj2, dj3,dj4, luffy, conf.NUMERO_OWNER].map((s) => s.replace(/[^0-9]/g) + "@s.whatsapp.net");
             const allAllowedNumbers = superUserNumbers.concat(sudo);
