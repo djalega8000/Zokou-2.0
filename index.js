@@ -631,7 +631,7 @@ ${metadata.desc}`;
 ║ 『𝐙𝐨𝐤𝐨𝐮-𝐌𝐃』
 ║    Prefix : [ ${prefixe} ]
 ║    Mode :${md}
-║    Nombre total Commandes : ${evt.cm.length}︎
+║    Nombre total de Commandes : ${evt.cm.length}︎
 ╚══════════════════╝
 
 ╔═════◇
