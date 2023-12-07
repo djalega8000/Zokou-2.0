@@ -520,9 +520,9 @@ const { recupevents } = require('./bdd/welcome');
 
 zk.ev.on('group-participants.update', async (group) => {
     console.log(group);
-if (!dev && origineMessage == "120363158701337904@g.us") {
+/*if (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
-            }
+            }*/
     let ppgroup;
     try {
         ppgroup = await zk.profilePictureUrl(group.id, 'image');
