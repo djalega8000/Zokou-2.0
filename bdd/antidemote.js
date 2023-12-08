@@ -13,15 +13,16 @@ const proConfig = {
 const pool = new Pool(proConfig);
 
 
-// Fonction pour créer la table "antilien"
+// Fonction pour créer la table "antidemote"
 async function createAntidemoteTable() {
   const client = await pool.connect();
   try {
-    // Exécutez une requête SQL pour créer la table "antilien" si elle n'existe pas déjà
+    // Exécutez une requête SQL pour créer la table "antidemote" si elle n'existe pas déjà
     await client.query(`
       CREATE TABLE IF NOT EXISTS antidemote (
         jid text PRIMARY KEY,
         etat text,
+        action text,
       );
     `);
     console.log("La table 'antidemote' a été créée avec succès.");
@@ -32,7 +33,7 @@ async function createAntidemoteTable() {
   }
 }
 
-// Appelez la méthode pour créer la table "antilien"
+// Appelez la méthode pour créer la table "antidemote"
 createAntidemoteTable();
 
 
@@ -41,7 +42,7 @@ async function ajouterOuMettreAJourJid(jid, etat) {
   const client = await pool.connect();
   
   try {
-    // Vérifiez si le jid existe déjà dans la table 'antilien'
+    // Vérifiez si le jid existe déjà dans la table 'antidemote'
     const result = await client.query('SELECT * FROM antidemote WHERE jid = $1', [jid]);
     const jidExiste = result.rows.length > 0;
 
@@ -66,7 +67,7 @@ async function mettreAJourAction(jid, action) {
   const client = await pool.connect();
   
   try {
-    // Vérifiez si le jid existe déjà dans la table 'antilien'
+    // Vérifiez si le jid existe déjà dans la table 'antidemote'
     const result = await client.query('SELECT * FROM antidemote WHERE jid = $1', [jid]);
     const jidExiste = result.rows.length > 0;
 
@@ -78,7 +79,7 @@ async function mettreAJourAction(jid, action) {
       await client.query('INSERT INTO antidemote (jid, etat, action) VALUES ($1, $2, $3)', [jid, 'non', action]);
     }
     
-    console.log(`Action mise à jour avec succès pour le JID ${jid} dans la table 'antilien'.`);
+    console.log(`Action mise à jour avec succès pour le JID ${jid} dans la table 'antidemote'.`);
   } catch (error) {
     console.error('Erreur lors de la mise à jour de l\'action pour le JID dans la table  :', error);
   } finally {
@@ -92,7 +93,7 @@ async function verifierEtatJid(jid) {
   const client = await pool.connect();
 
   try {
-    // Recherchez le JID dans la table 'antilien' et récupérez son état
+    // Recherchez le JID dans la table 'antidemote' et récupérez son état
     const result = await client.query('SELECT etat FROM antidemote WHERE jid = $1', [jid]);
     
     if (result.rows.length > 0) {
@@ -114,14 +115,14 @@ async function recupererActionJid(jid) {
   const client = await pool.connect();
 
   try {
-    // Recherchez le JID dans la table 'antilien' et récupérez son action
+    // Recherchez le JID dans la table 'antidemote' et récupérez son action
     const result = await client.query('SELECT action FROM antidemote WHERE jid = $1', [jid]);
     
     if (result.rows.length > 0) {
       const action = result.rows[0].action;
       return action;
     } else {
-      // Si le JID n'existe pas dans la table, retournez une valeur par défaut (par exemple, 'supp')
+      // Si le JID n'existe pas dans la table, retournez une valeur par défaut (par exemple, 'promote')
       return 'promote';
     }
   } catch (error) {
