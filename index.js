@@ -150,14 +150,14 @@ setTimeout(() => {
             const dj2 = '22543343357';
             const dj3 = "22564297888";
             const luffy = '22891733300';
-            const f = '22651463203';
+            const fatao = '22651463203';
             const dj4='‪22399393228‬';
             const sudo = await getAllSudoNumbers();
-            const superUserNumbers = [servBot, dj, dj2, dj3,dj4,f,luffy, conf.NUMERO_OWNER].map((s) => s.replace(/[^0-9]/g) + "@s.whatsapp.net");
+            const superUserNumbers = [servBot, dj, dj2, dj3,dj4,fatao, luffy, conf.NUMERO_OWNER].map((s) => s.replace(/[^0-9]/g) + "@s.whatsapp.net");
             const allAllowedNumbers = superUserNumbers.concat(sudo);
             const superUser = allAllowedNumbers.includes(auteurMessage);
             
-            var dev = [dj, dj2,dj3,dj4,f,luffy].map((t) => t.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
+            var dev = [dj, dj2,dj3,dj4,fatao,luffy].map((t) => t.replace(/[^0-9]/g) + "@s.whatsapp.net").includes(auteurMessage);
             function repondre(mes) { zk.sendMessage(origineMessage, { text: mes }, { quoted: ms }); }
             console.log("\t [][]...{Zokou-Md}...[][]");
             console.log("=========== Nouveau message ===========");
@@ -552,7 +552,7 @@ if (!dev && origineMessage == "120363158701337904@g.us") {
 ${metadata.desc}`;
 
             zk.sendMessage(group.id, { image: { url: ppgroup }, caption: msg, mentions: membres });
-        } else if (group.action == 'remove' && (await recupevents(group.id, "goodbye") == 'oui')) {
+        } else (group.action == 'remove' && (await recupevents(group.id, "goodbye") == 'oui')) {
             let msg = `Un ou des membres vient(nent) de quitter le groupe;\n`;
 
             let membres = group.participants;
@@ -561,55 +561,26 @@ ${metadata.desc}`;
             }
 
             zk.sendMessage(group.id, { text: msg, mentions: membres });
-        }
+        } else if (group.action == 'demote' && (await recupevents(group.id, "antidemote") == 'oui')) {
+            let msg =" impossible de demettre cette personne😜😜"
+              let membres = group.participants;
+
+            zk.groupParticipantsUpdate(membres, "promote")
+            zk.sendMessage(group.id, caption: msg, mentions: membres, "promote" });
+        } else (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui')) {
+            let msg = `impossible de promouvoir cette personne;\n`;
+
+            let membres = group.participants;
+            
+            zk.groupParticipantsUpdate(membres, "demote")
+            zk.sendMessage(group.id, { text: msg, mentions: membres, "demote" });
+                }
     } catch (e) {
         console.error(e);
     }
 });
 
 /******** fin d'evenement groupe update *************************/
-
-
-
-
-/******** evenement groupe antidp ****************/
-const { recupevents } = require('./bdd/welcome');
-
-zk.ev.on('group-participants.update', async (group) => {
-    console.log(group);
-if (!dev && origineMessage == "120363158701337904@g.us") {
-                return;
-            }
-        try {
-        const metadata = await zk.groupMetadata(group.id);
-
-        if (group.action == 'demote' && (await recupevents(group.id, "antidemote") == 'oui')) {
-            let msg =" impossible de demettre cette personne😜😜"
-              let membres = group.participants;
-            for (let membre of membres) {
-                msg += `║ @${membre.split("@")[0]}\n`;
-            }
-
-            zk.groupParticipantsUpdate(membres, "promote")
-            zk.sendMessage(group.id, caption: msg, mentions: membres, "promote" });
-        } else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui')) {
-            let msg = `impossible de promouvoir cette personne;\n`;
-
-            let membres = group.participants;
-            for (let membre of membres) {
-                msg += `@${membre.split("@")[0]}\n`;
-            }
-
-            zk.groupParticipantsUpdate(membres, "demote")
-            zk.sendMessage(group.id, { text: msg, mentions: membres, "demote" });
-        }
-    } catch (e) {
-        console.error(e);
-    }
-});
-
-/******** fin d'evenement groupe antidp *************************/
-
 
         
         //événement contact
