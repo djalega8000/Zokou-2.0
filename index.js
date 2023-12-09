@@ -565,7 +565,7 @@ ${metadata.desc}`;
             let userdm = membres[0];
 
             await zk.groupParticipantsUpdate(group.id, [userdm], "promote");
-        } else if (group.action == 'promote' && (await recupevents(group.id, "antidemote") == 'oui')) {
+        } else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui')) {
             let membres = group.participants;
             let userpm = membres[0];
 
