@@ -522,8 +522,6 @@ const { recupevents } = require('./bdd/welcome');
 zk.ev.on('group-participants.update', async (group) => {
     console.log(group);
 
-    }
-
     let ppgroup;
 
     try {
@@ -589,6 +587,7 @@ ${metadata.desc}`;
         console.error(e);
     }
 });
+
 
 
 
