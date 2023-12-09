@@ -561,26 +561,14 @@ ${metadata.desc}`;
 
             await zk.sendMessage(group.id, { text: msg, mentions: membres });
         } else if (group.action == 'demote' && (await recupevents(group.id, "antidemote") == 'oui')) {
-            let msg = "impossible de démettre cette utilisateur";
             let membres = group.participants;
-            for (let membre of membres) {
-                msg += `@${membre.split("@")[0]}\n`;
-            }
-
             let userdm = membres[0];
 
-            await zk.sendMessage(group.id, { text: msg, mentions: membres });
             await zk.groupParticipantsUpdate(group.id, [userdm], "promote");
-        } else if (group.action == 'promote') {
-            let msg = `impossible de promouvoir cette personne;\n`;
-
+        } else if (group.action == 'promote' && (await recupevents(group.id, "antidemote") == 'oui')) {
             let membres = group.participants;
-            for (let membre of membres) {
-                msg += `@${membre.split("@")[0]}\n`;
-            }
             let userpm = membres[0];
 
-            await zk.sendMessage(group.id, { text: msg, mentions: membres });
             await zk.groupParticipantsUpdate(group.id, [userpm], "demote");
         }
     } catch (e) {
