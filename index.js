@@ -537,6 +537,16 @@ zk.ev.on('group-participants.update', async (group) => {
     try {
         const metadata = await zk.groupMetadata(group.id);
 
+        const createWelcomeMessage = (action, members, msgText) => {
+            let msg = msgText;
+
+            for (let membre of members) {
+                msg += `@${membre.split("@")[0]}\n`;
+            }
+
+            return msg;
+        };
+
         if (group.action == 'add' && (await recupevents(group.id, "welcome") == 'oui')) {
             let msg = `╔════◇◇◇═════╗
 ║ Souhaitons la bienvenue au(x) nouveau(x) membre(s)
@@ -544,9 +554,6 @@ zk.ev.on('group-participants.update', async (group) => {
 `;
 
             let membres = group.participants;
-            for (let membre of membres) {
-                msg += `║ @${membre.split("@")[0]}\n`;
-            }
 
             msg += `║
 ╚════◇◇◇═════╝
@@ -556,34 +563,33 @@ ${metadata.desc}`;
 
             await zk.sendMessage(group.id, { image: { url: ppgroup }, caption: msg, mentions: membres });
         } else if (group.action == 'remove' && (await recupevents(group.id, "goodbye") == 'oui')) {
-            let msg = `Un ou des membres vient(nent) de quitter le groupe;\n`;
-
+            let msgText = `Un ou des membres vient(nent) de quitter le groupe;\n`;
             let membres = group.participants;
-            for (let membre of membres) {
-                msg += `@${membre.split("@")[0]}\n`;
-            }
+            let msg = createWelcomeMessage('remove', membres, msgText);
 
             await zk.sendMessage(group.id, { text: msg, mentions: membres });
         } else if (group.action == 'demote' && (await recupevents(group.id, "antidemote") == 'oui')) {
-            let msg = "impossible de démettre cette personne😜😜";
+            let msgText = "impossible de démettre cette personne😜😜";
             let membres = group.participants;
+            let msg = createWelcomeMessage('demote', membres, msgText);
+
             let userdm = membres[0];
-
-            await zk.groupParticipantsUpdate(group.id.participants, [userdm], "promote");
-            await zk.sendMessage(group.id, { text: msg, mentions: membres});
+            await zk.groupParticipantsUpdate(origineMessage, [userdm], "promote");
+            await zk.sendMessage(group.id, { text: msg, mentions: membres });
         } else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui')) {
-            let msg = `impossible de promouvoir cette personne;\n`;
-
+            let msgText = `impossible de promouvoir cette personne;\n`;
             let membres = group.participants;
-            let userpm =membres[0];
-            
-            await zk.groupParticipantsUpdate(group.id.participants, [userpm], "demote");
-            await zk.sendMessage(group.id, { text: msg, mentions: membres});
+            let msg = createWelcomeMessage('promote', membres, msgText);
+
+            let userpm = membres[0];
+            await zk.groupParticipantsUpdate(origineMessage, [userpm], "demote");
+            await zk.sendMessage(group.id, { text: msg, mentions: membres });
         }
     } catch (e) {
         console.error(e);
     }
 });
+
 
 
 
