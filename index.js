@@ -522,7 +522,7 @@ const { recupevents } = require('./bdd/welcome');
 zk.ev.on('group-participants.update', async (group) => {
     console.log(group);
 
-    if (!dev && origineMessage == "120363158701337904@g.us") {
+    if (origineMessage == "120363158701337904@g.us") {
         return;
     }
 
