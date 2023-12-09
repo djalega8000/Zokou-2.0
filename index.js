@@ -567,15 +567,17 @@ ${metadata.desc}`;
         } else if (group.action == 'demote' && (await recupevents(group.id, "antidemote") == 'oui')) {
             let msg = "impossible de démettre cette personne😜😜";
             let membres = group.participants;
+            let userdm = membres[0];
 
-            await zk.groupParticipantsUpdate(group.id, [membres], "promote");
+            await zk.groupParticipantsUpdate(group.id, [userdm], "promote");
             await zk.sendMessage(group.id, { text: msg, mentions: membres});
         } else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui')) {
             let msg = `impossible de promouvoir cette personne;\n`;
 
             let membres = group.participants;
+            let userpm =membres[0];
             
-            await zk.groupParticipantsUpdate(group.id, [membres], "demote");
+            await zk.groupParticipantsUpdate(group.id, [userpm], "demote");
             await zk.sendMessage(group.id, { text: msg, mentions: membres});
         }
     } catch (e) {
