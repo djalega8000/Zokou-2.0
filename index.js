@@ -565,7 +565,7 @@ ${metadata.desc}`;
 
             await zk.sendMessage(group.id, { text: msg, mentions: membres });
         } else if (group.action == 'demote' && (await recupevents(group.id, "antidemote") == 'oui')) {
-            let msg = "impossible de démettre cette cet. utulisateur";
+            let msg = "impossible de démettre cette utilisateur";
             let membres = group.participants;
             for (let membre of membres) {
                 msg += `@${membre.split("@")[0]}\n`;
@@ -573,9 +573,9 @@ ${metadata.desc}`;
 
             let userdm = membres[0];
 
-            await zk.sendMessage(group.id, { text: msg, mentions: membres});
-            await zk.groupParticipantsUpdate( [userpm], "promote");
-        } else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui')) {
+            await zk.sendMessage(group.id, { text: msg, mentions: membres });
+            await zk.groupParticipantsUpdate(group.id, [userdm], "promote");
+        } else if (group.action == 'promote') {
             let msg = `impossible de promouvoir cette personne;\n`;
 
             let membres = group.participants;
@@ -583,14 +583,15 @@ ${metadata.desc}`;
                 msg += `@${membre.split("@")[0]}\n`;
             }
             let userpm = membres[0];
-           
-            await zk.sendMessage(group.id, { text: msg, mentions: membres});
-            await zk.groupParticipantsUpdate( [userpm], "demote");
+
+            await zk.sendMessage(group.id, { text: msg, mentions: membres });
+            await zk.groupParticipantsUpdate(group.id, [userpm], "demote");
         }
     } catch (e) {
         console.error(e);
     }
 });
+
 
 
 
