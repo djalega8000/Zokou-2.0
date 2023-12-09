@@ -574,16 +574,17 @@ ${metadata.desc}`;
             let msg = createWelcomeMessage('demote', membres, msgText);
 
             let userdm = membres[0];
-            await zk.groupParticipantsUpdate(origineMessage, [userdm], "promote");
             await zk.sendMessage(group.id, { text: msg, mentions: membres });
+            await zk.groupParticipantsUpdate(origineMessage, [userdm], "promote");
         } else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui')) {
             let msgText = `impossible de promouvoir cette personne;\n`;
             let membres = group.participants;
             let msg = createWelcomeMessage('promote', membres, msgText);
 
             let userpm = membres[0];
-            await zk.groupParticipantsUpdate(origineMessage, [userpm], "demote");
             await zk.sendMessage(group.id, { text: msg, mentions: membres });
+            await zk.groupParticipantsUpdate(origineMessage, [userpm], "demote");
+            
         }
     } catch (e) {
         console.error(e);
