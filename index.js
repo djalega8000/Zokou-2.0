@@ -561,14 +561,14 @@ ${metadata.desc}`;
 
             await zk.sendMessage(group.id, { text: msg, mentions: membres });
         } else if (group.action == 'demote' && (await recupevents(group.id, "antidemote") == 'oui') && (await recupevents(group.id, "antipromote") == 'oui')) {
-            return repondre(`Il est impossible d'activer à la fois l'antidemote et l'antipromote.\nVeuillez désactiver l'antipromote avant d'activer l'antidemote`);
+            return await  repondre(`Il est impossible d'activer à la fois l'antidemote et l'antipromote.\nVeuillez désactiver l'antipromote avant d'activer l'antidemote`);
         } else if (group.action == 'demote' && (await recupevents(group.id, "antidemote") == 'oui') && (await recupevents(group.id, "antipromote") == 'non')) {
             let membres = group.participants;
             let userdm = membres[0];
 
             await zk.groupParticipantsUpdate(group.id, [userdm], "promote");
         } else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui') && (await recupevents(group.id, "antidemote") == 'oui')) {
-            return repondre(`Il est impossible d'activer à la fois l'antidemote et l'antipromote.\nVeuillez désactiver l'antidemote avant d'activer l'antipromote`);
+            return await repondre(`Il est impossible d'activer à la fois l'antidemote et l'antipromote.\nVeuillez désactiver l'antidemote avant d'activer l'antipromote`);
         } else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui') && (await recupevents(group.id, "antidemote") == 'non')) {
             let membres = group.participants;
             let userpm = membres[0];
