@@ -86,7 +86,7 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
 
   try {
     let reponse = await getChatGPTResponse(question);
-    repondre("reponse");
+    repondre(reponse);
   } catch (e) {
     repondre("Oups, une erreur : " + e);
   }
