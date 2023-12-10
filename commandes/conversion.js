@@ -284,32 +284,32 @@ zokou({nomCom:"url",categorie: "Conversion", reaction: "👨🏿‍💻"},async(
   } else if (msgRepondu.videoMessage) {
     const mediamsg = msgRepondu.videoMessage;
     const video = await zk.downloadAndSaveMediaMessage(mediamsg);
-
     // Créer un objet FormData
-    const data = new FormData();
-    data.append('video', fs.createReadStream(video));
+  const data = new FormData();
+  data.append('image', fs.createReadStream(video));
 
-    // Configurer la requête
-    const config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: 'https://telegra.ph/upload',
-        headers: {
-            ...data.getHeaders()
-        },
-        data: data
-    };
+  // Configurer les en-têtes
+  const clientId = 'b40a1820d63cd4e'; // Remplacez par votre client ID Imgur
+  const headers = {
+    'Authorization': `Client-ID ${clientId}`,
+    ...data.getHeaders()
+  };
 
-    try {
-        const response = await axios(config);
-        const videoUrl = response.data.link;
-        console.log(videoUrl);
+  // Configurer la requête
+  const config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'https://api.imgur.com/3/video',
+    headers: headers,
+    data: data
+  };
 
-        repondre(videoUrl);
-    } catch (error) {
-        console.error('Erreur lors du téléchargement de la vidéo:', error.message);
-        repondre('Une erreur s\'est produite lors du téléchargement de la vidéo.');
-    }
+    const response = await axios(config);
+    const videoUrl = response.data.data.link;
+    console.log(videoUrl) ;
+
+       repondre(videoUrl)
+
      } else if (msgRepondu.stickerMessage) {
     mediamsg = msgRepondu.stickerMessage ;
     repondre('commande non achever') ; return
