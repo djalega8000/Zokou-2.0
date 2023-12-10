@@ -1,7 +1,18 @@
 const fetch = require('node-fetch');
 
-async function getChatGPTResponse(question) {
+zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
+  const { repondre, arg } = commandeOptions;
+
+  // Vérification de la présence d'une question
+  if (!arg || arg.length === 0) {
+    return repondre("Veuillez poser votre question.");
+  }
+
+  // Concaténation des mots de la question en une seule chaîne
+  const question = arg.join(' ');
+
   try {
+    // Appel de la fonction getChatGPTResponse avec la question
     const OPENAI_API_KEY = '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';
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -32,35 +43,11 @@ async function getChatGPTResponse(question) {
     }
 
     // Envoyer la première réponse
-    return data.choices[0].message.content.trim();
+    repondre(data.choices[0].message.content.trim());
   } catch (error) {
     // Gestion des erreurs
     console.error('Erreur d\'appel OpenAI API:', error.message);
     return 'Une erreur s\'est produite lors du traitement de votre demande.';
-  }
-}
-
-zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
-  const { repondre, arg } = commandeOptions;
-
-  // Vérification de la présence d'une question
-  if (!arg || arg.length === 0) {
-    return repondre("Veuillez poser votre question.");
-  }
-
-  // Concaténation des mots de la question en une seule chaîne
-  const question = arg.join(' ');
-
-  try {
-    // Appel de la fonction getChatGPTResponse avec la question
-    const reponse = await getChatGPTResponse(question);
-
-    // Répondre avec la réponse de GPT
-    repondre(reponse);
-  } catch (e) {
-    // Gestion des erreurs
-    console.error('Erreur générale :', e);
-    repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
   }
 });
 
