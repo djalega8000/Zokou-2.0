@@ -63,7 +63,7 @@ async function getChatGPTResponse(question) {
       {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer YOUR_OPENAI_API_KEY', // Remplacez par votre clé API OpenAI
+          'Authorization': 'Bearer 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', // Remplacez par votre clé API OpenAI
         },
       }
     );
