@@ -69,13 +69,12 @@ fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg
   
   });  
 
+const axios = require("axios");
 
-const axios = require("axios")
-  
-async function getChatGPTReponse(question) {
+async function getChatGPTReponse(question, repondre) {
   try {
     const OPENAI_API_KEY = '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';
-    const reponse = await axios.post(
+    const response = await axios.post(
       'https://api.openai.com/v1/engines/gpt-3.5-turbo/completions',
       {
         prompt: question,
@@ -89,7 +88,7 @@ async function getChatGPTReponse(question) {
       }
     );
 
-    const data = reponse.data;
+    const data = response.data; // Correction ici
 
     // Log de la réponse de GPT dans la console
     console.log("GPT REPONSE : ", data);
@@ -106,8 +105,8 @@ async function getChatGPTReponse(question) {
     console.error('Erreur d\'appel OpenAI API:', error.message);
     return 'Une erreur s\'est produite lors du traitement de votre demande.';
   }
-      }
-  
+}
+
 zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg } = commandeOptions;
 
@@ -118,10 +117,9 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
   var question = arg.join(' ');
 
   try {
-    const reponse = await getChatGPTReponse(question);
+    const reponse = await getChatGPTReponse(question, repondre);
     repondre(reponse);
   } catch (e) {
     repondre("Oups, une erreur : " + e);
   }
 });
-
