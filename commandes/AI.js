@@ -33,60 +33,25 @@ try{
 });
 
 
-zokou({nomCom:"bot",reaction:"📡",categorie:"IA"},async(dest,zk,commandeOptions)=>{
+const port = 3000; // Définissez le port sur lequel votre serveur écoutera
 
-  const {repondre,ms,arg}=commandeOptions;
-  
-    if(!arg || !arg[0])
-    {return repondre("oui je vous ecoute.")}
-    var quest = arg.join(' ');
-  try{
-    
-    
-const message = await traduire(arg.join(' '),{ to : 'en'});
- console.log(message)
-fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg=${message}`)
-.then(response => response.json())
-.then(data => {
-  const botResponse = data.cnt;
-  console.log(botResponse);
+zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
+  const { repondre, arg } = commandeOptions;
 
-  traduire(botResponse, { to: 'fr' })
-    .then(translatedResponse => {
-      repondre(translatedResponse);
-    })
-    .catch(error => {
-      console.error('Erreur lors de la traduction en français :', error);
-      repondre('Erreur lors de la traduction en français');
-    });
-})
-.catch(error => {
-  console.error('Erreur lors de la requête à BrainShop :', error);
-  repondre('Erreur lors de la requête à BrainShop');
+  if (!arg || !arg[0]) {
+    return repondre("Veuillez poser votre question.");
+  }
+
+  var question = arg.join(' ');
+
+  try {
+    let reponse = await getChatGPTResponse(question);
+    repondre("reponse");
+  } catch (e) {
+    repondre("Oups, une erreur : " + e);
+  }
 });
 
-  }catch(e){ repondre("oupsaa une erreur : "+e)}
-    
-  
-  });  
-
-zokou({nomCom:"gpt",reaction:"📡",categorie:"IA"},async(dest,zk,commandeOptions)=>{
-
-const {repondre,ms,arg}=commandeOptions;
-const OPENAI_API_KEY = '';
-
-  if(!arg || !arg[0])
-  {return repondre("Veuillez poser votre question .")}
-  var question = arg.join(' ');
-try{
-  let reponse =  await getChatGPTResponse(question);
-  zk.sendMessage({ reply: reponse });
-
-
-}catch(e){ repondre("oupsaa une erreur : "+e)}
-  
-
-  
 async function getChatGPTResponse(question) {
   try {
     const response = await axios.post(
@@ -95,3 +60,25 @@ async function getChatGPTResponse(question) {
         prompt: question,
         max_tokens: 150,
       },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_OPENAI_API_KEY', // Remplacez par votre clé API OpenAI
+        },
+      }
+    );
+
+    return response.data.choices[0].text.trim();
+  } catch (error) {
+    console.error('Erreur d\'appel OpenAI API:', error.message);
+    return 'Une erreur s\'est produite lors du traitement de votre demande.';
+  }
+}
+
+// Ajoutez cette partie si vous utilisez Express pour écouter sur le port spécifié
+const express = require('express');
+const app = express();
+
+app.listen(port, () => {
+  console.log(`Le serveur s'exécute sur http://localhost:${port}`);
+});
