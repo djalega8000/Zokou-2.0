@@ -1,5 +1,4 @@
-const axios = require('axios')
-  const fetch = require('node-fetch');
+const fetch = require('node-fetch');
 
 async function getChatGPTResponse(question) {
   try {
@@ -34,7 +33,7 @@ async function getChatGPTResponse(question) {
   }
 }
 
-zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
+zokou({ nomCom: "gpt1", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg } = commandeOptions;
 
   if (!arg || !arg[0]) {
