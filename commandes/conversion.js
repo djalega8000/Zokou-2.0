@@ -299,7 +299,7 @@ zokou({nomCom:"url",categorie: "Conversion", reaction: "👨🏿‍💻"},async(
   const config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'https://api.imgur.com/3/video',
+    url: 'https://telegra.ph,
     headers: headers,
     data: data
   };
