@@ -301,7 +301,7 @@ mediamsg = msgRepondu.videoMessage
   const config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'https://api.imgur.com/3/image',
+    url: 'https://telegra.ph/upload',
     headers: headers,
     data: data
   };
