@@ -94,6 +94,7 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
 
 async function getChatGPTResponse(question) {
   try {
+    const OPENAI_API_KEY = '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';
     const response = await axios.post(
       'https://api.openai.com/v1/engines/gpt-3.5-turbo/completions',
       {
@@ -103,7 +104,7 @@ async function getChatGPTResponse(question) {
       {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer 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', // Remplacez par votre clé API OpenAI
+          'Authorization': 'Bearer ${OPENAI_API_KEY}', // Remplacez par votre clé API OpenAI
         },
       }
     );
