@@ -70,11 +70,6 @@ fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg
   
   });  
   
-
-
-
-const port = 3000; // Définissez le port sur lequel votre serveur écoutera
-
 zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg } = commandeOptions;
 
@@ -104,7 +99,7 @@ async function getChatGPTResponse(question) {
       {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${OPENAI_API_KEY}', // Remplacez par votre clé API OpenAI
+          'Authorization': `Bearer ${OPENAI_API_KEY}`,
         },
       }
     );
@@ -115,11 +110,3 @@ async function getChatGPTResponse(question) {
     return 'Une erreur s\'est produite lors du traitement de votre demande.';
   }
 }
-
-// Ajoutez cette partie si vous utilisez Express pour écouter sur le port spécifié
-const express = require('express');
-const app = express();
-
-app.listen(port, () => {
-  console.log(`Le serveur s'exécute sur http://localhost:${port}`);
-});
