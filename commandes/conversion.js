@@ -283,7 +283,34 @@ zokou({nomCom:"url",categorie: "Conversion", reaction: "👨🏿‍💻"},async(
     
   } else if(msgRepondu.videoMessage) {
 mediamsg = msgRepondu.videoMessage
-     repondre('commande non achever') ; return
+    const video = await zk.downloadAndSaveMediaMessage(mediamsg);
+
+    
+  // Créer un objet FormData
+  const data = new FormData();
+  data.append('video', fs.createReadStream(video));
+
+  // Configurer les en-têtes
+  const clientId = 'b40a1820d63cd4e'; // Remplacez par votre client ID Imgur
+  const headers = {
+    'Authorization': `Client-ID ${clientId}`,
+    ...data.getHeaders()
+  };
+
+  // Configurer la requête
+  const config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'https://api.imgur.com/3/image',
+    headers: headers,
+    data: data
+  };
+
+    const response = await axios(config);
+    const videoUrl = response.data.data.link;
+    console.log(imageUrl) ;
+
+       repondre(videoUrl)
   }  
   else if (msgRepondu.stickerMessage) {
     mediamsg = msgRepondu.stickerMessage ;
