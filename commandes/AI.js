@@ -71,7 +71,7 @@ fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg
 
 const axios = require("axios");
 
-async function getChatGPTReponse(question, repondre) {
+async function getChatGPTResponse(question) {
   try {
     const OPENAI_API_KEY = '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';
     const response = await axios.post(
@@ -88,18 +88,17 @@ async function getChatGPTReponse(question, repondre) {
       }
     );
 
-    const data = response.data; // Correction ici
+    const data = response.data;
 
     // Log de la réponse de GPT dans la console
     console.log("GPT REPONSE : ", data);
 
     // Vérification de la validité de la clé OpenAI API
     if (!data.choices || data.choices.length === 0) {
-      repondre("*INVALIDE OPENAI_API_KEY, veuillez insérer une clé valide*");
-      return;
+      return "*INVALIDE OPENAI_API_KEY, veuillez insérer une clé valide*";
     }
 
-    // Envoyer la première réponse à la fonction zk.sendMessage
+    // Envoyer la première réponse
     return data.choices[0].text.trim();
   } catch (error) {
     console.error('Erreur d\'appel OpenAI API:', error.message);
@@ -117,9 +116,10 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
   var question = arg.join(' ');
 
   try {
-    const reponse = await getChatGPTReponse(question, repondre);
+    const reponse = await getChatGPTResponse(question);
     repondre(reponse);
   } catch (e) {
     repondre("Oups, une erreur : " + e);
   }
 });
+
