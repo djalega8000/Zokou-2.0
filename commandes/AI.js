@@ -67,7 +67,10 @@ fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg
   }catch(e){ repondre("oupsaa une erreur : "+e)}
     
   
-  });  
+  }); 
+
+  const axios = require('axios')
+  const fetch = require('node-fetch');
 
 async function getChatGPTResponse(question) {
   try {
