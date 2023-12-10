@@ -80,7 +80,7 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
   var question = arg.join(' ');
 
   try {
-    let reponse = await getChatGPTResponse(question);
+    const reponse = await getChatGPTResponse(question);
     repondre(reponse);
   } catch (e) {
     repondre("Oups, une erreur : " + e);
@@ -104,7 +104,19 @@ async function getChatGPTResponse(question) {
       }
     );
 
-    return response.data.choices[0].text.trim();
+    const data = response.data;
+
+    // Log de la réponse de GPT dans la console
+    console.log("GPT REPONSE : ", data);
+
+    // Vérification de la validité de la clé OpenAI API
+    if (!data.choices || data.choices.length === 0) {
+      repondre("*INVALIDE OPENAI_API_KEY, veuillez insérer une clé valide*");
+      return;
+    }
+
+    // Envoyer la première réponse à la fonction zk.sendMessage
+    return data.choices[0].text.trim();
   } catch (error) {
     console.error('Erreur d\'appel OpenAI API:', error.message);
     return 'Une erreur s\'est produite lors du traitement de votre demande.';
