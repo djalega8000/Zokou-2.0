@@ -16,7 +16,8 @@ async function getChatGPTResponse(question) {
     });
 
     if (!response.ok) {
-      console.error('Erreur lors de la requête à l\'API OpenAI:', response.statusText);
+      const errorText = await response.text();
+      console.error('Erreur lors de la requête à l\'API OpenAI:', errorText);
       return 'Une erreur s\'est produite lors du traitement de votre demande.';
     }
 
@@ -33,6 +34,7 @@ async function getChatGPTResponse(question) {
     // Envoyer la première réponse
     return data.choices[0].message.content.trim();
   } catch (error) {
+    // Gestion des erreurs
     console.error('Erreur d\'appel OpenAI API:', error.message);
     return 'Une erreur s\'est produite lors du traitement de votre demande.';
   }
@@ -41,16 +43,22 @@ async function getChatGPTResponse(question) {
 zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg } = commandeOptions;
 
-  if (!arg || !arg[0]) {
+  // Vérification de la présence d'une question
+  if (!arg || arg.length === 0) {
     return repondre("Veuillez poser votre question.");
   }
 
-  var question = arg.join(' ');
+  // Concaténation des mots de la question en une seule chaîne
+  const question = arg.join(' ');
 
   try {
+    // Appel de la fonction getChatGPTResponse avec la question
     const reponse = await getChatGPTResponse(question);
+
+    // Répondre avec la réponse de GPT
     repondre(reponse);
   } catch (e) {
+    // Gestion des erreurs
     console.error('Erreur générale :', e);
     repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
   }
