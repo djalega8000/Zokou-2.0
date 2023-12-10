@@ -1,7 +1,6 @@
 const { zokou } = require('../framework/zokou');
 const deepai=require("deepai")
 const traduire = require("../framework/traduction")
-const getChatGPTReponse = require("../bdd/gpt");
 
 
 async function ia(requete){
