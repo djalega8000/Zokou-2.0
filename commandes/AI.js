@@ -1,6 +1,7 @@
 const { zokou } = require('../framework/zokou');
 const deepai=require("deepai")
 const traduire = require("../framework/traduction")
+const axios = require("axios")
 
 
 async function ia(requete){
@@ -68,6 +69,29 @@ fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg
     
   
   });  
+
+zokou({nomCom:"gpt",reaction:"📡",categorie:"IA"},async(dest,zk,commandeOptions)=>{
+
+const {repondre,ms,arg}=commandeOptions;
+const OPENAI_API_KEY = '';
+
+  if(!arg || !arg[0])
+  {return repondre("Veuillez poser votre question .")}
+  var question = arg.join(' ');
+try{
+  let reponse =  await getChatGPTResponse(question);
+  zk.sendMessage({ reply: reponse });
+
+
+}catch(e){ repondre("oupsaa une erreur : "+e)}
   
 
   
+async function getChatGPTResponse(question) {
+  try {
+    const response = await axios.post(
+      'https://api.openai.com/v1/engines/gpt-3.5-turbo/completions',
+      {
+        prompt: question,
+        max_tokens: 150,
+      },
