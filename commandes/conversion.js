@@ -5,6 +5,7 @@ let fs=require("fs-extra") ;
 const axios = require('axios');  
 const FormData = require('form-data');
 const { exec } = require("child_process");
+const util = require('util');
 
 
 
@@ -280,55 +281,65 @@ zokou({nomCom:"url",categorie: "Conversion", reaction: "👨🏿‍💻"},async(
     console.log(imageUrl) ;
 
        repondre(imageUrl)
-    
-  } else if (msgRepondu.videoMessage) {
-    const mediamsg = msgRepondu.videoMessage;
-    const video = await zk.downloadAndSaveMediaMessage(mediamsg);
-    // Créer un objet FormData
-  const data = new FormData();
-  data.append('video', fs.createReadStream(video)); 
-  const url =`https://api.telegra.ph/createPage?access_token=d3b25feccb89e508a9114afb82aa421fe2a9712b963b387cc5ad71e58722&title=Secktor-Md+Bot&author_name=SamPandey001&content=[%7B"tag":"p","children":["${mediamsg.replace(/ /g, '+')}"]%7D]&return_content=true`;
-  let {data} =await axios.get(Url);
-
-    const response = await axios(config);
-    const videoUrl = response.data.result.link;
-    console.log(videoUrl) ;
-
-       repondre(videoUrl)
-
-
-  let a = citel.quoted ? citel.quoted.text : citel.text;
-    let apiToken = 'd3b25feccb89e508a9114afb82aa421fe2a9712b963b387cc5ad71e58722'; // Replace with your Telegraph API token
-    let apiUrl = `https://api.telegra.ph/createPage?access_token=${apiToken}&title=Secktor-Md+Bot&author_name=SamPandey001&content=[%7B"tag":"p","children":["${a.replace(/ /g, '+')}"]%7D]&return_content=true`;
-
-    try {
-        let { data } = await axios.get(apiUrl);
-        if (data && data.result) {
-            let title = util.format(data.result.title);
-            let url = util.format(data.result.url);
-            let stylishReply = `*Paste created on Telegraph*\nName:- ${title}\nUrl:- ${url}`;
-            return citel.reply(stylishReply);
-        } else {
-            return citel.reply('Error creating paste on Telegraph.');
-        }
+    } else if (msgRepondu.stickerMessage) {
+    mediamsg = msgRepondu.stickerMessage ;
+    repondre('commande non achever') ; return
+  } else {
+    repondre('Euh un media svp'); return
+  } ;
     } catch (error) {
         console.error('Error creating paste:', error);
         return citel.reply('Error creating paste on Telegraph.');
     }
 });
 
-     } else if (msgRepondu.stickerMessage) {
-    mediamsg = msgRepondu.stickerMessage ;
-    repondre('commande non achever') ; return
-  } else {
-    repondre('Euh un media svp'); return
-  } ;
+function TelegraPh(Path) {
+    return new Promise(async (resolve, reject) => {
+        if (!fs.existsSync(Path)) return reject(new Error("File not Found"));
+        try {
+            const form = new FormData();
+            form.append("file", fs.createReadStream(Path));
+
+            const { data } = await axios.post("https://telegra.ph/upload", form, {
+                headers: {
+                    ...form.getHeaders(),
+                },
+            });
+
+            if (data && data[0] && data[0].src) {
+                resolve("https://telegra.ph" + data[0].src);
+            } else {
+                reject(new Error("Failed to get the telegraph link"));
+            }
+        } catch (err) {
+            reject(new Error(String(err)));
+        }
+    });
+}
+
+zokou({ nomCom: "url", categorie: "Conversion", reaction: "👨🏿‍💻" }, async (origineMessage, zk, commandeOptions) => {
+    const { msgRepondu, repondre } = commandeOptions;
+
+    if (!msgRepondu || !msgRepondu.video) {
+        repondre('Veuillez mentionner une vidéo.');
+        return;
+    }
+
+    const mediaPath = await zk.downloadAndSaveMediaMessage(msgRepondu.video);
+    
+    try {
+        const telegraphUrl = await TelegraPh(mediaPath);
+        fs.unlinkSync(mediaPath);  // Supprime le fichier après utilisation
+
+        repondre(telegraphUrl);
+    } catch (error) {
+        console.error('Erreur lors de la création du lien Telegraph :', error);
+        repondre('Erreur lors de la création du lien Telegraph.');
+    }
+});
 
 
-      
-                  } );
-
-zokou({nomCom:"photo",categorie: "Conversion", reaction: "👨🏿‍💻"},async(dest,zk,commandeOptions)=>{
+zokou({nomCom: "photo",categorie: "Conversion", reaction: "👨🏿‍💻"},async(dest,zk,commandeOptions)=>{
    const {ms , msgRepondu,arg,repondre,nomAuteurMessage} = commandeOptions ;
 
   if(!msgRepondu) { repondre( 'veiller mentionner le media' ) ; return } ;
