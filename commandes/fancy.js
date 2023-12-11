@@ -23,23 +23,4 @@ zokou({ nomCom: "fancy", categorie: "Fun", reaction: "☑️" }, async (dest, zk
     }
 });
 
-zokou({ nomCom: "Lw", categorie: "Fun", reaction: "☑️" }, async (dest, zk, commandeOptions) => {
-    const { arg, repondre, prefixe } = commandeOptions;
-    const option = arg.join("");
 
-    try {
-        if (option === undefined) {
-            return await repondre(`\nExemple : ${prefixe}Lw Info ` +;
-        }
-
-        const Lw_Option = lw[
-        if (selectedStyle) {
-            return await repondre(fancy.apply(selectedStyle, text));
-        } else {
-            return await repondre('_option introuvable');
-        }
-    } catch (error) {
-        console.error(error);
-        return await repondre('_Une erreur s\'est produite :(_');
-    }
-});
