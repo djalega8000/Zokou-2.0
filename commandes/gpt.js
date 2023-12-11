@@ -1,4 +1,4 @@
-const zk = require('farmwork/zokou');
+const { zokou } = require("../framework/zokou");
 const fetch = require('node-fetch');
 
 async function getChatGPTResponse(question) {
