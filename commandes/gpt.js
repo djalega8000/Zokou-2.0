@@ -53,4 +53,5 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
     repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
   }
 });
-￼Enter
+
+
