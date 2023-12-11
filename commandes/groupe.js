@@ -1,5 +1,3 @@
-
-
 const { zokou } = require("../framework/zokou")
 //const { getGroupe } = require("../bdd/groupe")
 const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
@@ -669,48 +667,3 @@ if(isImgRpd)
 
 });
 
-zokou({ nomCom: "antidemote", categorie: "Groupe", reaction: "🔗" }, async (dest, zk, commandeOptions) => {
-    try {
-        var { ms, repondre, auteurMessage, superUser, verifAdmin, verifGroupe, prefixe, arg, auteurMsgRepondu } = commandeOptions;
-
-        if (!verifGroupe) {
-            return repondre("Commande réservée aux groupes uniquement.");
-        }
-
-        if (!arg || arg.length == 0) {
-            return repondre(`Voici comment utiliser l'antidemote:\nTapez ${prefixe}antidemote oui pour l'activer et ${prefixe}antidemote non pour le désactiver`);
-        }
-
-        const id = arg[0].toLowerCase();  // Convertir en minuscules pour éviter les problèmes de casse
-
-        const membresGroupe = await infosGroupe.participants;
-        const avoirAdmin = verifGroupe ? memberAdmin(membresGroupe) : '';
-        const admin = avoirAdmin.includes(auteurMessage);
-        let admin1 = verifGroupe ? avoirAdmin.includes(auteurMsgRepondu) : false;
-
-        if (id == 'oui') {
-            if (admin || superUser) {
-                await repondre("Antidemote activé pour ce groupe.");
-            } else {
-                await repondre("Vous n'avez pas le droit d'activer l'antidemote pour ce groupe.");
-            }
-        } else if (id == 'non') {
-            if (admin || superUser) {
-                await repondre("Antidemote désactivé pour ce groupe.");
-            } else {
-                await repondre("Vous n'avez pas le droit de désactiver l'antidemote pour ce groupe.");
-            }
-        } else {
-            await repondre(`Option non reconnue. Voici comment utiliser l'antidemote:\nTapez ${prefixe}antidemote oui pour l'activer et ${prefixe}antidemote non pour le désactiver`);
-        }
-
-        // Cette partie ne s'exécutera que si l'option est 'oui' et l'utilisateur a le droit d'activer l'antidemote
-        if (admin1 == 'false' ) {
-            var txt = `@${auteurMsgRepondu.split("@")[0]} est toujours admin du groupe. 😜😜\n`;
-            await zk.groupParticipantsUpdate(dest, [auteurMsgRepondu], "promote");
-            zk.sendMessage(dest, { text: txt, mentions: [auteurMsgRepondu] });
-        }
-    } catch (error) {
-        console.error("Une erreur s'est produite :", error);
-    }
-});
