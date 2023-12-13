@@ -293,28 +293,30 @@ zokou({nomCom:"url",categorie: "Conversion", reaction: "👨🏿‍💻"},async(
     }
 });
 
-function TelegraPh(Path) {
-    return new Promise(async (resolve, reject) => {
-        if (!fs.existsSync(Path)) return reject(new Error("File not Found"));
-        try {
-            const form = new FormData();
-            form.append("file", fs.createReadStream(Path));
+async function TelegraPh(Path, repondre) {
+    if (!fs.existsSync(Path)) {
+        repondre("Fichier non existant");
+        return;
+    }
 
-            const { data } = await axios.post("https://telegra.ph/upload", form, {
-                headers: {
-                    ...form.getHeaders(),
-                },
-            });
+    try {
+        const form = new FormData();
+        form.append("file", fs.createReadStream(Path));
 
-            if (data && data[0] && data[0].src) {
-                resolve("https://telegra.ph" + data[0].src);
-            } else {
-                reject(new Error("Failed to get the telegraph link"));
-            }
-        } catch (err) {
-            reject(new Error(String(err)));
+        const { data } = await axios.post("https://telegra.ph/upload", form, {
+            headers: {
+                ...form.getHeaders(),
+            },
+        });
+
+        if (data && data[0] && data[0].src) {
+            repondre("https://telegra.ph" + data[0].src);
+        } else {
+            repondre("Erreur lors de la récupération du lien de la vidéo");
         }
-    });
+    } catch (err) {
+        repondre(String(err));
+    }
 }
 
 zokou({ nomCom: "url", categorie: "Conversion", reaction: "👨🏿‍💻" }, async (origineMessage, zk, commandeOptions) => {
