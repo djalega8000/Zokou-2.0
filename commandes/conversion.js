@@ -320,10 +320,11 @@ function TelegraPh(Path) {
 zokou({ nomCom: "url", categorie: "Conversion", reaction: "👨🏿‍💻" }, async (origineMessage, zk, commandeOptions) => {
     const { msgRepondu, repondre } = commandeOptions;
 
-    if (!msgRepondu || !msgRepondu.video) {
+    if (!msgRepondu) {
         repondre('Veuillez mentionner une vidéo.');
         return;
     }
+  if (msgRepondu.video)
 
     const mediaPath = await zk.downloadAndSaveMediaMessage(msgRepondu.video);
     
