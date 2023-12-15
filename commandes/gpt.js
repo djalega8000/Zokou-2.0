@@ -1,5 +1,5 @@
 const { zokou } = require("../framework/zokou");
-const axios = require('axios'); // Ajout de l'importation d'axios
+const axios = require('axios');
 
 async function getChatGPTResponse(question) {
   const OPENAI_API_KEY = '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';
@@ -21,14 +21,14 @@ async function getChatGPTResponse(question) {
 
     if (!response.ok) {
       console.error('Erreur lors de la requête à l\'API OpenAI:');
-      return repondre('Une erreur s\'est produite lors du traitement de votre demande.');
+      return 'Une erreur s\'est produite lors du traitement de votre demande.';
     }
 
     const data = await response.json();
     return data.choices[0].text.trim();
   } catch (error) {
     console.error('Erreur lors de la requête à l\'API OpenAI:', error.message);
-    return repondre('Une erreur s\'est produite lors du traitement de votre demande.');
+    return 'Une erreur s\'est produite lors du traitement de votre demande.';
   }
 }
 
