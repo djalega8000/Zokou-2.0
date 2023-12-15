@@ -18,17 +18,11 @@ async function getChatGPTResponse(question) {
         },
       }
     );
-
-    if (!response.ok) {
-      console.error('Erreur lors de la requête à l\'API OpenAI:');
-      return 'Une erreur s\'est produite lors du traitement de votre demande.';
-    }
-
-    const data = await response.json();
+    
+    const data = response.data;
     return data.choices[0].text.trim();
   } catch (error) {
     console.error('Erreur lors de la requête à l\'API OpenAI:', error.message);
-    return 'Une erreur s\'est produite lors du traitement de votre demande.';
   }
 }
 
