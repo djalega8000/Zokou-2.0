@@ -116,7 +116,7 @@ zokou({ nomCom: "repo", categorie: "Général" }, async (dest, zk, commandeOptio
     │*🏘 Groupe support :* https://chat.whatsapp.com/H6oeuhfSMtV1Orjmf2NVnl
     ╰──────────────────────✬ * ˚  ✶`;
 
-    zk.sendMessage(dest, {image : { url : `https://textpro.me/images/user_image/2023/12/657cb81728b0b.jpg-s1083-b1` }, caption :msg });
+    zk.sendMessage(dest, {image : { url : `https://telegra.ph/file/8ceaed9f9346fe68c5dd3.jpg` }, caption :msg });
   } catch (error) {
     console.error('Erreur lors de la récupération des données GitHub :', error);
     repondre('Une erreur s\'est produite lors de la récupération des informations GitHub.');
