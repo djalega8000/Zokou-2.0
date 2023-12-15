@@ -1,6 +1,7 @@
 const { zokou } = require("../framework/zokou");
 const {getAllSudoNumbers,isSudoTableNotEmpty} = require("../bdd/sudo")
 const conf = require("../set");
+const axios = require("axios");
 
 zokou({ nomCom: "proprio", categorie: "Général", reaction: "💞" }, async (dest, zk, commandeOptions) => {
     const { ms , mybotpic } = commandeOptions;
@@ -106,12 +107,12 @@ zokou({ nomCom: "repo", categorie: "Général" }, async (dest, zk, commandeOptio
 
   try {
     const { data } = await axios.get('https://api.github.com/repos/djalega8000/Zokou-2.0');
-    const url = ``;
     const msg = `Salut ${auteurMessage}\n
     ╭┈─────────────────────    .· * • ˚
     │*⭐ Déploiements Total :* ${data.stargazers_count} actifs
     │*🍴 Nombre de forks créés :* ${data.forks_count} forks
     │*📡 Repository :* https://github.com/djalega8000/Zokou-2.0
+    │*📡 scan :* https://replit.com/@zoukoumignon/ZokouQrCode?v=1
     │*🏘 Groupe support :* https://chat.whatsapp.com/H6oeuhfSMtV1Orjmf2NVnl
     ╰──────────────────────✬ * ˚  ✶`;
 
