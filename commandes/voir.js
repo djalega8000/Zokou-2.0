@@ -28,7 +28,15 @@ var texte =msgRepondu.viewOnceMessageV2.message.videoMessage.caption
 await zk.sendMessage(dest,{video:{url:video},caption:texte},{quoted:ms})
 
 }
-}else
+}else if(msgRepondu.viewOnceMessageV2.message.audioMessage){
+
+    var video = await zk.downloadAndSaveMediaMessage(msgRepondu.viewOnceMessageV2.message.audioMessage)
+var texte =msgRepondu.viewOnceMessageV2.message.audioMessage.caption
+
+
+await zk.sendMessage(dest,{audio:{url:audio},caption:texte},{quoted:ms})
+
+}
 {
    return repondre("Le message que vous avez mentionné n est pas un message envoyé en vue unique .")
 }
