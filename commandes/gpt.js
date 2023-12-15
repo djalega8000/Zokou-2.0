@@ -2,14 +2,15 @@ const { zokou } = require("../framework/zokou");
 const axios = require('axios');
 
 async function getChatGPTResponse(question) {
-  const OPENAI_API_KEY = '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';
+  const OPENAI_API_KEY = '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';
 
   try {
     const response = await axios.post(
-      'https://api.openai.com/v1/engines/gpt-3.5-turbo/completions',
+      'https://api.openai.com/v1/engines/completions',
       {
         prompt: question,
         max_tokens: 200,
+        model: 'gpt-3.5-turbo',
       },
       {
         headers: {
@@ -23,7 +24,6 @@ async function getChatGPTResponse(question) {
     return data.choices[0].text.trim();
   } catch (error) {
     console.error('Erreur lors de la requête à l\'API OpenAI:', error.message);
-    throw error;
   }
 }
 
@@ -40,7 +40,7 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
     const reponse = await getChatGPTResponse(question);
     
     if (reponse) {
-      zk.sendMessage(reponse);
+      repondre(reponse);
     } else {
       console.error('Erreur lors de la requête à l\'API OpenAI:');
       return repondre('Une erreur s\'est produite lors du traitement de votre demande.');
@@ -50,3 +50,4 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
     repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
   }
 });
+
