@@ -10,7 +10,6 @@ async function getChatGPTResponse(question) {
       {
         prompt: question,
         max_tokens: 200,
-        model: 'gpt-3.5-turbo',
       },
       {
         headers: {
@@ -22,8 +21,6 @@ async function getChatGPTResponse(question) {
     
     const data = response.data;
     return data.choices[0].text.trim();
-  } catch (error) {
-    console.error('Erreur lors de la requête à l\'API OpenAI:', error.message);
   }
 }
 
