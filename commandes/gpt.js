@@ -23,6 +23,7 @@ async function getChatGPTResponse(question) {
     return data.choices[0].text.trim();
   } catch (error) {
     console.error('Erreur lors de la requête à l\'API OpenAI:', error.message);
+    throw error;
   }
 }
 
@@ -37,7 +38,13 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
 
   try {
     const reponse = await getChatGPTResponse(question);
-    zk.sendMessage(reponse);
+    
+    if (reponse) {
+      zk.sendMessage(reponse);
+    } else {
+      console.error('Erreur lors de la requête à l\'API OpenAI:');
+      return repondre('Une erreur s\'est produite lors du traitement de votre demande.');
+    }
   } catch (e) {
     console.error('Erreur générale :', e);
     repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
