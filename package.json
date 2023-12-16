@@ -50,6 +50,7 @@
     "mumaker": "^2.0.0",
     "node-fetch": "^3.2.6",
     "node-id3": "^0.2.6",
+    "openai": "^4.22.1",
     "pg": "^8.11.2",
     "pino": "^8.15.0",
     "qrcode-terminal": "^0.12.0",
