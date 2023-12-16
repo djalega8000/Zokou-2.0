@@ -25,15 +25,20 @@ async function createUsersRankTable() {
   try {
     // Créez la table users_rank si elle n'existe pas déjà
     await client.query(`
-      CREATE TABLE IF NOT EXISTS users_rank (
+      CREATE TABLE IF NOT EXISTS users_fiche(
         id SERIAL PRIMARY KEY,
         jid VARCHAR(255) UNIQUE,
-        xp INTEGER DEFAULT 0,
-        messages INTEGER DEFAULT 0
+         R1 INTEGER DEFAULT 0,
+         R2 INTEGER DEFAULT 0,
+         R3 INTEGER DEFAULT 0,
+         R4 INTEGER DEFAULT 0,
+         R5 INTEGER DEFAULT 0,
+         R6 INTEGER DEFAULT 0,
+         R7 INTEGER DEFAULT 0,
       );
     `);
   } catch (error) {
-    console.error('Erreur lors de la création de la table users_rank:', error);
+    console.error('Erreur lors de la création de la table users_fiche:', error);
   } finally {
     client.release();
   }
@@ -44,15 +49,15 @@ async function ajouterOuMettreAJourUserData(jid) {
 
   try {
     // Vérifiez si le JID existe déjà dans la table 'users_rank'
-    const result = await client.query('SELECT * FROM users_rank WHERE jid = $1', [jid]);
+    const result = await client.query('SELECT * FROM users_fiche WHERE jid = $1', [jid]);
     const jidExiste = result.rows.length > 0;
 
     if (jidExiste) {
       // Si le JID existe, mettez à jour XP (+10) et messages (+1)
-      await client.query('UPDATE users_rank SET xp = xp + 10, messages = messages + 1 WHERE jid = $1', [jid]);
+      await client.query('UPDATE users_fiche SET R1 = Godlds+ 10000, R2 = 𝐅𝐚𝐧𝐬👥 + 10000 , R3 = 𝐍𝐄𝐎𝐜𝐨𝐢𝐧𝐬🔹+ 1, R4 = 𝐂𝐨𝐮𝐩𝐨𝐧𝐬🎟️ + 10 , R5 = Victoire + 1, R6= Defaite +1  WHERE jid = $1', [jid]);
     } else {
       // Si le JID n'existe pas, ajoutez-le avec XP = 10 et messages = 1
-      await client.query('INSERT INTO users_rank (jid, xp, messages) VALUES ($1, $2, $3)', [jid, 10, 1]);
+      await client.query('INSERT INTO users_fiche (jid, R1,R2,R3,R4,R5,R6) VALUES ($1, $2, $3, $4, $5, $6)', [jid,];
     }
 
   } catch (error) {
