@@ -26,17 +26,10 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
       }
     );
 
-    const responseData = response.data;
-
-    if (responseData.choices && responseData.choices.length > 0) {
-      const reponseChatGPT = responseData.choices[0].text.trim();
-      repondre(reponseChatGPT);
-    } else {
-      console.error('Réponse invalide de l\'API OpenAI:', responseData);
-      repondre("Une erreur s'est produite lors du traitement de votre demande.");
-    }
-  } catch (e) {
-    console.error('Erreur générale :', e);
+    const rep = response.data.choices[0].text.trim();
+    repondre(`Réponse de ChatGPT :\n ${rep}`);
+  } catch (error) {
+    console.error('Erreur générale :', error);
     repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
   }
 });
