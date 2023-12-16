@@ -10,27 +10,25 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
     }
 
     const question = arg.join(' ');
-    const op = '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';
+    const apiKey = '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';
+    const apiUrl = 'https://api.openai.com/v1/engines/gpt-3.5-turbo/completions';
 
-    const response = await axios.post(
-      'https://api.openai.com/v1/engines/gpt-3.5-turbo/completions',
-      {
-        prompt: question,
-        max_tokens: 200,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${op}`,
-        },
-      }
-    );
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    };
 
-    const rep = response.data.choices[0].text.trim();
-    repondre(`Réponse de ChatGPT :\n ${rep}`);
+    const data = {
+      prompt: question,  // Utilisez la question comme prompt
+      max_tokens: 200,
+    };
+
+    const response = await axios.post(apiUrl, data, { headers }); // Attendez la réponse
+
+    const rep = response.data.choices[0].text;
+    repondre(`GPT réponse:\n${rep}`);
   } catch (error) {
     console.error('Erreur générale :', error);
     repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
   }
 });
-
