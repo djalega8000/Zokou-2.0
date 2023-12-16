@@ -1,7 +1,6 @@
 const { zokou } = require("../framework/zokou");
 const OpenAI = require('openai');
 
-const OPENAI_API_KEY = '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';
 
 zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg } = commandeOptions;
@@ -14,7 +13,7 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
     const question = arg.join('');
 
     const openai = new OpenAI({
-      key: OPENAI_API_KEY,
+      key: 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,
     });
 
     const userMessage = {
