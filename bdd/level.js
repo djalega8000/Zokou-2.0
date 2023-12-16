@@ -34,7 +34,6 @@ async function createUsersRankTable() {
          R4 INTEGER DEFAULT 0,
          R5 INTEGER DEFAULT 0,
          R6 INTEGER DEFAULT 0,
-         R7 INTEGER DEFAULT 0,
       );
     `);
   } catch (error) {
@@ -57,7 +56,7 @@ async function ajouterOuMettreAJourUserData(jid) {
       await client.query('UPDATE users_fiche SET R1 = Godlds+ 10000, R2 = 𝐅𝐚𝐧𝐬👥 + 10000 , R3 = 𝐍𝐄𝐎𝐜𝐨𝐢𝐧𝐬🔹+ 1, R4 = 𝐂𝐨𝐮𝐩𝐨𝐧𝐬🎟️ + 10 , R5 = Victoire + 1, R6= Defaite +1  WHERE jid = $1', [jid]);
     } else {
       // Si le JID n'existe pas, ajoutez-le avec XP = 10 et messages = 1
-      await client.query('INSERT INTO users_fiche (jid, R1,R2,R3,R4,R5,R6) VALUES ($1, $2, $3, $4, $5, $6)', [jid,];
+      await client.query('INSERT INTO users_fiche (jid, R1,R2,R3,R4,R5,R6) VALUES ($1, $2, $3, $4, $5, $6)', [jid, 100000, 10000, 0, 0, 5, 0];
     }
 
   } catch (error) {
@@ -67,24 +66,21 @@ async function ajouterOuMettreAJourUserData(jid) {
   }
 };
 
-async function getMessagesAndXPByJID(jid) {
+async function getRByJID(jid) {
   const client = await pool.connect();
 
   try {
     // Sélectionnez le nombre de messages et d'XP pour le JID donné
-    const query = 'SELECT messages, xp FROM users_rank WHERE jid = $1';
+    const query = 'SELECT R1, R2, R3, R4, R5, R6 From users_fiche WHERE jid = $1';
     const result = await client.query(query, [jid]);
 
     if (result.rows.length > 0) {
       // Retournez les valeurs de messages et d'XP
-      const { messages, xp } = result.rows[0];
-      return { messages, xp };
+      const { R1, R2, R3, R4, R5, R6 } = result.rows[0];
+      return { R1, R2, R3, R4, R5, R6 };
     } else {
       // Si le JID n'existe pas, renvoyez des valeurs par défaut (0 messages et 0 XP)
-      return { messages: 0, xp: 0 };
-    }
-  } catch (error) {
-    console.error('Erreur lors de la récupération des données de l\'utilisateur:', error);
+    rrErreur lors de la récupération des données de l\'utilisateur:', error);
     return { messages: 0, xp: 0 }; // En cas d'erreur, renvoyez des valeurs par défaut
   } finally {
     client.release();
