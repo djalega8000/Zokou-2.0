@@ -1,7 +1,7 @@
 const { zokou } = require("../framework/zokou");
 const OpenAI = require('openai');
 
-const OPENAI_API_KEY = 'votre-clé-api-ici';
+const OPENAI_API_KEY = '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';
 
 zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg } = commandeOptions;
