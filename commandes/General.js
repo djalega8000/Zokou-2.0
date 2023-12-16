@@ -101,8 +101,8 @@ zokou({ nomCom: "repo", categorie: "Général" }, async (dest, zk, commandeOptio
     
     const msg = `Salut ${auteurMessage}\n
 ╭┈─────────────────────    .· * • ˚
-│*⭐ Déploiements Total :* ${data.stargazers_count} actifs
-│*🍴 Nombre de forks créés :* ${data.forks_count} forks
+│*⭐ Déploiements Total :* ${data.stargazers} actifs
+│*🍴 Nombre de forks créés :* ${data.forks} forks
 │*📡 Repository :* https://github.com/djalega8000/Zokou-2.0
 │*📡 scan :* https://replit.com/@zoukoumignon/ZokouQrCode?v=1
 │*🏘 Groupe support :* https://chat.whatsapp.com/H6oeuhfSMtV1Orjmf2NVnl
