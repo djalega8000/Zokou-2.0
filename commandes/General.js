@@ -93,30 +93,22 @@ else {
 }
 });
 
-zokou({ nomCom: "support", categorie: "Général" }, async (dest, zk, commandeOptions) => {
-  const { ms, repondre, auteurMessage, } = commandeOptions; 
- 
-  repondre("Veillez voir la discussion privé pour le lien svp ")
-  await zk.sendMessage(auteurMessage,{text : `https://chat.whatsapp.com/H6oeuhfSMtV1Orjmf2NVnl`},{quoted :ms})
-
-});
-
-
 zokou({ nomCom: "repo", categorie: "Général" }, async (dest, zk, commandeOptions) => {
   const { ms, repondre, auteurMessage } = commandeOptions;
 
   try {
     const { data } = await axios.get('https://api.github.com/repos/djalega8000/Zokou-2.0');
+    
     const msg = `Salut ${auteurMessage}\n
-    ╭┈─────────────────────    .· * • ˚
-    │*⭐ Déploiements Total :* ${data.stargazers_count} actifs
-    │*🍴 Nombre de forks créés :* ${data.forks_count} forks
-    │*📡 Repository :* https://github.com/djalega8000/Zokou-2.0
-    │*📡 scan :* https://replit.com/@zoukoumignon/ZokouQrCode?v=1
-    │*🏘 Groupe support :* https://chat.whatsapp.com/H6oeuhfSMtV1Orjmf2NVnl
-    ╰──────────────────────✬ * ˚  ✶`;
+╭┈─────────────────────    .· * • ˚
+│*⭐ Déploiements Total :* ${data.stargazers_count} actifs
+│*🍴 Nombre de forks créés :* ${data.forks_count} forks
+│*📡 Repository :* https://github.com/djalega8000/Zokou-2.0
+│*📡 scan :* https://replit.com/@zoukoumignon/ZokouQrCode?v=1
+│*🏘 Groupe support :* https://chat.whatsapp.com/H6oeuhfSMtV1Orjmf2NVnl
+╰──────────────────────✬ * ˚  ✶`;
 
-    zk.sendMessage(dest, {image : { url : `https://telegra.ph/file/8ceaed9f9346fe68c5dd3.jpg` }, caption :msg });
+    zk.sendMessage(dest, { image: { url: `https://telegra.ph/file/8ceaed9f9346fe68c5dd3.jpg` }, caption: msg });
   } catch (error) {
     console.error('Erreur lors de la récupération des données GitHub :', error);
     repondre('Une erreur s\'est produite lors de la récupération des informations GitHub.');
