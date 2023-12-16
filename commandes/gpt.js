@@ -11,9 +11,9 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
     }
 
     const question = arg.join('');
-
+    const key = "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";
     const openai = new OpenAI({
-      key: "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" ,
+      key: ${key} ,
     });
 
     const userMessage = {
