@@ -1,5 +1,7 @@
 const { zokou } = require("../framework/zokou");
-const axios = require('axios');
+const OpenAI = require('openai');
+
+const OPENAI_API_KEY = 'votre-clé-api-ici';
 
 zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg } = commandeOptions;
@@ -9,26 +11,30 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
       return repondre("Veuillez poser votre question.");
     }
 
-    const question = arg.join(' ');
-    const apiKey = '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';
-    const apiUrl = 'https://api.openai.com/v1/engines/gpt-3.5-turbo/completions';
+    const question = arg.join('');
 
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
+    const openai = new OpenAI({
+      key: OPENAI_API_KEY,
+    });
+
+    const userMessage = {
+      role: 'user',
+      content: question,
     };
 
-    const data = {
-      prompt: question,  // Utilisez la question comme prompt
-      max_tokens: 200,
+    const requestData = {
+      model: 'gpt-3.5-turbo',
+      messages: [userMessage],
+      temperature: 0.7,
     };
 
-    const response = await axios.post(apiUrl, data, { headers }); // Attendez la réponse
+    const response = await openai.completeChat(requestData);
 
-    const rep = response.data.choices[0].text;
-    repondre(`GPT réponse:\n${rep}`);
+    // La réponse de l'API est dans response.data.choices[0].message.content
+    const rep = response.data.choices[0].message.content;
+    
+    repondre(rep);
   } catch (error) {
-    console.error('Erreur générale :', error);
-    repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
+    console.error('Erreur:', error.response ? error.response.data : error.message);
   }
 });
