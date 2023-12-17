@@ -28,7 +28,7 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
     console.log("GPT REPONCE : ",data); 
     
     // Vérifier si choices existe et a au moins un élément
-    if (responseData.choices || responseData.choices.length === 0) {
+    if (!responseData.choices || responseData.choices.length === 0) {
       repondre("OPENAI_API_KEY  invalide, veuillez mettre une nouvelle clé");
     } else {
       repondre(responseData.choices[0].message.content);
@@ -40,9 +40,3 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
   }
 });
 
-
-
-const data = await response.json();
-  console.log("GPT REPONCE : ",data); 
-  if (!data.choices || data.choices.length === 0) {citel.reply("*Invalid ChatGPT API Key, Please Put New Key*"); }
-  return await  citel.reply(data.choices[0].message.content)
