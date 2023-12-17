@@ -31,7 +31,7 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
       const rep = responseData.choices[0].message.content;
       repondre(rep);
     } else {
-      const rep2 = responseData;
+      const rep2 = responseData.choices[0].message.content.trim();
       repondre(rep2);
         }
     
