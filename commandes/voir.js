@@ -1,5 +1,6 @@
 const { zokou } = require("../framework/zokou");
 const { getContentType } = require("@sampandey001/baileys");
+const fs = require("fs");
 
 zokou({ nomCom: "voir", categorie: "Général", reaction: "🤲🏿" }, async (dest, zk, commandeOptions) => {
 
