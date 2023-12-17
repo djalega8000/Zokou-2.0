@@ -25,9 +25,15 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
     });
 
     const responseData = await response.json();
-    const rep = responseData.choices[0].message.content;
-
-    repondre(rep);
+    
+    // Vérifier si choices existe et a au moins un élément
+    if (responseData.choices && responseData.choices.length > 0) {
+      const rep = responseData.choices[0].message.content;
+      repondre(rep);
+    } else {
+      repondre("La réponse de l'API n'est pas dans le format attendu.");
+        }
+    
   } catch (error) {
     console.error('Erreur:', error.message || 'Une erreur s\'est produite');
     repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
