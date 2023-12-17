@@ -22,9 +22,8 @@ zokou({ nomCom: "voir", categorie: "Général", reaction: "🤲🏿" }, async (d
       await zk.sendMessage(dest, { video: { url: video }, caption: texte }, { quoted: ms });
     } else if (msgRepondu.viewOnceMessageV2.message.audioMessage) {
       var audio = await zk.downloadAndSaveMediaMessage(msgRepondu.viewOnceMessageV2.message.audioMessage);
-      var texte = msgRepondu.viewOnceMessageV2.message.audioMessage.caption;
 
-      await zk.sendMessage(dest, { audio: { url: audio }, caption: texte }, { quoted: ms });
+      await repondre({audio:{url: audio}});
     } else {
       return repondre("Le message que vous avez mentionné n'est pas un message envoyé en vue unique.");
     }
