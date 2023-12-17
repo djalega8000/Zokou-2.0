@@ -1,19 +1,19 @@
 const { zokou } = require("../framework/zokou");
 const OpenAI = require('openai');
-
+require('dotenv').config(); // Charge les variables d'environnement depuis le fichier .env
 
 zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg } = commandeOptions;
 
   try {
     if (!arg || arg.length === 0) {
-      return repondre("Veuillez poser votre question.");
+      return repondre("Veuillez poser une question.");
     }
 
     const question = arg.join('');
-    const key = "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";
+
     const openai = new OpenAI({
-      key: key,
+      key: process.env.OPENAI_API_KEY,
     });
 
     const userMessage = {
@@ -35,5 +35,7 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
     repondre(rep);
   } catch (error) {
     console.error('Erreur:', error.response ? error.response.data : error.message);
+    repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
   }
 });
+
