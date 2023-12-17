@@ -1,8 +1,8 @@
-zokou({ nomCom: "lw", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
+zokou({ nomCom: "lw", reaction: "📡", categorie: "Fun" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg } = commandeOptions;
 
   if (!arg || arg.length === 0) {
-    return repondre("*INFO*\n*");
+    return repondre("*INFO*\n*Règles*\n*panel*\n*chat*\n*progression1*\n*progression2:\n*stats*");
   }
 
   const option = arg.join(' ');
@@ -26,7 +26,7 @@ Fiche de transaction :
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
    🔹 *Merci☺️✌🏼* 🛍️`)
-} else if(option = '') {
+} else if(option = 'progression2') {
     repondre(`*⚔️(PROGRESSION %)🎮*
 ░░░░░░░░░░░░░░░░░░░pour les missions &Quête  uniquement (fight)
 ▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -52,7 +52,7 @@ Fiche de transaction :
 ░░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
     *⚔️LEGENDARY.WARS🎮*`)
-} else if(option = '') {
+} else if(option = 'chat') {
     repondre (`*⚔️joueur (LEGENDARY.WARS)   🎮*
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -126,7 +126,7 @@ MODE D'emploi :
 
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
   *Vous avez 8️⃣ tours max pour finir votre Adversaire! DECISION*`)
-} else if(option = '') {
+} else if(option == 'regles') {
     repondre(`*⚔️RÈGLES GÉNÉRALES 🎮*
 ░░░░░░░░░░░░░░░░
         *Attaque à main nu *:
@@ -181,7 +181,7 @@ Vitesse:   🏃%
 ░░░░░░░░░░░░░░░░░░░
 
        *⚔️LEGENDARY.WARS🎮*`)
-} else if(option = '') {
+} else if(option == 'stats') {
     repondre(`*⚔️STATISTIQUES 🎮*
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -212,7 +212,7 @@ TR=temps de réaction
 ░░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
               *⚔️LEGENDARY.WARS🎮*`)
-} else if(option = '') {
+} else if(option == '') {
     repondre(`*⚔️FICHE DE PERSO🎮*
 ░░░░░░░░░░░░░░░░░░░
 Pseudo du joueur:
@@ -237,7 +237,7 @@ Nom de la faction:
 NB:Il est possible de vendre certains équipement contre des 🪪dans la boutique pour-50% du prix d'achat originel
 *Date d'actualisation* :.../..../...23
               *⚔️LEGENDARY.WARS🎮*`)
-} else if(option = '') {
+} else if(option == '') {
     repondre(`*⚔️INFORMATIONS   🎮*
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -250,7 +250,7 @@ NB:Il est possible de vendre certains équipement contre des 🪪dans la boutiqu
 ░░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
               *⚔️LEGENDARY.WARS🎮*`)
-} else if(option = '') {
+} else if(option == '') {
     repondre(`*⚔️PNJ(LEGENDARY.WARS)   🎮*
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -263,7 +263,7 @@ NB:Il est possible de vendre certains équipement contre des 🪪dans la boutiqu
 ░░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
               *⚔️LEGENDARY.WARS🎮*`)
-} else if(option = '') {
+} else if(option == '') {
     repondre(`⚔️ *🆚 𝐃𝐔𝐄𝐋&MISSION🎮*
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -276,7 +276,7 @@ NB:Il est possible de vendre certains équipement contre des 🪪dans la boutiqu
 
 ═══════════
   *⚔️LEGENDARY WARS 🎮*`)
-  } else if(option='') {
+  } else if(option == '') {
     repondre(`*⚔️répartition (pc)🎮*
 ░░░░░░░░░░░░░░░░░░░NOM du joueur :
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -293,7 +293,7 @@ Date d'actualisation :.../.../....23
 ░░░░░░░░░░░░░░░░░░░
 
        *⚔️LEGENDARY.WARS🎮*`)
-  } else if(option='') {
+  } else if(option == 'panel') {
     repondre(`*⚔️PANEL CONTRÔLE  🎮*
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -308,7 +308,7 @@ Date d'actualisation :.../.../....23
 ░░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
               *⚔️LEGENDARY.WARS🎮*`)
-  } else if(option='') {
+  } else if(option == 'progression1') {
     repondre(`*⚔️(PROGRESSION %)🎮*
 ░░░░░░░░░░░░░░░░░░░pour les missions &Quête  uniquement (fight)
 ▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -320,7 +320,7 @@ Date d'actualisation :.../.../....23
 ░░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
     *⚔️LEGENDARY.WARS🎮*`)
-} else if(option = undefined) {
+} else if(option == 'undefined') {
     repondre(`option introuvable`)
    
   } catch (e) {
