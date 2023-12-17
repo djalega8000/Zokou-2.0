@@ -31,7 +31,8 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
       const rep = responseData.choices[0].message.content;
       repondre(rep);
     } else {
-      repondre("La réponse de l'API n'est pas dans le format attendu.");
+      const rep2 = responseData;
+      repondre(rep2);
         }
     
   } catch (error) {
