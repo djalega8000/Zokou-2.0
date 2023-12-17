@@ -16,18 +16,10 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
       key: conf.OPENAI_API_KEY
     });
 
-    const userMessage = {
-      role: 'user',
-      content: question,
-    };
-
-    const requestData = {
-      model: 'gpt-3.5-turbo',
-      messages: [userMessage],
-      temperature: 0.7,
-    };
-
-    const response = await openai.completeChat(requestData);
+    const response = await openai.create('gpt-3.5-turbo', [
+      { role: 'system', content: 'You are a helpful assistant.' },
+      { role: 'user', content: question },
+    ]);
 
     // La réponse de l'API est dans response.data.choices[0].message.content
     const rep = response.data.choices[0].message.content;
