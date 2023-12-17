@@ -10,8 +10,8 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
     return repondre("Veuillez entrer le nom de l'application à rechercher.");
   }
   
-  const getRandomName = (ext) => `${Math.floor(Math.random() * 10000)}${ext}`;
-  const randomName = getRandomName(".app");
+  const filename = `${Math.random().toString(36)}`;
+  const randomName = `${filename}.apk`;
   const filePath = `./${randomName}`;
   const nom = arg.join(' ');
 
@@ -26,7 +26,7 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
     const appSize = parseInt(data.size);
 
     if (appSize > 300) {
-      return repondre("Impossible de télécharger une application de plus de 200 Mo.");
+      return repondre("Impossible de télécharger une application de plus de 300 Mo.");
     }
 
     const url = data.dllink;
@@ -47,7 +47,7 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
     const rep2 = {
       document: fs.readFileSync(filePath),
       mimetype: 'application/vnd.android.package-archive',
-      fileName: `${data.name}.app`,
+      fileName: randomName,
       caption: `*Nom de l'application :* ${data.name}\n` +
                `*Identifiant de l'application :* ${data.package}\n` +
                `*Dernière mise à jour :* ${data.lastup}\n` +
