@@ -24,14 +24,13 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
       }),
     });
 
-    const responseData = await response.json();
-    console.log("GPT REPONCE : ",data); 
+    const reponseData = await response.json();
+    console.log("GPT REPONCE : ",reponseData); 
     
-    // Vérifier si choices existe et a au moins un élément
-    if (!responseData.choices || responseData.choices.length === 0) {
+    if (!reponseData.choices || reponseData.choices.length === 0) {
       repondre("OPENAI_API_KEY  invalide, veuillez mettre une nouvelle clé");
     } else {
-      repondre(responseData.choices[0].message.content);
+      repondre(reponseData.choices[0].message.content);
         }
     
   } catch (error) {
