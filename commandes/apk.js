@@ -38,7 +38,7 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
       responseType: 'stream',
     });
 
-    response.data.pipe(writer);
+    const rep1 = response.data.pipe(writer);
     await new Promise((resolve, reject) => {
       writer.on('finish', resolve);
       writer.on('error', reject);
