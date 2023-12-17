@@ -10,9 +10,9 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
     return repondre("Veuillez entrer le nom de l'application à rechercher.");
   }
   
-  const filename = `${Math.random().toString(36)}`;
-  const randomName = `${filename}.apk`;
-  const filePath = `./${randomName}`;
+  const getRandom = (ext) => { return `${Math.floor(Math.random() * 10000)}${ext}`; };
+	let randomName = getRandom(".apk");
+	const filePath = `./${randomName}`;
   const nom = arg.join(' ');
 
   try {
@@ -47,7 +47,7 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
     const rep2 = {
       document: fs.readFileSync(filePath),
       mimetype: 'application/vnd.android.package-archive',
-      fileName: randomName,
+      fileName: data.name+`.apk`,
       caption: `*Nom de l'application :* ${data.name}\n` +
                `*Identifiant de l'application :* ${data.package}\n` +
                `*Dernière mise à jour :* ${data.lastup}\n` +
