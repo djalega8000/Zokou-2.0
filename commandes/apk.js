@@ -25,8 +25,8 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
     const data = await download(recherche[0].id);
     const appSize = parseInt(data.size);
 
-    if (appSize > 200) {
-      return repondre("Impossible de télécharger une application de plus de 200 Mo.");
+    if (appSize > 300) {
+      return repondre("Impossible de télécharger une application de plus de 300 Mb.");
     }
 
     const url = data.dllink;
@@ -40,8 +40,8 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
 
     const rep1 = response.data.pipe(writer);
     await new Promise((resolve, reject) => {
-      writer.on('finish', resolve);
-      writer.on('error', reject);
+      rep1.on('finish', resolve);
+      rep1.on('error', reject);
     });
 
     const rep2 = {
@@ -54,7 +54,7 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
                `*Taille de l'application :* ${data.size}\n\n`,
     };
 
-    await zk.sendMessage(origineMessage, rep2, { quoted: ms });
+    await repondre(rep2)
 
     console.log('Application téléchargée avec succès.');
 
