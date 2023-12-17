@@ -18,15 +18,15 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
   try {
     const recherche = search(nom);
 
-    if (recherche.length === 0) {
-      return repondre(`L'application recherchée est introuvable.`);
+    if (!recherche || recherche.length === 0 || !recherche[0].id) {
+      return repondre(`L'application recherchée est introuvable ou ne possède pas d'ID.`);
     }
 
     const data = await download(recherche[0].id);
     const appSize = parseInt(data.size);
 
     if (appSize > 300) {
-      return repondre("Impossible de télécharger une application de plus de 300 Mb.");
+      return repondre("Impossible de télécharger une application de plus de 200 Mo.");
     }
 
     const url = data.dllink;
@@ -54,7 +54,7 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
                `*Taille de l'application :* ${data.size}\n\n`,
     };
 
-    await repondre(rep2)
+    await repondre(rep2);
 
     console.log('Application téléchargée avec succès.');
 
