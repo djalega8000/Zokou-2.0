@@ -1,7 +1,7 @@
 const { zokou } = require("../framework/zokou");
 const { search, download } = require('aptoide-scraper');
 const axios = require('axios');
-const fs = require('fs');
+const fs = require('fs-extra');
 
 zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg, origineMessage, ms } = commandeOptions;
