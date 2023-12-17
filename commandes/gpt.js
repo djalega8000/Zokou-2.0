@@ -1,6 +1,6 @@
 const { zokou } = require("../framework/zokou");
 const OpenAI = require('openai');
-require('dotenv').config(); // Charge les variables d'environnement depuis le fichier .env
+const conf = require('../set');
 
 zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg } = commandeOptions;
@@ -13,7 +13,7 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
     const question = arg.join('');
 
     const openai = new OpenAI({
-      key: process.env.OPENAI_API_KEY,
+      key: conf.OPENAI_API_KEY
     });
 
     const userMessage = {
