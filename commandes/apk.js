@@ -9,10 +9,10 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
   if (!arg || arg.length === 0) {
     return repondre("Veuillez entrer le nom de l'application à rechercher.");
   }
-  
-  const getRandom = (ext) => { return `${Math.floor(Math.random() * 10000)}${ext}`; };
-	let randomName = getRandom(".apk");
-	const filePath = `./${randomName}`;
+
+  const getRandom = (ext) => `${Math.floor(Math.random() * 10000)}${ext}`;
+  let randomName = getRandom(".apk");
+  const filePath = `./${randomName}`;
   const nom = arg.join(' ');
 
   try {
@@ -31,39 +31,43 @@ zokou({ nomCom: "app", reaction: "✨", categorie: "Recherche" }, async (dest, z
 
     const url = data.dllink;
 
-    const writer = fs.createWriteStream(filePath);
-    const response = await axios({
-      url,
-      method: 'GET',
-      responseType: 'stream',
-    });
+    axios.get(url, { responseType: 'stream' })
+      .then(response => {
+        const writer = fs.createWriteStream(filePath);
+        response.data.pipe(writer);
 
-    const rep1 = response.data.pipe(writer);
-    await new Promise((resolve, reject) => {
-      rep1.on('finish', resolve);
-      rep1.on('error', reject);
-    });
+        return new Promise((resolve, reject) => {
+          writer.on('finish', resolve);
+          writer.on('error', reject);
+        });
+      })
+      .then(() => {
+        const rep2 = {
+          document: fs.readFileSync(filePath),
+          mimetype: 'application/vnd.android.package-archive',
+          fileName: `${data.name}.apk`,
+          caption: `*Nom de l'application :* ${data.name}\n` +
+                   `*Identifiant de l'application :* ${data.package}\n` +
+                   `*Dernière mise à jour :* ${data.lastup}\n` +
+                   `*Taille de l'application :* ${data.size}\n\n`,
+        };
 
-    const rep2 = {
-      document: fs.readFileSync(filePath),
-      mimetype: 'application/vnd.android.package-archive',
-      fileName: data.name+`.apk`,
-      caption: `*Nom de l'application :* ${data.name}\n` +
-               `*Identifiant de l'application :* ${data.package}\n` +
-               `*Dernière mise à jour :* ${data.lastup}\n` +
-               `*Taille de l'application :* ${data.size}\n\n`,
-    };
+        zk.sendMessage(origineMessage, rep2, { quoted: ms });
 
-    await repondre(rep2);
+        console.log('Application téléchargée avec succès.');
 
-    console.log('Application téléchargée avec succès.');
+        fs.unlinkSync(filePath);
 
-    await fs.unlink(filePath);
-
-    console.log('Application supprimée avec succès.');
+        console.log('Application supprimée avec succès.');
+      })
+      .catch((error) => {
+        console.error('Erreur lors du téléchargement ou de l\'envoi de l\'application :', error);
+        repondre("Oups, une erreur est survenue lors du téléchargement ou de l'envoi de l'application.");
+      });
   } catch (e) {
     console.error('Erreur générale :', e);
     repondre("Oups, une erreur est survenue lors du téléchargement de l'application.");
   }
 });
+
 
