@@ -106,7 +106,7 @@ zokou({
 async (origineMessage, zk, commandeOptions) => {
   const { repondre, ms } = commandeOptions;
 
-
+return repondre("😋😋");
 
   try {
     for (let i = 0; i < 5; i++) {
