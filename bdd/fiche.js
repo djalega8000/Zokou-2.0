@@ -81,7 +81,7 @@ async function getRByJID(jid) {
     } else {
       // Si le JID n'existe pas, renvoyez des valeurs par défaut (0 messages et 0 XP)
     rrErreur lors de la récupération des données de l\'utilisateur:', error);
-    return { messages: 0, xp: 0 }; // En cas d'erreur, renvoyez des valeurs par défaut
+    return {Godlds : 0, 𝐅𝐚𝐧𝐬👥 : 10000 , 𝐍𝐄𝐎𝐜𝐨𝐢𝐧𝐬🔹: 1, 𝐂𝐨𝐮𝐩𝐨𝐧𝐬🎟️ : 10 , Victoire : 1, Defaite : 1}; // En cas d'erreur, renvoyez des valeurs par défaut
   } finally {
     client.release();
   }
@@ -92,7 +92,7 @@ async function getBottom10Users() {
 
   try {
     // Sélectionnez les 10 premiers utilisateurs classés par XP de manière ascendante (du plus bas au plus élevé)
-    const query = 'SELECT jid, xp , messages FROM users_rank ORDER BY xp DESC LIMIT 10';
+    const query = 'SELECT jid, xp , messages FROM users_fiche ORDER BY xp DESC LIMIT 10';
     const result = await client.query(query);
 
     // Retournez le tableau des utilisateurs
