@@ -29,7 +29,9 @@ async function createUsersFicheTable() {
         R3 INTEGER DEFAULT 0,
         R4 INTEGER DEFAULT 0,
         R5 INTEGER DEFAULT 0,
-        R6 INTEGER DEFAULT 0
+        R6 INTEGER DEFAULT 0,
+        R7 INTEGER TEXT DEFAUT 'aucun',
+        R8 INTEGER TEXT DEFAUT 'aucun',
       );
     `);
   } catch (error) {
@@ -52,7 +54,7 @@ async function ajouterOuMettreAJourUserData(jid) {
       await client.query('UPDATE users_fiche SET R1 = R1 + 10000, R2 = R2 + 10000, R3 = R3 + 1, R4 = R4 + 10, R5 = R5 + 1, R6 = R6 + 1 WHERE jid = $1', [jid]);
     } else {
       // Si le JID n'existe pas, ajoutez-le avec des valeurs par défaut
-      await client.query('INSERT INTO users_fiche (jid, R1, R2, R3, R4, R5, R6) VALUES ($1, $2, $3, $4, $5, $6, $7)', [jid, 10000, 10000, 0, 0, 1, 1]);
+      await client.query('INSERT INTO users_fiche (jid, R1, R2, R3, R4, R5, R6) VALUES ($1, $2, $3, $4, $5, $6, $7)', [jid, 0, 0, 0, 0, 0, 0, 0]);
     }
 
   } catch (error) {
@@ -60,24 +62,7 @@ async function ajouterOuMettreAJourUserData(jid) {
   } finally {
     client.release();
   }
-}
-
-async function getRByJID(jid) {
-  const client = await pool.connect();
-
-  try {
-    // Sélectionnez les valeurs pour le JID donné
-    const query = 'SELECT R1, R2, R3, R4, R5, R6 FROM users_fiche WHERE jid = $1';
-    const result = await client.query(query, [jid]);
-
-    if (result.rows.length > 0) {
-      // Retournez les valeurs
-      return result.rows[0];
-    } else {
-      // Si le JID n'existe pas, renvoyez des valeurs par défaut
-      console.error('Utilisateur non trouvé');
-      return { R1: 0, R2: 0, R3: 0, R4: 0, R5: 0, R6: 0 };
-    }
+  
   } catch (error) {
     console.error('Erreur lors de la récupération des données de l\'utilisateur:', error);
     return { R1: 0, R2: 0, R3: 0, R4: 0, R5: 0, R6: 0 };
@@ -91,6 +76,5 @@ createUsersFicheTable();
 
 module.exports = {
   ajouterOuMettreAJourUserData,
-  getRByJID,
 };
 
