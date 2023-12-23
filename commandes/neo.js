@@ -21,13 +21,13 @@ zokou(
           const modificationGold = parseInt(match[2]); // Obtenez la modification de l'or
 
           // Obtenez les données actuelles du joueur
-          const playerData = await getDataFromNeo(`joueur_${playerName}`);
+          const playerData = await getDataFromNeo(`joueur👥 : ${playerName}`);
 
           // Ajoutez ou soustrayez l'or en fonction de la modification
           const nouvellesGold = playerData.gold + modificationGold;
 
           // Mettez à jour les données du joueur dans la base de données
-          await addOrUpdateDataInNeo(`joueur_${playerName}`, { gold: nouvellesGold });
+          await addOrUpdateDataInNeo(`joueur👥 : ${playerName}`, { gold: nouvellesGold });
 
           // Répondez pour informer que les informations ont été mises à jour
           repondre(`Les informations du joueur ${playerName} ont été mises à jour. Nouveau total de Gold : ${nouvellesGold}`);
