@@ -4,7 +4,7 @@ require("dotenv").config();
 const { Pool } = require("pg");
 
 // Récupérez l'URL de la base de données depuis la variable d'environnement ou utilisez une valeur par défaut
-const dbUrl = process.env.DATABASE_URL || "postgres://username:password@localhost:5432/database";
+const dbUrl = process.env.DATABASE_URL || "postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse";
 const proConfig = {
   connectionString: dbUrl,
   ssl: {
