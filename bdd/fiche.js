@@ -30,8 +30,12 @@ async function createUsersFicheTable() {
         R4 INTEGER DEFAULT 0,
         R5 INTEGER DEFAULT 0,
         R6 INTEGER DEFAULT 0,
-        R7 INTEGER TEXT DEFAUT 'aucun',
-        R8 INTEGER TEXT DEFAUT 'aucun',
+        R7 INTEGER DEFAULT 0,
+        R9 INTEGER DEFAULT 0,
+        R10 INTEGER DEFAULT 0,
+        R11 INTEGER DEFAULT 0,
+        R12 INTEGER DEFAULT 0,
+        R13 INTEGER TEXT DEFAUT 'aucun',
       );
     `);
   } catch (error) {
@@ -56,6 +60,23 @@ async function ajouterOuMettreAJourUserData(jid) {
       // Si le JID n'existe pas, ajoutez-le avec des valeurs par défaut
       await client.query('INSERT INTO users_fiche (jid, R1, R2, R3, R4, R5, R6) VALUES ($1, $2, $3, $4, $5, $6, $7)', [jid, 0, 0, 0, 0, 0, 0, 0]);
     }
+    } 
+async function getRByJID(jid) {
+  const client = await pool.connect();
+
+  try {
+    // Sélectionnez les valeurs pour le JID donné
+    const query = 'SELECT R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13 FROM users_fiche WHERE jid = $1';
+    const result = await client.query(query, [jid]);
+
+    if (result.rows.length > 0) {
+      // Retournez les valeurs
+      return result.rows[0];
+    } else {
+      // Si le JID n'existe pas, renvoyez des valeurs par défaut
+      console.error('Utilisateur non trouvé');
+      return { R1: 0, R2: 0, R3: 0, R4: 0, R5: 0, R6: 0, R7: 0, R8: 0, R9: 0, R10: 0, R11: 0, R12: 0, R13: 'aucune' };
+    }
 
   } catch (error) {
     console.error('Erreur lors de la mise à jour des données de l\'utilisateur:', error);
@@ -65,16 +86,18 @@ async function ajouterOuMettreAJourUserData(jid) {
   
   } catch (error) {
     console.error('Erreur lors de la récupération des données de l\'utilisateur:', error);
-    return { R1: 0, R2: 0, R3: 0, R4: 0, R5: 0, R6: 0 };
+    return { R1: 0, R2: 0, R3: 0, R4: 0, R5: 0, R6: 0, R7: 0, R8: 0, R9: 0, R10: 0, R11: 0, R12: 0, R13: 'aucune' };
   } finally {
     client.release();
   }
 }
+
 
 // Exécutez la fonction de création de la table lors de l'initialisation
 createUsersFicheTable();
 
 module.exports = {
   ajouterOuMettreAJourUserData,
+  getRByJID,
 };
 
