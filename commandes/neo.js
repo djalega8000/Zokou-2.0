@@ -26,7 +26,7 @@ zokou(
           const playerData = await getDataFromNeo(`joueur_${playerName}`);
 
           // Ajoutez ou soustrayez l'or en fonction de la modification
-          const nouvellesGold = playerData.gold🧭 + modificationGold;
+          const nouvellesGold = playerData.gold + modificationGold;
 
           // Mettez à jour les données du joueur dans la base de données
           await addOrUpdateDataInNeo(`joueur_${playerName}`, { gold: nouvellesGold });
