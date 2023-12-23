@@ -14,20 +14,21 @@ zokou(
     try {
       if (arg && arg.length > 0) {
         // Vérifiez si le message est de type "Jouer👥 : Lily KÏNGS II: actualisé gold +10000🧭"
-        const match = `/^Jouer👥 : (.+): actualisé gold ([+-]?\d+)🧭$/i`;
+        const regex = /^Jouer👥 : (.+): actualisé gold ([+-]?\d+)🧭$/i;
+        const match = arg.join(' ').match(regex);
 
         if (match) {
           const playerName = match[1].toLowerCase().replace(/\s+/g, ''); // Normalisez le nom du joueur
           const modificationGold = parseInt(match[2]); // Obtenez la modification de l'or
 
           // Obtenez les données actuelles du joueur
-          const playerData = await getDataFromNeo(`joueur👥 : ${playerName}`);
+          const playerData = await getDataFromNeo(`joueur_${playerName}`);
 
           // Ajoutez ou soustrayez l'or en fonction de la modification
-          const nouvellesGold = playerData.gold + modificationGold;
+          const nouvellesGold = (playerData && playerData.gold) ? playerData.gold + modificationGold : modificationGold;
 
           // Mettez à jour les données du joueur dans la base de données
-          await addOrUpdateDataInNeo(`joueur👥 : ${playerName}`, { gold: nouvellesGold });
+          await addOrUpdateDataInNeo(`joueur_${playerName}`, { gold: nouvellesGold });
 
           // Répondez pour informer que les informations ont été mises à jour
           repondre(`Les informations du joueur ${playerName} ont été mises à jour. Nouveau total de Gold : ${nouvellesGold}`);
@@ -41,11 +42,10 @@ zokou(
       if (!arg || !arg[0] || arg.join('') === '') {
 
         if (data) {
-
           const { message, lien } = data;
 
           var mode = "public";
-          if (s.MODE != "oui") {
+          if (s.MODE !== "oui") {
             mode = "privé";
           }
 
@@ -85,8 +85,8 @@ zokou(
         } else {
           if (!superUser) { repondre("il n'y a pas de fiche north1 enregistrée "); return };
 
-          await repondre("Vous n'avez pas encore enregistré la fiche north1, pour ce faire ;\n tapez entrez après north1 votre message et votre lien image ou vidéo dans ce contexte : /north1 message;lien");
-          repondre(" veuillez me contacter pour plus amples explications");
+          await repondre("Vous n'avez pas encore enregistré la fiche north1. Pour ce faire, tapez entrez après north1 votre message et votre lien image ou vidéo dans ce format : /north1 message;lien");
+          repondre("Veuillez me contacter pour plus amples explications.");
         }
       } else {
 
@@ -99,8 +99,9 @@ zokou(
         repondre('Fiche North1 actualisée avec succès');
       }
     } catch (error) {
-      console.error("Erreur générale :", error);
+      console.error("Une erreur s'est produite :", error);
       repondre("Une erreur s'est produite lors du traitement de la commande.");
     }
-  });
+  }
+);
 
