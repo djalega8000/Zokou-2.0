@@ -26,36 +26,7 @@ zokou(
           const playerData = await getDataFromNeo(`joueur_${playerName}`);
 
           // Ajoutez ou soustrayez l'or en fonction de la modification
-          const nouvellesGold = playerData.gold + modificationGold;
-const { zokou } = require('../framework/zokou');
-const { addOrUpdateDataInNeo, getDataFromNeo } = require('../bdd/neo');
-const moment = require("moment-timezone");
-const s = require(__dirname + "/../set");
-
-zokou(
-  {
-    nomCom: 'north1',
-    categorie: 'NEOverse'
-  },
-  async (dest, zk, commandeOptions) => {
-
-    const { ms, arg, repondre, superUser } = commandeOptions;
-
-    try {
-      if (arg && arg.length > 0) {
-        // Vérifiez si le message est de type "Jouer👥 : Lily KÏNGS II: actualisé gold +10000🧭"
-        const regex = /^Jouer👥 : (.+): actualisé gold ([+-]?\d+)🧭$/i;
-        const match = arg.join(' ').match(regex);
-
-        if (match) {
-          const playerName = match[1]; // Obtenez le nom du joueur
-          const modificationGold = parseInt(match[2]); // Obtenez la modification de l'or
-
-          // Obtenez les données actuelles du joueur
-          const playerData = await getDataFromNeo(`joueur_${playerName}`);
-
-          // Ajoutez ou soustrayez l'or en fonction de la modification
-          const nouvellesGold = playerData.gold + modificationGold;
+          const nouvellesGold = playerData.gold🧭 + modificationGold;
 
           // Mettez à jour les données du joueur dans la base de données
           await addOrUpdateDataInNeo(`joueur_${playerName}`, { gold: nouvellesGold });
@@ -134,4 +105,3 @@ zokou(
       repondre("Une erreur s'est produite lors du traitement de la commande.");
     }
   });
-
