@@ -14,8 +14,7 @@ zokou(
     try {
       if (arg && arg.length > 0) {
         // Vérifiez si le message est de type "Jouer👥 : Lily KÏNGS II: actualisé gold +10000🧭"
-        const regex = /^Jouer👥 : (.+): actualisé gold ([+-]?\d+)🧭$/i;
-        const match = arg.join(' ').match(regex);
+        const match = `/^Jouer👥 : (.+): actualisé gold ([+-]?\d+)🧭$/i`;
 
         if (match) {
           const playerName = match[1].toLowerCase().replace(/\s+/g, ''); // Normalisez le nom du joueur
