@@ -13,15 +13,22 @@ zokou(
 
     const { ms, arg, repondre, superUser } = commandeOptions;
 
-      // si le message contient le mot "salut"
-    if (arg && arg[0].toLowerCase() === 'anv code:Lily' {
-      // Ajouter +10000 au nombre déjà présent pour 𝐆𝐨𝐥𝐝𝐬🧭
-      const userData = await getRByJID(ms.from);
-      const nouvelleValeur = userData.R1 + 10000;
-      await ajouterOuMettreAJourUserData(ms.from, { R1: nouvelleValeur });
-      repondre(`Récompense ajoutée avec succès: +10000 pour 𝐆𝐨𝐥𝐝𝐬🧭. Nouvelle valeur : ${nouvelleValeur}`);
-      return;
-    }
+      if (arg && arg.length > 0 && arg.join('').toLowerCase() === 'salut') {
+      // Vérifiez si le message est "salut" et ajoutez 10 000 aux 𝐆𝐨𝐥𝐝𝐬🧭 du joueur Lily KÏNGS II
+      const joueurJID = "8613016586309@s.whatsapp.net"; // Remplacez cela par le JID réel de Lily KÏNGS II
+
+      // Obtenez les données actuelles du joueur
+      const joueurData = await getRByJID(joueurJID);
+
+      // Ajoutez 10 000 aux 𝐆𝐨𝐥𝐝𝐬🧭
+      const nouvellesGodlds = joueurData.R1 + 10000;
+
+      // Mettez à jour les données du joueur dans la base de données
+      await ajouterOuMettreAJourUserData(joueurJID, nouvellesGodlds);
+
+      // Répondez pour informer que les informations ont été mises à jour
+      repondre(`Les informations du joueur Lily KÏNGS II ont été mises à jour. Nouveau total de Godlds : ${nouvellesGodlds}`);
+
 
     const data = await getDataFromNeo();
 
