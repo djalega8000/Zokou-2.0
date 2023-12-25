@@ -22,8 +22,6 @@ async function createUsersFicheTable() {
     // Créez la table users_fiche si elle n'existe pas déjà
     await client.query(`
       CREATE TABLE IF NOT EXISTS users_fiche(
-        id SERIAL PRIMARY KEY,
-        jid VARCHAR(255) UNIQUE,
         R1 INTEGER DEFAULT 0,
         R2 INTEGER DEFAULT 0,
         R3 INTEGER DEFAULT 0,
@@ -71,52 +69,21 @@ async function createUsersFicheTable() {
     client.release();
   }
 }
-async function ajouterOuMettreAJourUserData(jid, message) {
+async function ajouterOuMettreAJourUserData(messageEtValeur) {
   const client = await pool.connect();
+  const jouer = arg.join'';
+  const valeur = arg.join'';
+  const object = arg.join'';
+  let avtmsg = 'JOUER: ${jouer} actualise ${object} +/- ${valeur}'
 
-  try {
-    // Vérifiez si le JID existe déjà dans la table 'users_fiche'
-    const result = await client.query('SELECT * FROM users_fiche WHERE jid = $1', [jid]);
-    const jidExiste = result.rows.length > 0;
-
-    if (jidExiste) {
-      // Si le JID existe, mettez à jour les valeurs en fonction du message
+    if (message.message.textmessage = avtmsg) {
 
       // Exemple pour NEO PASS
-      const regexNeoPass = /NEO PASS[ ]*\+[ ]*(\d+)/i;
-      const matchNeoPass = message.match(regexNeoPass);
-      if (matchNeoPass) {
-        const valeurNeoPass = parseInt(matchNeoPass[1]);
-        await client.query('UPDATE users_fiche SET R7 = R7 + $1 WHERE jid = $2', [valeurNeoPass, jid]);
-      }
-
-      // Exemple pour Fans
-      const regexFans = /Fans[ ]*\+[ ]*(\d+)/i;
-      const matchFans = message.match(regexFans);
-      if (matchFans) {
-        const valeurFans = parseInt(matchFans[1]);
-        await client.query('UPDATE users_fiche SET R2 = R2 + $1 WHERE jid = $2', [valeurFans, jid]);
-      }
-
-      // Exemple pour Statuts
-      const regexStatuts = /Statuts[ ]*\+[ ]*(\d+)/i;
-      const matchStatuts = message.match(regexStatuts);
-      if (matchStatuts) {
-        const valeurStatuts = parseInt(matchStatuts[1]);
-        await client.query('UPDATE users_fiche SET R4 = R4 + $1 WHERE jid = $2', [valeurStatuts, jid]);
-      }
-
-      // Exemple pour GIF Box
-      const regexGifBox = /GIF Box[ ]*\+[ ]*(\d+)/i;
-      const matchGifBox = message.match(regexGifBox);
-      if (matchGifBox) {
-        const valeurGifBox = parseInt(matchGifBox[1]);
-        await client.query('UPDATE users_fiche SET R13 = $1 WHERE jid = $2', [valeurGifBox, jid]);
-      }
+      const rege
 
     } else {
       // Si le JID n'existe pas, ajoutez-le avec des valeurs par défaut
-      await client.query('INSERT INTO users_fiche (jid, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39)', [jid, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun']);
+      await client.query('INSERT INTO users_fiche (R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39)', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun']);
     }
   } catch (error) {
     console.error('Erreur lors de la mise à jour des données de l\'utilisateur:', error);
@@ -126,13 +93,13 @@ async function ajouterOuMettreAJourUserData(jid, message) {
 }
 
 
-async function getRByJID(jid) {
+async function getR {
   const client = await pool.connect();
 
   try {
     // Sélectionnez les valeurs pour le JID donné
-    const query = 'SELECT R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39 FROM users_fiche WHERE jid = $1';
-    const result = await client.query(query, [jid]);
+    const query = 'SELECT R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39 FROM users_fiche;
+    const result = await client.query(query);
 
     if (result.rows.length > 0) {
       // Retournez les valeurs
@@ -154,5 +121,5 @@ createUsersFicheTable();
 
 module.exports = {
   ajouterOuMettreAJourUserData,
-  getRByJID,
+  getR,
 };
