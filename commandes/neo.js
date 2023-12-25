@@ -10,10 +10,8 @@ zokou(
   },
   async (dest, zk, commandeOptions) => {
     const { ms, arg, repondre, superUser, msgRepodu, Jid } = commandeOptions;
-
-    if (north1) {
-      try {
-        const data = getRByJID(Jid);
+    
+        const data = getRByJID;
 
         moment.tz.setDefault('Etc/GMT');
 
@@ -84,7 +82,7 @@ zokou(
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
  *🔷𝗡𝗘𝗢 𝗡𝗘𝗫𝗧 𝗚𝗔𝗠𝗘®🎮*`;
 
-        zk.sendMessage(dest, { image: { url: '' }, caption: msg }, { quoted: ms });
+        zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/38659f7aeacb8cc83fe99.jpg' }, caption: msg }, { quoted: ms });
       } catch (error) {
         console.error("Une erreur s'est produite :", error);
         repondre("Une erreur s'est produite lors du traitement de la commande.");
