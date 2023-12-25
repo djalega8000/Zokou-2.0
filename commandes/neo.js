@@ -8,7 +8,7 @@ zokou(
     categorie: 'NEOverse'
   },
   async (dest, zk, commandeOptions) => {
-    const { ms,zk,jid } = commandeOptions;
+    const { ms, jid } = commandeOptions;
     
         const data = getRByJID(jid);
 
