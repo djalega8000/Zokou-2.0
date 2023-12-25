@@ -22,6 +22,7 @@ async function createUsersFicheTable() {
     // Créez la table users_fiche si elle n'existe pas déjà
     await client.query(`
       CREATE TABLE IF NOT EXISTS users_fiche(
+        -- Joueur 1 (Lily KÏNGS II)
         R1 INTEGER DEFAULT 0,
         R2 INTEGER DEFAULT 0,
         R3 INTEGER DEFAULT 0,
@@ -34,7 +35,10 @@ async function createUsersFicheTable() {
         R10 INTEGER DEFAULT 0,
         R11 INTEGER DEFAULT 0,
         R12 INTEGER DEFAULT 0,
-        R13 INTEGER TEXT DEFAUT 'aucun',
+        R13 TEXT DEFAULT 'aucun',
+        -- ... (ajoutez les colonnes spécifiques à Lily)
+
+        -- Joueur 2 (DAMIEN KÏNGS III)
         R14 INTEGER DEFAULT 0,
         R15 INTEGER DEFAULT 0,
         R16 INTEGER DEFAULT 0,
@@ -47,7 +51,10 @@ async function createUsersFicheTable() {
         R23 INTEGER DEFAULT 0,
         R24 INTEGER DEFAULT 0,
         R25 INTEGER DEFAULT 0,
-        R26 INTEGER TEXT DEFAUT 'aucun',
+        R26 TEXT DEFAULT 'aucun',
+        -- ... (ajoutez les colonnes spécifiques à DAMIEN)
+
+        -- Joueur 3 (Kanzen Gold King)
         R27 INTEGER DEFAULT 0,
         R28 INTEGER DEFAULT 0,
         R29 INTEGER DEFAULT 0,
@@ -60,7 +67,8 @@ async function createUsersFicheTable() {
         R36 INTEGER DEFAULT 0,
         R37 INTEGER DEFAULT 0,
         R38 INTEGER DEFAULT 0,
-        R39 INTEGER TEXT DEFAUT 'aucun'
+        R39 TEXT DEFAULT 'aucun'
+        -- ... (ajoutez les colonnes spécifiques à Kanzen)
       );
     `);
   } catch (error) {
@@ -69,18 +77,40 @@ async function createUsersFicheTable() {
     client.release();
   }
 }
-async function ajouterOuMettreAJourUserData(messageEtValeur) {
+
+async function ajouterOuMettreAJourUserData(MsgRepondu) {
   const client = await pool.connect();
-  const jouer = arg.join'';
-  const valeur = arg.join'';
-  const object = arg.join'';
-  let avtmsg = 'JOUER: ${jouer} actualise ${object} +/- ${valeur}'
+  
+  try {
+    const messageText = MsgRepondu.message.textmessage;
+    const match = messageText.match(/JOUER: (\w+) actualise (\w+) \+\/- (\d+)/);
+    
+    if (match) {
+      const joueur = match[1];
+      const object = match[2];
+      const valeur = parseInt(match[3]);
 
-    if (MsgRepondu.message.textmessage = avtmsg) {
+      let colonnesJoueur;
 
+      switch (joueur) {
+        case "Lily":
+          colonnesJoueur = "R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13"; // Ajoutez les colonnes spécifiques à Lily
+          break;
+        case "DAMIEN":
+          colonnesJoueur = "R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26"; // Ajoutez les colonnes spécifiques à DAMIEN
+          break;
+        case "Kanzen":
+          colonnesJoueur = "R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39"; // Ajoutez les colonnes spécifiques à Kanzen
+          break;
+        default:
+          console.log("Nom de joueur non reconnu.");
+          return;
+      }
+
+      // Mettez à jour la table avec les valeurs extraites du message
+      await client.query(`UPDATE users_fiche SET ${colonnesJoueur} = ${object} = ${object} + $1`, [valeur]);
     } else {
-      // Si le JID n'existe pas, ajoutez-le avec des valeurs par défaut
-      await client.query('INSERT INTO users_fiche (R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39)', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun']);
+      console.log("Le message ne correspond pas au format attendu.");
     }
   } catch (error) {
     console.error('Erreur lors de la mise à jour des données de l\'utilisateur:', error);
@@ -89,12 +119,11 @@ async function ajouterOuMettreAJourUserData(messageEtValeur) {
   }
 }
 
-
-async function getR {
+async function getR() {
   const client = await pool.connect();
 
   try {
-    // Sélectionnez les valeurs pour le JID donné
+    // Sélectionnez les valeurs pour tous les joueurs
     const query = 'SELECT R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39 FROM users_fiche';
     const result = await client.query(query);
 
