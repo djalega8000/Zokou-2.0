@@ -1,6 +1,5 @@
 const { zokou } = require('../framework/zokou');
 const { getRByJID } = require('../bdd/fiche');
-const moment = require("moment-timezone");
 const s = require(__dirname + "/../set");
 
 zokou(
@@ -9,20 +8,12 @@ zokou(
     categorie: 'NEOverse'
   },
   async (dest, zk, commandeOptions) => {
-    const { ms, arg, repondre, superUser, msgRepodu, Jid } = commandeOptions;
+    const { ms,zk,jid } = commandeOptions;
     
         const data = getRByJID(jid);
 
-        moment.tz.setDefault('Etc/GMT');
-
-        // Créer une date et une heure en GMT
-        const temps = moment().format('HH:mm:ss');
-        const date = moment().format('DD/MM/YYYY');
-
         let msg = `*NEOverse Rp Gaming*
-*Date* : ${date}
-*Heure* :${temps}
-     .𝐍𝐎𝐑𝐓H 𝐃𝐈𝐕𝐈𝐒𝐈𝐎𝐍🐺🔴 1
+    .𝐍𝐎𝐑𝐓H 𝐃𝐈𝐕𝐈𝐒𝐈𝐎𝐍🐺🔴 1
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 ◇ *𝐉𝐨𝐮𝐞𝐮𝐫👤*: Lily KÏNGS II
