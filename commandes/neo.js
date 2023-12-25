@@ -11,7 +11,7 @@ zokou(
   async (dest, zk, commandeOptions) => {
     const { ms, arg, repondre, superUser, msgRepodu, Jid } = commandeOptions;
     
-        const data = getRByJID;
+        const data = getRByJID(jid);
 
         moment.tz.setDefault('Etc/GMT');
 
