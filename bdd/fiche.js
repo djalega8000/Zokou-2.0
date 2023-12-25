@@ -82,7 +82,7 @@ async function ajouterOuMettreAJourUserData(MsgRepondu) {
   const client = await pool.connect();
   
   try {
-    const messageText = MsgRepondu.message.textmessage;
+    const messageText = MsgRepondu.message.text;
     const match = messageText.match(/JOUER: (\w+) actualise (\w+) \+\/- (\d+)/);
     
     if (match) {
@@ -94,21 +94,66 @@ async function ajouterOuMettreAJourUserData(MsgRepondu) {
 
       switch (joueur) {
         case "Lily":
-          colonnesJoueur = "R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13"; // Ajoutez les colonnes spécifiques à Lily
+          colonnesJoueur = {
+            Fans: "R1",
+            statut: "R2",
+            Gold: "R3",
+            NEOcoins: "R4",
+            Coupons: "R6",
+            NEO_PASS: "R7",
+            victoires: "R8",
+            Defaites: "R9",
+            Trophees: "R10",
+            Tos: "R11",
+            Awards: "R12",
+            cards: "R13"
+          };
           break;
         case "DAMIEN":
-          colonnesJoueur = "R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26"; // Ajoutez les colonnes spécifiques à DAMIEN
+          colonnesJoueur = {
+            Fans: "R14",
+            statut: "R15",
+            Gold: "R16",
+            NEOcoins: "R17",
+            Coupons: "R18",
+            NEO_PASS: "R20",
+            victoires: "R21",
+            Defaites: "R22",
+            Trophees: "R23",
+            Tos: "R24",
+            Awards: "R25",
+            cards: "R26"
+          };
           break;
         case "Kanzen":
-          colonnesJoueur = "R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39"; // Ajoutez les colonnes spécifiques à Kanzen
+          colonnesJoueur = {
+            Fans: "R27",
+            statut: "R28",
+            Gold: "R29",
+            NEOcoins: "R30",
+            Coupons: "R31",
+            NEO_PASS: "R33",
+            victoires: "R34",
+            Defaites: "R35",
+            Trophees: "R36",
+            Tos: "R37",
+            Awards: "R38",
+            cards: "R39"
+          };
           break;
         default:
           console.log("Nom de joueur non reconnu.");
           return;
       }
 
-      // Mettez à jour la table avec les valeurs extraites du message
-      await client.query(`UPDATE users_fiche SET ${colonnesJoueur} = ${object} = ${object} + $1`, [valeur]);
+      const colonneObjet = colonnesJoueur[object];
+
+      if (colonneObjet) {
+        // Mettez à jour la table avec les valeurs extraites du message
+        await client.query(`UPDATE users_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
+      } else {
+        console.log("Nom d'objet non reconnu.");
+      }
     } else {
       console.log("Le message ne correspond pas au format attendu.");
     }
@@ -149,3 +194,4 @@ module.exports = {
   ajouterOuMettreAJourUserData,
   getR,
 };
+
