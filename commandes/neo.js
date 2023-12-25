@@ -1,5 +1,5 @@
 const { zokou } = require('../framework/zokou');
-const { getRByJID } = require('../bdd/fiche');
+const { getR } = require('../bdd/fiche');
 const s = require(__dirname + "/../set");
 
 zokou(
@@ -8,9 +8,9 @@ zokou(
     categorie: 'NEOverse'
   },
   async (dest, zk, commandeOptions) => {
-    const { ms, jid } = commandeOptions;
+    const { ms } = commandeOptions;
     
-        const data = getRByJID(jid);
+        const data = getR;
 
         let msg = `*NEOverse Rp Gaming*
     .𝐍𝐎𝐑𝐓H 𝐃𝐈𝐕𝐈𝐒𝐈𝐎𝐍🐺🔴 1
