@@ -10,7 +10,7 @@ zokou(
   async (dest, zk, commandeOptions) => {
     const { ms } = commandeOptions;
     
-        const data = getR;
+        const data = getR();
 
         let msg = `*NEOverse Rp Gaming*
     .𝐍𝐎𝐑𝐓H 𝐃𝐈𝐕𝐈𝐒𝐈𝐎𝐍🐺🔴 1
