@@ -184,10 +184,7 @@ async function getR() {
     const query =
       "SELECT R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39 FROM users_fiche";
     const result = await client.query(query);
-
-    if (result.rows.length > 0) {
-      // Retournez les valeurs
-      const {
+    const {
         R1,
         R2,
         R3,
@@ -269,53 +266,8 @@ async function getR() {
         R38,
         R39,
       }; 
-      console.log('valeur envoyer');
-    } else {
-      // Si le JID n'existe pas, renvoyez des valeurs par défaut
-      console.error("Utilisateur non trouvé");
-      return {
-        R1: 0,
-        R2: "aucun",
-        R3: 0,
-        R4: 0,
-        R5: 0,
-        R6: 0,
-        R7: 0,
-        R8: 0,
-        R9: 0,
-        R10: 0,
-        R11: 0,
-        R12: 0,
-        R13: "aucune",
-        R14: 0,
-        R15: "aucun",
-        R16: 0,
-        R17: 0,
-        R18: 0,
-        R19: 0,
-        R20: 0,
-        R21: 0,
-        R22: 0,
-        R23: 0,
-        R24: 0,
-        R25: 0,
-        R26: "aucune",
-        R27: 0,
-        R28: "aucun",
-        R29: 0,
-        R30: 0,
-        R31: 0,
-        R32: 0,
-        R33: 0,
-        R34: 0,
-        R35: 0,
-        R36: 0,
-        R37: 0,
-        R38: 0,
-        R39: "aucune",
-      };
-    }
-  } catch (error) {
+      console.log('valeur envoyer');  
+    } catch (error) {
     console.error("Erreur lors de la récupération des données de l'utilisateur:", error);
   } finally {
     client.release();
