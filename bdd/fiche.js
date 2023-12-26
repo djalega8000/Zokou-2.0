@@ -154,6 +154,7 @@ async function actualiserFicheUtilisateur(messageText) {
       if (colonneObjet) {
         // Mettez à jour la table avec les valeurs extraites du message
         await client.query(`UPDATE users_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
+        console.log(`données de l'utulisateur ${JOUER} mit a jour`), 
       } else {
         console.log("Nom d'objet non reconnu.");
       }
