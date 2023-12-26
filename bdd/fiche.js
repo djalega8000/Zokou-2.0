@@ -71,7 +71,7 @@ async function createUsersFicheTable() {
         -- ... (ajoutez les colonnes spécifiques à Kanzen)
       );
     `);
-    console.log('table User_fiche créé avec sucess')
+    console.log('table User_fiche créé avec succès');
   } catch (error) {
     console.error('Erreur lors de la création de la table users_fiche:', error);
   } finally {
@@ -79,87 +79,95 @@ async function createUsersFicheTable() {
   }
 }
 
-async function actualiserFicheUtilisateur(messageText) {
+async function actualiserFicheUtilisateur(ms) {
   const client = await pool.connect();
 
   try {
-    const match = messageText.match(/JOUER: (\w+) actualise (\w+) \+\/- (\d+)/);
+    const baileys_1 = require("@sampandey001/baileys");
+    var mtype = baileys_1.getContentType(ms.message);
+    var texte = mtype == "conversation" ? ms.message.conversation : "";
 
-    if (match) {
-      const joueur = match[1];
-      const object = match[2];
-      const valeur = parseInt(match[3]);
+    var msg = /JOUER: (\w+) actualise (\w+) \+\/- (\d+)/;
 
-      let colonnesJoueur;
+    if (msg.test(texte)) {
+      const match = texte.match(msg);
 
-      switch (joueur) {
-        case "Lily":
-          colonnesJoueur = {
-            Fans: "R1",
-            statut: "R2",
-            Gold: "R3",
-            NEOcoins: "R4",
-            Gift_Box: "R5",
-            Coupons: "R6",
-            NEO_PASS: "R7",
-            victoires: "R8",
-            Defaites: "R9",
-            Trophees: "R10",
-            Tos: "R11",
-            Awards: "R12",
-            cards: "R13",
-          };
-          break;
-        case "DAMIEN":
-          colonnesJoueur = {
-            Fans: "R14",
-            statut: "R15",
-            Gold: "R16",
-            NEOcoins: "R17",
-            Gift_Box: "R18",
-            Coupons: "R19",
-            NEO_PASS: "R20",
-            victoires: "R21",
-            Defaites: "R22",
-            Trophees: "R23",
-            Tos: "R24",
-            Awards: "R25",
-            cards: "R26",
-          };
-          break;
-        case "Kanzen":
-          colonnesJoueur = {
-            Fans: "R27",
-            statut: "R28",
-            Gold: "R29",
-            NEOcoins: "R30",
-            Gift_Box: "R31",
-            Coupons: "R32",
-            NEO_PASS: "R33",
-            victoires: "R34",
-            Defaites: "R35",
-            Trophees: "R36",
-            Tos: "R37",
-            Awards: "R38",
-            cards: "R39",
-          };
-          break;
-        default:
-          console.log("Nom de joueur non reconnu.");
-          return;
-      }
+      if (match) {
+        const joueur = match[1];
+        const object = match[2];
+        const valeur = parseInt(match[3]);
 
-      const colonneObjet = colonnesJoueur[object];
+        let colonnesJoueur;
 
-      if (colonneObjet) {
-        // Mettez à jour la table avec les valeurs extraites du message
-        await client.query(`UPDATE users_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
-        console.log(`données de l'utulisateur ${JOUER} mit a jour`), 
+        switch (joueur) {
+          case "Lily":
+            colonnesJoueur = {
+              Fans: "R1",
+              statut: "R2",
+              Gold: "R3",
+              NEOcoins: "R4",
+              Gift_Box: "R5",
+              Coupons: "R6",
+              NEO_PASS: "R7",
+              victoires: "R8",
+              Defaites: "R9",
+              Trophees: "R10",
+              Tos: "R11",
+              Awards: "R12",
+              cards: "R13",
+            };
+            break;
+          case "DAMIEN":
+            colonnesJoueur = {
+              Fans: "R14",
+              statut: "R15",
+              Gold: "R16",
+              NEOcoins: "R17",
+              Gift_Box: "R18",
+              Coupons: "R19",
+              NEO_PASS: "R20",
+              victoires: "R21",
+              Defaites: "R22",
+              Trophees: "R23",
+              Tos: "R24",
+              Awards: "R25",
+              cards: "R26",
+            };
+            break;
+          case "Kanzen":
+            colonnesJoueur = {
+              Fans: "R27",
+              statut: "R28",
+              Gold: "R29",
+              NEOcoins: "R30",
+              Gift_Box: "R31",
+              Coupons: "R32",
+              NEO_PASS: "R33",
+              victoires: "R34",
+              Defaites: "R35",
+              Trophees: "R36",
+              Tos: "R37",
+              Awards: "R38",
+              cards: "R39",
+            };
+            break;
+          default:
+            console.log("Nom de joueur non reconnu.");
+            return;
+        }
+
+        const colonneObjet = colonnesJoueur[object];
+
+        if (colonneObjet) {
+          // Mettez à jour la table avec les valeurs extraites du message
+          await client.query(`UPDATE users_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
+          console.log(`données de l'utilisateur ${joueur} mises à jour`);
+        } else {
+          console.log("Nom d'objet non reconnu.");
+        }
       } else {
-        console.log("Nom d'objet non reconnu.");
+        console.log("Le message ne correspond pas au format attendu.");
       }
-    } else {
-      console.log("Le message ne correspond pas au format attendu.");
     }
   } catch (error) {
     console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
