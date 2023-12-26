@@ -3,11 +3,8 @@ require("dotenv").config();
 
 const { Pool } = require("pg");
 
-// Utilisez le module 'set' pour obtenir la valeur de DATABASE_URL depuis vos configurations
-const s = require("../set");
-
 // Récupérez l'URL de la base de données de la variable s.DATABASE_URL
-var dbUrl=s.DATABASE_URL?s.DATABASE_URL:"postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse"
+var dbUrl = "postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse";
 const proConfig = {
   connectionString: dbUrl,
   ssl: {
