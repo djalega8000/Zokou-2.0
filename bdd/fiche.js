@@ -4,7 +4,7 @@ require("dotenv").config();
 const { Pool } = require("pg");
 
 // Récupérez l'URL de la base de données depuis la variable d'environnement ou utilisez une valeur par défaut
-const dbUrl = process.env.DATABASE_URL || "postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse";
+const dbUrl = process.env.DATABASE_URL || "postgres://jigxnscqmoxgtv:d9137b19a81a2b58dd2abbd99fc658aef7fbbf01a749721a2c4709925f4606e0@ec2-54-84-182-168.compute-1.amazonaws.com:5432/d2fvon62khrrdv";
 const proConfig = {
   connectionString: dbUrl,
   ssl: {
