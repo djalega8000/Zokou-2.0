@@ -1,5 +1,5 @@
 const { zokou } = require('../framework/zokou');
-const { getR } = require('..bdd/fiche');
+const { getR } = require('../bdd/fiche');
 
 zokou(
   {
