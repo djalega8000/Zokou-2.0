@@ -24,7 +24,7 @@ async function createUsersFicheTable() {
       CREATE TABLE IF NOT EXISTS users_fiche(
         -- Joueur 1 (Lily KÏNGS II)
         R1 INTEGER DEFAULT 0,
-        R2 INTEGER DEFAULT 0,
+        R2 TEXT DEFAULT 'aucun',
         R3 INTEGER DEFAULT 0,
         R4 INTEGER DEFAULT 0,
         R5 INTEGER DEFAULT 0,
@@ -40,7 +40,7 @@ async function createUsersFicheTable() {
 
         -- Joueur 2 (DAMIEN KÏNGS III)
         R14 INTEGER DEFAULT 0,
-        R15 INTEGER DEFAULT 0,
+        R15 TEXT DEFAULT 'aucun', 
         R16 INTEGER DEFAULT 0,
         R17 INTEGER DEFAULT 0,
         R18 INTEGER DEFAULT 0,
@@ -56,7 +56,7 @@ async function createUsersFicheTable() {
 
         -- Joueur 3 (Kanzen Gold King)
         R27 INTEGER DEFAULT 0,
-        R28 INTEGER DEFAULT 0,
+        R28 TEXT DEFAULT 'aucun', 
         R29 INTEGER DEFAULT 0,
         R30 INTEGER DEFAULT 0,
         R31 INTEGER DEFAULT 0,
@@ -71,6 +71,7 @@ async function createUsersFicheTable() {
         -- ... (ajoutez les colonnes spécifiques à Kanzen)
       );
     `);
+    console.log('table User_fiche créé avec sucess')
   } catch (error) {
     console.error('Erreur lors de la création de la table users_fiche:', error);
   } finally {
