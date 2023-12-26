@@ -22,6 +22,7 @@ async function createUsersFicheTable() {
     // Créez la table users_fiche si elle n'existe pas déjà
     await client.query(`
       CREATE TABLE IF NOT EXISTS users_fiche(
+        id serial PRIMARY KEY,
         -- Joueur 1 (Lily KÏNGS II)
         R1 INTEGER DEFAULT 0,
         R2 TEXT DEFAULT 'aucun',
