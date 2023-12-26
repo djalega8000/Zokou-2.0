@@ -1,6 +1,5 @@
 const { zokou } = require('../framework/zokou');
-const { getR } = require('../bdd/fiche');
-const s = require(__dirname + "/../set");
+const { getR } = require('..bdd/fiche);
 
 zokou(
   {
