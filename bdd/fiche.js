@@ -89,7 +89,7 @@ async function actualiserFicheUtilisateur(ms) {
 
     var msg = /JOUER: (\w+) actualise (\w+) \+\/- (\d+)/;
 
-    if (msg.test(texte)) {
+    if (console.log(texte) == msg) {
       const match = texte.match(msg);
 
       if (match) {
