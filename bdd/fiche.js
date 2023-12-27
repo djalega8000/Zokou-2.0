@@ -220,7 +220,7 @@ async function getR() {
         R37,
         R38,
         R39,
-      } = result
+      } = result.row
       return {
         R1,
         R2,
