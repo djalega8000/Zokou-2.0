@@ -83,7 +83,7 @@ async function createUsersFicheTable() {
 async function actualiserFicheUtilisateur(ms) {
   const client = await pool.connect();
 
-await client.query(`INSERT INTO users_fiche (id) value(1)`;
+await client.query(`INSERT INTO users_fiche (id), value(1)`;
   console.log('id cree avec sucess')
   
   try {
