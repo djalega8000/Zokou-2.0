@@ -19,7 +19,6 @@ async function createUsersFicheTable() {
     // Créez la table users_fiche si elle n'existe pas déjà
     await client.query(`
       CREATE TABLE IF NOT EXISTS users_fiche(
-        id serial PRIMARY KEY,
         -- Joueur 1 (Lily KÏNGS II)
         R1 INTEGER DEFAULT 10000,
         R2 TEXT DEFAULT 'aucun',
@@ -81,9 +80,6 @@ async function actualiserFicheUtilisateur(ms) {
   const client = await pool.connect();
 
   try {
-    await client.query(`INSERT INTO users_fiche (id) VALUES (1) ON CONFLICT (id) DO NOTHING`);
-    console.log('ID créé avec succès');
-  
     const baileys_1 = require("@sampandey001/baileys");
     var mtype = baileys_1.getContentType(ms.message);
     var texte = mtype == "conversation" ? ms.message.conversation : "";
@@ -160,7 +156,7 @@ async function actualiserFicheUtilisateur(ms) {
         const colonneObjet = colonnesJoueur[object];
 
         if (colonneObjet) {
-          await client.query(`UPDATE users_fiche SET ${colonneObjet} = ${colonneObjet} + $1 WHERE id = 1`, [valeur]);
+          await client.query(`UPDATE users_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
           console.log(`Données de l'utilisateur ${joueur} mises à jour`);
         } else {
           console.log("Nom d'objet non reconnu.");
@@ -180,11 +176,94 @@ async function getR() {
   const client = await pool.connect();
 
   try {
-    const query = "SELECT * FROM users_fiche WHERE id = 1";
+    // Sélectionnez les valeurs pour tous les joueurs
+    const query =
+      "SELECT R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39 FROM users_fiche";
     const result = await client.query(query);
-
-    return result.rows[0];
-  } catch (error) {
+    const {
+        R1,
+        R2,
+        R3,
+        R4,
+        R5,
+        R6,
+        R7,
+        R8,
+        R9,
+        R10,
+        R11,
+        R12,
+        R13,
+        R14,
+        R15,
+        R16,
+        R17,
+        R18,
+        R19,
+        R20,
+        R21,
+        R22,
+        R23,
+        R24,
+        R25,
+        R26,
+        R27,
+        R28,
+        R29,
+        R30,
+        R31,
+        R32,
+        R33,
+        R34,
+        R35,
+        R36,
+        R37,
+        R38,
+        R39,
+      } = result.rows[0];
+      return {
+        R1,
+        R2,
+        R3,
+        R4,
+        R5,
+        R6,
+        R7,
+        R8,
+        R9,
+        R10,
+        R11,
+        R12,
+        R13,
+        R14,
+        R15,
+        R16,
+        R17,
+        R18,
+        R19,
+        R20,
+        R21,
+        R22,
+        R23,
+        R24,
+        R25,
+        R26,
+        R27,
+        R28,
+        R29,
+        R30,
+        R31,
+        R32,
+        R33,
+        R34,
+        R35,
+        R36,
+        R37,
+        R38,
+        R39,
+      }; 
+      console.log('valeur envoyer');  
+    } catch (error) {
     console.error("Erreur lors de la récupération des données de l'utilisateur:", error);
   } finally {
     client.release();
