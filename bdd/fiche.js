@@ -82,8 +82,9 @@ async function createUsersFicheTable() {
 
 async function actualiserFicheUtilisateur(ms) {
   const client = await pool.connect();
-  
-await client.query(`UPDATE users_fiche SET (id) value(1)`;
+
+await client.query(`INSERT INTO users_fiche (id) value(1)`;
+  console.log('id cree avec sucess')
   
   try {
     const baileys_1 = require("@sampandey001/baileys");
