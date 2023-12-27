@@ -82,7 +82,9 @@ async function createUsersFicheTable() {
 
 async function actualiserFicheUtilisateur(ms) {
   const client = await pool.connect();
-
+  
+await client.query(`UPDATE users_fiche SET (id) value(1)`;
+  
   try {
     const baileys_1 = require("@sampandey001/baileys");
     var mtype = baileys_1.getContentType(ms.message);
