@@ -8,6 +8,7 @@ zokou(
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre } = commandeOptions;
+    try {
 
     const data = await getR();
 
@@ -168,14 +169,12 @@ if (msgMatch) {
   console.log("Le message ne correspond pas au format attendu.");
   repondre(`Le format du message est incorrect.`);
 }
-}
   } catch (error) {
     console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
   repondre(`une erreur est survenu lors de la mise a jouer des données du jouer ${jouer}`);
   } finally {
     client.release();
   }
-}
 });
 
 
