@@ -19,7 +19,7 @@ async function createTexteFicheTable() {
       CREATE TABLE IF NOT EXISTS texte_fiche(
         -- Joueur 1 (Lily KÏNGS II)
         r1 integer default 10000,
-        r2 text default 'aucun',
+        r2 text default aucun,
         r3 integer default 10000,
         r4 integer default 10000,
         r5 integer default 10000,
@@ -30,12 +30,12 @@ async function createTexteFicheTable() {
         r10 integer default 10000,
         r11 integer default 10000,
         r12 integer default 10000,
-        r13 text default 'aucun',
+        r13 text default aucun,
         -- ... (ajoutez les colonnes spécifiques à Lily)
 
         -- Joueur 2 (DAMIEN KÏNGS III)
         r14 integer default 10000,
-        r15 text default 'aucun', 
+        r15 text default aucun, 
         r16 integer default 10000,
         r17 integer default 10000,
         r18 integer default 10000,
@@ -46,12 +46,12 @@ async function createTexteFicheTable() {
         r23 integer default 10000,
         r24 integer default 10000,
         r25 integer default 10000,
-        r26 text default 'aucun',
+        r26 text default aucun,
         -- ... (ajoutez les colonnes spécifiques à DAMIEN)
 
         -- Joueur 3 (Kanzen Gold King)
         r27 integer default 10000,
-        r28 text default 'aucun', 
+        r28 text default aucun, 
         r29 integer default 10000,
         r30 integer default 10000,
         r31 integer default 10000,
@@ -62,7 +62,7 @@ async function createTexteFicheTable() {
         r36 integer default 10000,
         r37 integer default 10000,
         r38 integer default 10000,
-        r39 text default 'aucun'
+        r39 text default aucun
         -- ... (ajoutez les colonnes spécifiques à Kanzen)
       );
     `);
