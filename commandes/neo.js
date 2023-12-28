@@ -1,6 +1,5 @@
 const { zokou } = require('../framework/zokou');
 const { getR } = require('../bdd/fiche');
-const { Pool } = require('pg');
 
 zokou(
   {
@@ -10,9 +9,9 @@ zokou(
   async (dest, zk, commandeOptions) => {
     const { ms, repondre } = commandeOptions;
 
-    const data = getR();
+    const data = await getR();
 
-    let msg = `*NEOverse Rp Gaming*
+    let mesg = `*NEOverse Rp Gaming*
     .𝐍𝐎𝐑𝐓H 𝐃𝐈𝐕𝐈𝐒𝐈𝐎𝐍🐺🔴 1
     ░░░░░░░░░░░░░░░░░░░
     ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -73,7 +72,7 @@ zokou(
     ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
      *🔷𝗡𝗘𝗢 𝗡𝗘𝗫𝗧 𝗚𝗔𝗠𝗘®🎮*`;
 
-    zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/38659f7aeacb8cc83fe99.jpg' }, caption: msg }, { quoted: ms });
+    zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/38659f7aeacb8cc83fe99.jpg' }, caption: mesg }, { quoted: ms });
 
     var dbUrl = "postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse";
     const proConfig = {
@@ -82,12 +81,14 @@ zokou(
         rejectUnauthorized: false,
       },
     };
-
+    
+    const { Pool } = require('pg');
     const pool = new Pool(proConfig);
 
     const client = await pool.connect();
+    const msg = ms.body || "";
     const msgRegex = /JOUER: (\w+) actualise (\w+) \+\/- (\d+)/;
-    const msgMatch = msgRegex.match;
+    const msgMatch = msg.match(msgRegex);
 
 if (msgMatch) {
   const joueur = msgMatch[1];
