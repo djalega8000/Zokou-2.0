@@ -86,13 +86,14 @@ zokou(
     const pool = new Pool(proConfig);
 
     const client = await pool.connect();
-    const msg = /JOUER: (\w+) actualise (\w+) \+\/- (\d+)/;
+    const msg = /JOUER: (\w+) actualise (\w+) ([+-]?\d+)/;
     const msgMatch = msg.match;
 
 if (msgMatch) {
   const joueur = msgMatch[1];
   const object = msgMatch[2];
-  const valeur = parseInt(msgMatch[3]);
+  const sign = msgMatch[3][0];
+  const valeur = parseInt(msgMatch[3].slice(1));
 
   let colonnesJoueur;
 
@@ -153,12 +154,21 @@ if (msgMatch) {
       return;
   }
 
-  const colonneObjet = colonnesJoueur[object];
+    const colonneObjet = colonnesJoueur[object];
 
   if (colonneObjet) {
-    await client.query(`UPDATE texte_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
-    console.log(`Données de l'utilisateur ${joueur} mises à jour`);
-    repondre(`Données du joueur ${joueur} mises à jour`);
+    if (sign === '+') {
+      await client.query(`UPDATE texte_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
+      console.log(`Données de l'utilisateur ${joueur} mises à jour`);
+      repondre(`Données du joueur ${joueur} mises à jour`);
+    } else if (sign === '-') {
+      await client.query(`UPDATE texte_fiche SET ${colonneObjet} = ${colonneObjet} - $1`, [valeur]);
+      console.log(`Données de l'utilisateur ${joueur} mises à jour`);
+      repondre(`Données du joueur ${joueur} mises à jour`);
+    } else {
+      console.log("Signe non reconnu.");
+      repondre(`Une erreur est survenue. Veuillez entrer correctement les données.`);
+    }
   } else {
     console.log("Nom d'objet non reconnu.");
     repondre(`Une erreur est survenue. Veuillez entrer correctement les données.`);
