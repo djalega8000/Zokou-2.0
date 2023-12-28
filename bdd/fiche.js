@@ -123,7 +123,7 @@ async function getR() {
         R37,
         R38,
         R39,
-      } = result.row[0];
+      } = result.rows[0];
       return {
         R2,
         R3,
@@ -172,9 +172,9 @@ async function getR() {
   }
 }
 
-createUsersFicheTable();
+createTexteFicheTable();
 
 module.exports = {
-  actualiserFicheUtilisateur,
+  createTexteFicheTable,
   getR,
 };
