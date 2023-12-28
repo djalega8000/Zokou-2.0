@@ -156,7 +156,7 @@ if (msgMatch) {
   const colonneObjet = colonnesJoueur[object];
 
   if (colonneObjet) {
-    await client.query(`UPDATE users_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
+    await client.query(`UPDATE texte_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
     console.log(`Données de l'utilisateur ${joueur} mises à jour`);
     repondre(`Données du joueur ${joueur} mises à jour`);
   } else {
@@ -170,7 +170,7 @@ if (msgMatch) {
 }
   } catch (error) {
     console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
-  repondre(`une erreyr est survenulor s de la mise a jouer des donner du jouer ${jouer}`);
+  repondre(`une erreur est survenu lors de la mise a jouer des données du jouer ${jouer}`);
   } finally {
     client.release();
   }
