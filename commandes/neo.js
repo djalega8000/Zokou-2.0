@@ -74,7 +74,7 @@ zokou(
 
     zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/38659f7aeacb8cc83fe99.jpg' }, caption: mesg }, { quoted: ms });
 
-    var dbUrl = "postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse";
+    var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
     const proConfig = {
       connectionString: dbUrl,
       ssl: {
@@ -171,7 +171,7 @@ if (msgMatch) {
     console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
     repondre(`une erreur est survenu lors de la mise a jouer des données du jouer ${jouer}`);
   } finally {
-          var dbUrl = "postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse";
+          var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
     const proConfig = {
       connectionString: dbUrl,
       ssl: {
