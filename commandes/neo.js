@@ -172,6 +172,18 @@ if (msgMatch) {
     console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
     repondre(`une erreur est survenu lors de la mise a jouer des données du jouer ${jouer}`);
   } finally {
+          var dbUrl = "postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse";
+    const proConfig = {
+      connectionString: dbUrl,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    };
+    
+    const { Pool } = require('pg');
+    const pool = new Pool(proConfig);
+
+    const client = await pool.connect();
     client.release();
   }
 });
