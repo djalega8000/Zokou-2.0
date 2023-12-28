@@ -17,6 +17,7 @@ async function createTexteFicheTable() {
     // Créez la table texte_fiche si elle n'existe pas déjà
     await client.query(`
       CREATE TABLE IF NOT EXISTS texte_fiche(
+        id serial PRIMARY KEY,
         -- Joueur 1 (Lily KÏNGS II)
         r1 integer default 10000,
         r2 text default aucun,
