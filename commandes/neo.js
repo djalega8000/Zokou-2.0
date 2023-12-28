@@ -87,7 +87,7 @@ zokou(
 
     const client = await pool.connect();
     const msg = /JOUER: (\w+) actualise (\w+) \+\/- (\d+)/;
-    const msgMatch = arg.match(msg);
+    const msgMatch = msg.match;
 
 if (msgMatch) {
   const joueur = msgMatch[1];
