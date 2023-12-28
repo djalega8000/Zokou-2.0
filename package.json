@@ -1,9 +1,9 @@
 {
-  "name": "Zokou-2.0",
+  "name": "𝐂𝐘𝐁𝐄𝐑_𝐖𝐀𝐑𝐑𝐈𝐎𝐑",
   "version": "2.0.0",
-  "description": "",
+  "description": "🌸🤭- " 𝐀 𝐅ɑkə 𝐒mıɭə 𝐂ɑη ┣𝐥ıdə  𝐌ıɭɭıoηs 𝐎f 𝐓əɑrs ||%❤😚",
   "main": "index.js",
-  "scripts": {
+  "scripts": { 
     "test": "echo \"Error: no test specified\" && exit 1",
     "s": "node index.js",
     "zokou": "pm2 start index.js --attach --max-memory-restart 490M",
@@ -11,12 +11,12 @@
   },
   "keywords": [
     "bot",
-    "Baileys",
-    "Zokou",
+    "Usman",
+    "𝐂𝐘𝐁𝐄𝐑_𝐖𝐀𝐑𝐑𝐈𝐎𝐑",
     "whatsapp",
-    "whatsapp-bot","Djalega++"
+    "whatsapp-bot","𝐂𝐘𝐁𝐄𝐑_𝐖𝐀𝐑𝐑𝐈𝐎𝐑"
   ],
-  "author": "Djalega++",
+  "author": "𝐂𝐘𝐁𝐄𝐑_𝐖𝐀𝐑𝐑𝐈𝐎𝐑",
   "license": "ISC",
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
