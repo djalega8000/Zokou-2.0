@@ -12,14 +12,15 @@ const proConfig = {
 
 const pool = new Pool(proConfig);
 
-async function createUsersFicheTable() {
+async function createTexteFicheTable() {
   const client = await pool.connect();
 
   try {
-    // Créez la table users_fiche si elle n'existe pas déjà
+    // Créez la table texte_fiche si elle n'existe pas déjà
     await client.query(`
-      CREATE TABLE IF NOT EXISTS users_fiche(
+      CREATE TABLE IF NOT EXISTS texte_fiche(
         -- Joueur 1 (Lily KÏNGS II)
+        R1 INTEGER DEFAULT 10000,
         R2 TEXT DEFAULT 'aucun',
         R3 INTEGER DEFAULT 10000,
         R4 INTEGER DEFAULT 10000,
@@ -67,105 +68,9 @@ async function createUsersFicheTable() {
         -- ... (ajoutez les colonnes spécifiques à Kanzen)
       );
     `);
-    console.log('Table users_fiche créée avec succès');
+    console.log('Table texte_fiche créée avec succès');
   } catch (error) {
-    console.error('Erreur lors de la création de la table users_fiche:', error);
-  } finally {
-    client.release();
-  }
-}
-
-async function actualiserFicheUtilisateur(ms) {
-  const client = await pool.connect();
-
-  try {
-    const baileys_1 = require("@sampandey001/baileys");
-    var mtype = baileys_1.getContentType(ms.message);
-    var texte = mtype == "conversation" ? ms.message.conversation : "";
-
-    var msg = /JOUER: (\w+) actualise (\w+) \+\/- (\d+)/;
-
-    if (texte.match(msg)) {
-      const match = texte.match(msg);
-
-      if (match) {
-        const joueur = match[1];
-        const object = match[2];
-        const valeur = parseInt(match[3]);
-
-        let colonnesJoueur;
-
-        switch (joueur) {
-          case "Lily":
-            colonnesJoueur = {
-              Fans: "R1",
-              statut: "R2",
-              Gold: "R3",
-              NEOcoins: "R4",
-              Gift_Box: "R5",
-              Coupons: "R6",
-              NEO_PASS: "R7",
-              victoires: "R8",
-              Defaites: "R9",
-              Trophees: "R10",
-              Tos: "R11",
-              Awards: "R12",
-              cards: "R13",
-            };
-            break;
-          case "DAMIEN":
-            colonnesJoueur = {
-              Fans: "R14",
-              statut: "R15",
-              Gold: "R16",
-              NEOcoins: "R17",
-              Gift_Box: "R18",
-              Coupons: "R19",
-              NEO_PASS: "R20",
-              victoires: "R21",
-              Defaites: "R22",
-              Trophees: "R23",
-              Tos: "R24",
-              Awards: "R25",
-              cards: "R26",
-            };
-            break;
-          case "Kanzen":
-            colonnesJoueur = {
-              Fans: "R27",
-              statut: "R28",
-              Gold: "R29",
-              NEOcoins: "R30",
-              Gift_Box: "R31",
-              Coupons: "R32",
-              NEO_PASS: "R33",
-              victoires: "R34",
-              Defaites: "R35",
-              Trophees: "R36",
-              Tos: "R37",
-              Awards: "R38",
-              cards: "R39",
-            };
-            break;
-          default:
-            console.log("Nom de joueur non reconnu.");
-            return;
-        }
-
-        const colonneObjet = colonnesJoueur[object];
-
-        if (colonneObjet) {
-          await client.query(`UPDATE users_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
-          console.log(`Données de l'utilisateur ${joueur} mises à jour`);
-        } else {
-          console.log("Nom d'objet non reconnu.");
-        }
-      } else {
-        console.log("Le message ne correspond pas au format attendu.");
-      }
-    }
-  } catch (error) {
-    console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
+    console.error('Erreur lors de la création de la table texte_fiche:', error);
   } finally {
     client.release();
   }
@@ -177,7 +82,7 @@ async function getR() {
   try {
     // Sélectionnez les valeurs pour tous les joueurs
     const query =
-      "SELECT R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39 FROM users_fiche";
+      "SELECT R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R33, R34, R35, R36, R37, R38, R39 FROM texte_fiche";
     const result = await client.query(query);
     const {
         R2,
@@ -218,7 +123,7 @@ async function getR() {
         R37,
         R38,
         R39,
-      } = result.row
+      } = result.row[0];
       return {
         R2,
         R3,
