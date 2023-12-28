@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const { Pool } = require("pg");
 
-var dbUrl = "postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse";
+var dbUrl ="postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
 const proConfig = {
   connectionString: dbUrl,
   ssl: {
