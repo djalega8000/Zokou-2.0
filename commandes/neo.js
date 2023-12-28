@@ -86,9 +86,8 @@ zokou(
     const pool = new Pool(proConfig);
 
     const client = await pool.connect();
-    const msg = ms.body || "";
-    const msgRegex = /JOUER: (\w+) actualise (\w+) \+\/- (\d+)/;
-    const msgMatch = msg.match(msgRegex);
+    const msg = /JOUER: (\w+) actualise (\w+) \+\/- (\d+)/;
+    const msgMatch = msg.match;
 
 if (msgMatch) {
   const joueur = msgMatch[1];
@@ -157,7 +156,7 @@ if (msgMatch) {
   const colonneObjet = colonnesJoueur[object];
 
   if (colonneObjet) {
-    await client.query(`UPDATE texte_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
+    await client.query(`UPDATE texte_fiche SET ${colonneObjet} = ${colonneObjet} + $1 WHERE id = 1`, [valeur]);
     console.log(`Données de l'utilisateur ${joueur} mises à jour`);
     repondre(`Données du joueur ${joueur} mises à jour`);
   } else {
