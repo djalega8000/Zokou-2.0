@@ -11,7 +11,7 @@ zokou(
     try {
 
     const data = await getR();
-      if(arg[0]) {
+      if(!arg || arg.length === 0) {
 
     let mesg = `*NEOverse Rp Gaming*
     .𝐍𝐎𝐑𝐓H 𝐃𝐈𝐕𝐈𝐒𝐈𝐎𝐍🐺🔴 1
@@ -74,7 +74,7 @@ zokou(
      *🔷𝗡𝗘𝗢 𝗡𝗘𝗫𝗧 𝗚𝗔𝗠𝗘®🎮*`;
 
     zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/38659f7aeacb8cc83fe99.jpg' }, caption: mesg }, { quoted: ms });
-                   }
+                   } else {
     var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
     const proConfig = {
       connectionString: dbUrl,
@@ -179,9 +179,10 @@ if (msgMatch) {
   console.log("Le message ne correspond pas au format attendu.");
   repondre(`Le format du message est incorrect.`);
 }
+}
   } catch (error) {
     console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
-    repondre(`une erreur est survenu lors de la mise a jouer des données du jouer ${jouer}`);
+    repondre(`une erreur est survenu lors de la mise a jouer des données du jouer ${joueur}`);
   } finally {
           var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
     const proConfig = {
