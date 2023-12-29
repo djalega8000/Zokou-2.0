@@ -11,6 +11,7 @@ zokou(
     try {
 
     const data = await getR();
+      if(arg[0]) {
 
     let mesg = `*NEOverse Rp Gaming*
     .𝐍𝐎𝐑𝐓H 𝐃𝐈𝐕𝐈𝐒𝐈𝐎𝐍🐺🔴 1
@@ -73,7 +74,7 @@ zokou(
      *🔷𝗡𝗘𝗢 𝗡𝗘𝗫𝗧 𝗚𝗔𝗠𝗘®🎮*`;
 
     zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/38659f7aeacb8cc83fe99.jpg' }, caption: mesg }, { quoted: ms });
-
+                   }
     var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
     const proConfig = {
       connectionString: dbUrl,
@@ -86,7 +87,7 @@ zokou(
     const pool = new Pool(proConfig);
 
     const client = await pool.connect();
-    const arg = arg"";
+    const arg = arg("");
     const msg = /JOUER: (\w+) actualise (\w+) ([+-]?\d+)/;
     const msgMatch = arg.match(msg);
 
