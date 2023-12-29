@@ -7,9 +7,8 @@ zokou(
     categorie: 'NEOverse'
   },
   async (dest, zk, commandeOptions) => {
-    const { ms, repondre, arg } = commandeOptions;
     try {
-
+const { ms, repondre, arg } = commandeOptions;
     const data = await getR();
       if(!arg || arg.length === 0) {
 
