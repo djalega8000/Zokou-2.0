@@ -86,20 +86,20 @@ zokou(
     const { Pool } = require('pg');
     const pool = new Pool(proConfig);
 
-    const client = await pool.connect();
-    const arg = arg("");
-    const msg = /joueur: (\w+) actualise (\w+) ([+-]?\d+)/;
-    const msgMatch = arg.match(msg);
-
-if (msgMatch) {
-  const joueur = msgMatch[1];
-  const object = msgMatch[2];
-  const sign = msgMatch[3][0];
-  const valeur = parseInt(msgMatch[3].slice(1));
-
+const client = await pool.connect();
+const argsArray = arg.split(" ");
+const arg1 = argsArray[0];
+const arg2 = argsArray[1];
+const arg3 = argsArray[2];
+const arg4 = argsArray[3];
+const arg5 = argsArray[4];
+const arg6 = argsArray[5];
+const msg = `${arg1}: ${arg2} ${arg3} ${arg4} ${arg5} ${arg6 || ""}`;
+        if(msg) {
+    
   let colonnesJoueur;
 
-  switch (joueur) {
+  switch (arg2) {
     case "Lily":
       colonnesJoueur = {
         Fans: "r1",
@@ -159,18 +159,9 @@ if (msgMatch) {
     const colonneObjet = colonnesJoueur[object];
 
   if (colonneObjet) {
-    if (sign === '+') {
-      await client.query(`UPDATE tex_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
-      console.log(`Données de l'utilisateur ${joueur} mises à jour`);
-      repondre(`Données du joueur ${joueur} mises à jour`);
-    } else if (sign === '-') {
-      await client.query(`UPDATE tex_fiche SET ${colonneObjet} = ${colonneObjet} - $1`, [valeur]);
-      console.log(`Données de l'utilisateur ${joueur} mises à jour`);
-      repondre(`Données du joueur ${joueur} mises à jour`);
-    } else {
-      console.log("Signe non reconnu.");
-      repondre(`Une erreur est survenue. Veuillez entrer correctement les données.`);
-    }
+      await client.query(`UPDATE tex_fiche SET ${colonneObjet} = ${colonneObjet} ${arg5} $1 WHERE id = 1`, [arg6]);
+      console.log(`Données de l'utilisateur ${arg2} mises à jour`);
+      repondre(`Données du joueur ${arg2} mises à jour`);
   } else {
     console.log("Nom d'objet non reconnu.");
     repondre(`Une erreur est survenue. Veuillez entrer correctement les données.`);
@@ -182,7 +173,7 @@ if (msgMatch) {
 }
   } catch (error) {
     console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
-    repondre(`une erreur est survenu lors de la mise a jouer des données du jouer ${joueur}`);
+    repondre(`une erreur est survenu lors de la mise a jouer des données du jouer ${arg2}`);
   } finally {
           var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
     const proConfig = {
