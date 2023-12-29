@@ -125,6 +125,7 @@ async function getR() {
       r39,
     } = result.rows[0];
     return {
+      r1,
       r2,
       r3,
       r4,
