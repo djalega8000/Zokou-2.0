@@ -160,11 +160,11 @@ if (msgMatch) {
 
   if (colonneObjet) {
     if (sign === '+') {
-      await client.query(`UPDATE texte_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
+      await client.query(`UPDATE text_fiche SET ${colonneObjet} = ${colonneObjet} + $1`, [valeur]);
       console.log(`Données de l'utilisateur ${joueur} mises à jour`);
       repondre(`Données du joueur ${joueur} mises à jour`);
     } else if (sign === '-') {
-      await client.query(`UPDATE texte_fiche SET ${colonneObjet} = ${colonneObjet} - $1`, [valeur]);
+      await client.query(`UPDATE text_fiche SET ${colonneObjet} = ${colonneObjet} - $1`, [valeur]);
       console.log(`Données de l'utilisateur ${joueur} mises à jour`);
       repondre(`Données du joueur ${joueur} mises à jour`);
     } else {
