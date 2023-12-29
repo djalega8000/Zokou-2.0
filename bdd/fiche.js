@@ -10,13 +10,13 @@ const proConfig = {
 
 const pool = new Pool(proConfig);
 
-async function createTexteFicheTable() {
+async function createTextFicheTable() {
   const client = await pool.connect();
 
   try {
     // Créez la table texte_fiche si elle n'existe pas déjà
     await client.query(`
-      CREATE TABLE IF NOT EXISTS texte_fiche(
+      CREATE TABLE IF NOT EXISTS text_fiche(
         id serial PRIMARY KEY,
         -- Joueur 1 (Lily KÏNGS II)
         r1 integer default 10000,
@@ -67,9 +67,9 @@ async function createTexteFicheTable() {
         -- ... (ajoutez les colonnes spécifiques à Kanzen)
       );
     `);
-    console.log('Table texte_fiche créée avec succès');
+    console.log('Table text_fiche créée avec succès');
   } catch (error) {
-    console.error('Erreur lors de la création de la table texte_fiche:', error);
+    console.error('Erreur lors de la création de la table text_fiche:', error);
   } finally {
     client.release();
   }
@@ -81,9 +81,10 @@ async function getR() {
   try {
     // Sélectionnez les valeurs pour tous les joueurs
     const query =
-      "SELECT r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36, r37, r38, r39 FROM texte_fiche";
+      "SELECT r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36, r37, r38, r39 FROM text_fiche";
     const result = await client.query(query);
     const {
+      r1,
       r2,
       r3,
       r4,
@@ -170,9 +171,9 @@ async function getR() {
   }
 }
 
-createTexteFicheTable();
+createTextFicheTable();
 
 module.exports = {
-  createTexteFicheTable,
+  createTextFicheTable,
   getR,
 };
