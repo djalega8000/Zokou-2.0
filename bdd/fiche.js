@@ -171,7 +171,7 @@ async function getR() {
   }
 }
 
-createTextFicheTable();
+createTexFicheTable();
 
 module.exports = {
   createTexFicheTable,
