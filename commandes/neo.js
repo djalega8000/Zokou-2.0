@@ -84,9 +84,10 @@ const { ms, repondre, arg } = commandeOptions;
     
     const { Pool } = require('pg');
     const pool = new Pool(proConfig);
+        const ar = arg.join(""(;
 
 const client = await pool.connect();
-const argsArray = arg.split(" ");
+const argsArray = ar.split(" ");
 const arg1 = argsArray[0];
 const arg2 = argsArray[1];
 const arg3 = argsArray[2];
