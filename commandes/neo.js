@@ -87,16 +87,8 @@ const { ms, repondre, arg } = commandeOptions;
         const ar = arg.join("");
 
 const client = await pool.connect();
-const argsArray = ar.split(" ");
-        console.log(argArray);
-        repondre(argsArray);
-const arg1 = argsArray[0];
-const arg2 = argsArray[1];
-const arg3 = argsArray[2];
-const arg4 = argsArray[3];
-const arg5 = argsArray[4];
-const arg6 = argsArray[5];
-const msg = `${arg1}: ${arg2} ${arg3} ${arg4} ${arg5} ${arg6 || ""}`;
+const baileys_1 = __importStar(require("@sampandey001/baileys"));
+
         if(msg) {
     
   let colonnesJoueur;
@@ -104,52 +96,52 @@ const msg = `${arg1}: ${arg2} ${arg3} ${arg4} ${arg5} ${arg6 || ""}`;
   switch (arg2) {
     case "Lily":
       colonnesJoueur = {
-        Fans: "r1",
+        fans: "r1",
         statut: "r2",
-        Gold: "r3",
-        NEOcoins: "r4",
-        Gift_Box: "r5",
+        gold: "r3",
+        neocoins: "r4",
+        gift_box: "r5",
         Coupons: "r6",
-        NEO_PASS: "r7",
+        neo_pass: "r7",
         victoires: "r8",
-        Defaites: "r9",
-        Trophees: "r10",
-        Tos: "r11",
-        Awards: "r12",
+        defaites: "r9",
+        trophees: "r10",
+        tos: "r11",
+        awards: "r12",
         cards: "r13",
       };
       break;
     case "DAMIEN":
       colonnesJoueur = {
-        Fans: "r14",
+        fans: "r14",
         statut: "r15",
-        Gold: "r16",
-        NEOcoins: "r17",
-        Gift_Box: "r18",
-        Coupons: "r19",
-        NEO_PASS: "r20",
+        gold: "r16",
+        neocoins: "r17",
+        gift_box: "r18",
+        coupons: "r19",
+        neo_pass: "r20",
         victoires: "r21",
-        Defaites: "r22",
-        Trophees: "r23",
-        Tos: "r24",
-        Awards: "r25",
+        defaites: "r22",
+        trophees: "r23",
+        tos: "r24",
+        awards: "r25",
         cards: "r26",
       };
       break;
     case "Kanzen":
       colonnesJoueur = {
-        Fans: "r27",
+        fans: "r27",
         statut: "r28",
-        Gold: "r29",
-        NEOcoins: "r30",
-        Gift_Box: "r31",
-        Coupons: "r32",
-        NEO_PASS: "r33",
+        gold: "r29",
+        neocoins: "r30",
+        gift_box: "r31",
+        coupons: "r32",
+        neo_pass: "r33",
         victoires: "r34",
-        Defaites: "r35",
-        Trophees: "r36",
-        Tos: "r37",
-        Awards: "r38",
+        defaites: "r35",
+        trophees: "r36",
+        tos: "r37",
+        awards: "r38",
         cards: "r39",
       };
       break;
@@ -161,9 +153,9 @@ const msg = `${arg1}: ${arg2} ${arg3} ${arg4} ${arg5} ${arg6 || ""}`;
     const colonneObjet = colonnesJoueur[object];
 
   if (colonneObjet) {
-      await client.query(`UPDATE tex_fiche SET ${colonneObjet} = ${colonneObjet} ${arg5} $1 WHERE id = 1`, [arg6]);
-      console.log(`Données de l'utilisateur ${arg2} mises à jour`);
-      repondre(`Données du joueur ${arg2} mises à jour`);
+      await client.query(`UPDATE tex_fiche SET ${colonneObjet} = ${colonneObjet} ${signe} $1 WHERE id = 1`, [valeur]);
+      console.log(`Données de l'utilisateur ${joueur} mises à jour`);
+      repondre(`Données du joueur ${joueur} mises à jour`);
   } else {
     console.log("Nom d'objet non reconnu.");
     repondre(`Une erreur est survenue. Veuillez entrer correctement les données.`);
@@ -175,7 +167,7 @@ const msg = `${arg1}: ${arg2} ${arg3} ${arg4} ${arg5} ${arg6 || ""}`;
 }
   } catch (error) {
     console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
-    repondre(`une erreur est survenu lors de la mise a jouer des données du jouer ${arg2}`);
+    repondre(`une erreur est survenu lors de la mise a jouer des données du jouer ${joueur}`);
   } finally {
           var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
     const proConfig = {
