@@ -88,6 +88,7 @@ const { ms, repondre, arg } = commandeOptions;
 
 const client = await pool.connect();
 const argsArray = ar.split(" ");
+        console.log(argArray);
         repondre(argsArray);
 const arg1 = argsArray[0];
 const arg2 = argsArray[1];
