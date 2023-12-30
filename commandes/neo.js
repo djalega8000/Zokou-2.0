@@ -88,8 +88,13 @@ const { ms, repondre, arg } = commandeOptions;
 
 const client = await pool.connect();
 const baileys_1 = __importStar(require("@sampandey001/baileys"));
-
-        if(msg) {
+var mtype = (0, baileys_1.getContentType)(ms.message);
+var texte = mtype == "conversation" ? ms.message.conversation: "";
+        if(texte) {
+  let joueur = texte[1];
+  let object = texte[3];
+  let signe = texte[4];
+  let valeur = texte[5];
     
   let colonnesJoueur;
 
