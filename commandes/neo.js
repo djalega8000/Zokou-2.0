@@ -170,6 +170,7 @@ async function mettreAJourUser(dest, zk, commandeOptions) {
 
       // Vérification si la colonne existe
       if (colonneObjet) {
+        const client = await pool.connect();
         // Exécution de la requête SQL pour mettre à jour les données de l'utilisateur
         await client.query(`UPDATE tex_fiche SET ${colonneObjet} = ${colonneObjet} ${signe} $1 WHERE id = 1`, [valeur]);
 
