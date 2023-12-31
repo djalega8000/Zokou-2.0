@@ -76,125 +76,140 @@ const { ms, repondre, arg } = commandeOptions;
   });
 
 
-fonction mettreAJourUser
+// Importation des modules nécessaires
+const { getContentType } = require("@sampandey001/baileys");
+const { Pool } = require('pg');
 
+// Fonction asynchrone pour mettre à jour les données de l'utilisateur
+async function mettreAJourUser(dest, zk, commandeOptions) {
+  try {
+    const { ms, repondre } = commandeOptions;
 
-      async (dest, zk, commandeOptions) => {
-const { ms, repondre, arg } = commandeOptions;
-    var texte = mtype == "conversation" ? ms.message.conversation : mtype == "imageMessage" ? ms.message.imageMessage?.caption : mtype == "videoMessage" ? ms.message.videoMessage?.caption : mtype == "extendedTextMessage" ? ms.message?.extendedTextMessage?.text : mtype == "buttonsResponseMessage" ?
-                ms?.message?.buttonsResponseMessage?.selectedButtonId : mtype == "listResponseMessage" ?
-                ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId : mtype == "messageContextInfo" ?
-                (ms?.message?.buttonsResponseMessage?.selectedButtonId || ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId || ms.text) : "";
-      
-    var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
-    const proConfig = {
-      connectionString: dbUrl,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    };
-    
-    const { Pool } = require('pg');
-    const pool = new Pool(proConfig);
-const client = await pool.connect();
-        if(texte) {
-  let joueur = texte[1];
-  let object = texte[3];
-  let signe = texte[4];
-  let valeur = texte[5];
-    
-  let colonnesJoueur;
+    // Obtention du type de contenu du message
+    const mtype = getContentType(ms.message);
 
-  switch (joueur) {
-    case "Lily":
-      colonnesJoueur = {
-        fans: "r1",
-        statut: "r2",
-        gold: "r3",
-        neocoins: "r4",
-        gift_box: "r5",
-        Coupons: "r6",
-        neo_pass: "r7",
-        victoires: "r8",
-        defaites: "r9",
-        trophees: "r10",
-        tos: "r11",
-        awards: "r12",
-        cards: "r13",
+    // Extraction du texte du message en fonction du type de contenu
+    const texte = mtype === "conversation" ? ms.message.conversation :
+      mtype === "imageMessage" ? ms.message.imageMessage?.caption :
+      mtype === "videoMessage" ? ms.message.videoMessage?.caption :
+      mtype === "extendedTextMessage" ? ms.message?.extendedTextMessage?.text :
+      mtype === "buttonsResponseMessage" ? ms?.message?.buttonsResponseMessage?.selectedButtonId :
+      mtype === "listResponseMessage" ? ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId :
+      mtype === "messageContextInfo" ? (ms?.message?.buttonsResponseMessage?.selectedButtonId || ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId || ms.text) : "";
+
+    // Vérification si le texte existe
+    if (texte) {
+      // Découpage du texte en parties en utilisant l'espace comme séparateur
+      const parties = texte.split(" ");
+
+      // Extraction des éléments du texte
+      const joueur = parties[1];
+      const object = parties[3];
+      const signe = parties[4];
+      const valeur = parties[5];
+
+      // Configuration de la connexion à la base de données
+      const dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
+      const proConfig = {
+        connectionString: dbUrl,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       };
-      break;
-    case "DAMIEN":
-      colonnesJoueur = {
-        fans: "r14",
-        statut: "r15",
-        gold: "r16",
-        neocoins: "r17",
-        gift_box: "r18",
-        coupons: "r19",
-        neo_pass: "r20",
-        victoires: "r21",
-        defaites: "r22",
-        trophees: "r23",
-        tos: "r24",
-        awards: "r25",
-        cards: "r26",
-      };
-      break;
-    case "Kanzen":
-      colonnesJoueur = {
-        fans: "r27",
-        statut: "r28",
-        gold: "r29",
-        neocoins: "r30",
-        gift_box: "r31",
-        coupons: "r32",
-        neo_pass: "r33",
-        victoires: "r34",
-        defaites: "r35",
-        trophees: "r36",
-        tos: "r37",
-        awards: "r38",
-        cards: "r39",
-      };
-      break;
-    default:
-      console.log("Nom de joueur non reconnu.");
-      return;
-  }
 
-    const colonneObjet = colonnesJoueur[object];
+      // Création d'une instance de Pool pour la connexion à la base de données
+      const pool = new Pool(proConfig);
 
-  if (colonneObjet) {
-      await client.query(`UPDATE tex_fiche SET ${colonneObjet} = ${colonneObjet} ${signe} $1 WHERE id = 1`, [valeur]);
-      console.log(`Données de l'utilisateur ${joueur} mises à jour`);
-      repondre(`Données du joueur ${joueur} mises à jour`);
-  } else {
-    console.log("Nom d'objet non reconnu.");
-    repondre(`Une erreur est survenue. Veuillez entrer correctement les données.`);
-  }
-} else {
-  console.log("Le message ne correspond pas au format attendu.");
-  repondre(`Le format du message est incorrect.`);
-}
-}
+      // Connexion à la base de données
+      const client = await pool.connect();
+
+      // Définition des colonnes pour chaque joueur
+      let colonnesJoueur;
+      switch (joueur) {
+        case "Lily":
+          colonnesJoueur = {
+            fans: "r1",
+            statut: "r2",
+            gold: "r3",
+            neocoins: "r4",
+            gift_box: "r5",
+            Coupons: "r6",
+            neo_pass: "r7",
+            victoires: "r8",
+            defaites: "r9",
+            trophees: "r10",
+            tos: "r11",
+            awards: "r12",
+            cards: "r13",
+          };
+          break;
+        case "DAMIEN":
+          colonnesJoueur = {
+            fans: "r14",
+            statut: "r15",
+            gold: "r16",
+            neocoins: "r17",
+            gift_box: "r18",
+            coupons: "r19",
+            neo_pass: "r20",
+            victoires: "r21",
+            defaites: "r22",
+            trophees: "r23",
+            tos: "r24",
+            awards: "r25",
+            cards: "r26",
+          };
+          break;
+        case "Kanzen":
+          colonnesJoueur = {
+            fans: "r27",
+            statut: "r28",
+            gold: "r29",
+            neocoins: "r30",
+            gift_box: "r31",
+            coupons: "r32",
+            neo_pass: "r33",
+            victoires: "r34",
+            defaites: "r35",
+            trophees: "r36",
+            tos: "r37",
+            awards: "r38",
+            cards: "r39",
+          };
+          break;
+        default:
+          console.log("Nom de joueur non reconnu.");
+          return;
+      }
+
+      // Sélection de la colonne associée à l'objet
+      const colonneObjet = colonnesJoueur[object];
+
+      // Vérification si la colonne existe
+      if (colonneObjet) {
+        // Exécution de la requête SQL pour mettre à jour les données de l'utilisateur
+        await client.query(`UPDATE tex_fiche SET ${colonneObjet} = ${colonneObjet} ${signe} $1 WHERE id = 1`, [valeur]);
+
+        // Affichage dans la console et réponse
+        console.log(`Données de l'utilisateur ${joueur} mises à jour`);
+        repondre(`Données du joueur ${joueur} mises à jour`);
+      } else {
+        console.log("Nom d'objet non reconnu.");
+        repondre(`Une erreur est survenue. Veuillez entrer correctement les données.`);
+      }
+
+      // Fermeture de la connexion à la base de données
+      client.release();
+    } else {
+      console.log("Le message ne correspond pas au format attendu.");
+      repondre(`Le format du message est incorrect.`);
+    }
   } catch (error) {
+    // Gestion des erreurs
     console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
-    repondre(`une erreur est survenu lors de la mise a jouer des données du jouer ${joueur}`);
-  } finally {
-          var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
-    const proConfig = {
-      connectionString: dbUrl,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    };
-    
-    const { Pool } = require('pg');
-    const pool = new Pool(proConfig);
-
-    const client = await pool.connect();
-    client.release();
+    repondre(`Une erreur est survenue lors de la mise à jour des données du joueur.`);
   }
-});
+}
 
-
+// Exportation de la fonction
+module.exports = mettreAJourUser;
