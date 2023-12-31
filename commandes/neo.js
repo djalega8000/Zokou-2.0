@@ -7,7 +7,6 @@ zokou(
     categorie: 'NEOverse'
   },
   async (dest, zk, commandeOptions) => {
-    try {
 const { ms, repondre, arg } = commandeOptions;
     const data = await getR();
       if(!arg || arg.length === 0) {
@@ -73,7 +72,20 @@ const { ms, repondre, arg } = commandeOptions;
      *🔷𝗡𝗘𝗢 𝗡𝗘𝗫𝗧 𝗚𝗔𝗠𝗘®🎮*`;
 
     zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/38659f7aeacb8cc83fe99.jpg' }, caption: mesg }, { quoted: ms });
-                   } else {
+                   }
+  });
+
+
+fonction mettreAJourUser
+
+
+      async (dest, zk, commandeOptions) => {
+const { ms, repondre, arg } = commandeOptions;
+    var texte = mtype == "conversation" ? ms.message.conversation : mtype == "imageMessage" ? ms.message.imageMessage?.caption : mtype == "videoMessage" ? ms.message.videoMessage?.caption : mtype == "extendedTextMessage" ? ms.message?.extendedTextMessage?.text : mtype == "buttonsResponseMessage" ?
+                ms?.message?.buttonsResponseMessage?.selectedButtonId : mtype == "listResponseMessage" ?
+                ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId : mtype == "messageContextInfo" ?
+                (ms?.message?.buttonsResponseMessage?.selectedButtonId || ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId || ms.text) : "";
+      
     var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
     const proConfig = {
       connectionString: dbUrl,
@@ -85,9 +97,6 @@ const { ms, repondre, arg } = commandeOptions;
     const { Pool } = require('pg');
     const pool = new Pool(proConfig);
 const client = await pool.connect();
-const baileys_1 = __importStar(require("@sampandey001/baileys"));
-var mtype = (0, baileys_1.getContentType)(ms.message);
-var texte = mtype == "conversation" ? ms.message.conversation: "";
         if(texte) {
   let joueur = texte[1];
   let object = texte[3];
@@ -187,3 +196,5 @@ var texte = mtype == "conversation" ? ms.message.conversation: "";
     client.release();
   }
 });
+
+
