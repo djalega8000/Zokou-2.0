@@ -77,7 +77,7 @@ const { ms, repondre, arg } = commandeOptions;
 
 
 // Importation des modules nécessaires
-const { getContentType } = require("@sampandey001/baileys");
+const baileys_1 = __importStar(require("@sampandey001/baileys"));
 const { Pool } = require('pg');
 
 // Fonction asynchrone pour mettre à jour les données de l'utilisateur
@@ -86,16 +86,11 @@ async function mettreAJourUser(dest, zk, commandeOptions) {
     const { ms, repondre } = commandeOptions;
 
     // Obtention du type de contenu du message
-    const mtype = getContentType(ms.message);
-
-    // Extraction du texte du message en fonction du type de contenu
-    const texte = mtype === "conversation" ? ms.message.conversation :
-      mtype === "imageMessage" ? ms.message.imageMessage?.caption :
-      mtype === "videoMessage" ? ms.message.videoMessage?.caption :
-      mtype === "extendedTextMessage" ? ms.message?.extendedTextMessage?.text :
-      mtype === "buttonsResponseMessage" ? ms?.message?.buttonsResponseMessage?.selectedButtonId :
-      mtype === "listResponseMessage" ? ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId :
-      mtype === "messageContextInfo" ? (ms?.message?.buttonsResponseMessage?.selectedButtonId || ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId || ms.text) : "";
+    Var mtype = (0, baileys_1.getContentType)(ms.message);
+    var texte = mtype == "conversation" ? ms.message.conversation : mtype == "imageMessage" ? ms.message.imageMessage?.caption : mtype == "videoMessage" ? ms.message.videoMessage?.caption : mtype == "extendedTextMessage" ? ms.message?.extendedTextMessage?.text : mtype == "buttonsResponseMessage" ?
+                ms?.message?.buttonsResponseMessage?.selectedButtonId : mtype == "listResponseMessage" ?
+                ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId : mtype == "messageContextInfo" ?
+                (ms?.message?.buttonsResponseMessage?.selectedButtonId || ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId || ms.text) : "";
 
     // Vérification si le texte existe
     if (texte) {
@@ -117,13 +112,7 @@ async function mettreAJourUser(dest, zk, commandeOptions) {
         },
       };
 
-      // Création d'une instance de Pool pour la connexion à la base de données
-      const pool = new Pool(proConfig);
-
-      // Connexion à la base de données
-      const client = await pool.connect();
-
-      // Définition des colonnes pour chaque joueur
+      // Création d'une instance de Pool pour la connection pour chaque joueur
       let colonnesJoueur;
       switch (joueur) {
         case "Lily":
