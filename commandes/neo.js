@@ -9,7 +9,6 @@ zokou(
   async (dest, zk, commandeOptions) => {
 const { ms, repondre, arg } = commandeOptions;
     const data = await getR();
-      if(!arg || arg.length === 0) {
 
     let mesg = `*NEOverse Rp Gaming*
     .𝐍𝐎𝐑𝐓H 𝐃𝐈𝐕𝐈𝐒𝐈𝐎𝐍🐺🔴 1
@@ -72,7 +71,6 @@ const { ms, repondre, arg } = commandeOptions;
      *🔷𝗡𝗘𝗢 𝗡𝗘𝗫𝗧 𝗚𝗔𝗠𝗘®🎮*`;
 
     zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/38659f7aeacb8cc83fe99.jpg' }, caption: mesg }, { quoted: ms });
-                   }
   });
 
 
