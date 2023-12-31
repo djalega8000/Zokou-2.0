@@ -1,9 +1,9 @@
 const { zokou } = require('../framework/zokou');
-const { getR } = require('../bdd/west1fiche');
+const { getR } = require('../bdd/fiche');
 
 zokou(
   {
-    nomCom: 'west1',
+    nomCom: 'north1',
     categorie: 'NEOverse'
   },
   async (dest, zk, commandeOptions) => {
@@ -11,7 +11,8 @@ zokou(
 const { ms, repondre, arg } = commandeOptions;
     const data = await getR();
       if(!arg || arg.length === 0) {
-let mesg = ` .*𝗪𝗘𝗦𝗧 𝗗𝗜𝗩𝗜𝗦𝗜𝗢𝗡🦁🔵*
+
+    let mesg = ` .*𝗪𝗘𝗦𝗧 𝗗𝗜𝗩𝗜𝗦𝗜𝗢𝗡🦁🔵*
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 ◇ *Pseudo👤*: Æther GENESIS🇬🇦
@@ -61,7 +62,8 @@ let mesg = ` .*𝗪𝗘𝗦𝗧 𝗗𝗜𝗩𝗜𝗦𝗜𝗢𝗡🦁🔵*
 *🎴Cards(15 max)*: ${data.r36}
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-         *◁🔷𝗡𝗘𝗢 𝗙𝗢𝗥 𝗧𝗛𝗘 𝗣𝗟𝗔𝗬𝗘𝗥𝗦🎮➕ᐅᐭ*`;
+*◁🔷𝗡𝗘𝗢 𝗙𝗢𝗥 𝗧𝗛𝗘 𝗣𝗟𝗔𝗬𝗘𝗥𝗦🎮➕ᐅᐭ*`;
+
 zk.sendMessage(dest, { image: { url: 'https://i.imgur.com/crAlkxv.jpg' }, caption: mesg }, { quoted: ms });
                    } else {
     var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
@@ -88,7 +90,7 @@ var texte = mtype == "conversation" ? ms.message.conversation: "";
     
   let colonnesJoueur;
 
-  switch (arg2) {
+  switch (joueur) {
     case "Aether":
       colonnesJoueur = {
         rang_xp: "r1",
@@ -176,4 +178,3 @@ var texte = mtype == "conversation" ? ms.message.conversation: "";
     client.release();
   }
 });
-        
