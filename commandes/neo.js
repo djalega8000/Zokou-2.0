@@ -7,7 +7,7 @@ zokou(
     categorie: 'NEOverse'
   },
   async (dest, zk, commandeOptions) => {
-const { ms, repondre, arg } = commandeOptions;
+const { ms, repondre } = commandeOptions;
     const data = await getR();
 
     let mesg = `*NEOverse Rp Gaming*
@@ -92,14 +92,10 @@ async function mettreAJourUser(dest, zk, commandeOptions) {
 
     // Vérification si le texte existe
     if (texte) {
-      // Découpage du texte en parties en utilisant l'espace comme séparateur
-      const parties = texte.split(" ");
-
-      // Extraction des éléments du texte
-      const joueur = parties[1];
-      const object = parties[3];
-      const signe = parties[4];
-      const valeur = parties[5];
+      const joueur = texte[1];
+      const object = texte[3];
+      const signe = texte[4];
+      const valeur = texte[5];
 
       // Configuration de la connexion à la base de données
       const dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
