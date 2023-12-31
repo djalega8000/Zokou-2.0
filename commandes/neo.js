@@ -172,7 +172,7 @@ async function mettreAJourUser(dest, zk, commandeOptions) {
       if (colonneObjet) {
         const client = await pool.connect();
         // Exécution de la requête SQL pour mettre à jour les données de l'utilisateur
-        await client.query(`UPDATE tex_fiche SET ${colonneObjet} = ${colonneObjet} ${signe} $1 WHERE id = 1`, [valeur]);
+        await client.query(`UPDATE tex_fiche SET ${colonneObjet} = ${colonneObjet} ${signe} $1`, [valeur]);
 
         // Affichage dans la console et réponse
         console.log(`Données de l'utilisateur ${joueur} mises à jour`);
