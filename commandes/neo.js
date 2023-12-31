@@ -98,7 +98,7 @@ var texte = mtype == "conversation" ? ms.message.conversation: "";
     
   let colonnesJoueur;
 
-  switch (arg2) {
+  switch (joueur) {
     case "Lily":
       colonnesJoueur = {
         fans: "r1",
