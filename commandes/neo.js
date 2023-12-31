@@ -195,4 +195,4 @@ async function mettreAJourUser(dest, zk, commandeOptions) {
 }
 
 // Exportation de la fonction
-module.exports = mettreAJourUser;
+module.exports = {mettreAJourUser};
