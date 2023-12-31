@@ -7,7 +7,7 @@ zokou(
     categorie: 'NEOverse'
   },
   async (dest, zk, commandeOptions) => {
-const { ms, repondre } = commandeOptions;
+const { ms } = commandeOptions;
     const data = await getR();
 
     let mesg = `*NEOverse Rp Gaming*
