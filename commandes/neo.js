@@ -84,8 +84,6 @@ const { ms, repondre, arg } = commandeOptions;
     
     const { Pool } = require('pg');
     const pool = new Pool(proConfig);
-        const ar = arg.join("");
-
 const client = await pool.connect();
 const baileys_1 = __importStar(require("@sampandey001/baileys"));
 var mtype = (0, baileys_1.getContentType)(ms.message);
