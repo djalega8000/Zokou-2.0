@@ -23,7 +23,7 @@ const { ms, repondre, arg } = commandeOptions;
 ◇ *Coupons🎟*: ${data.r5}🎟
 ◇ *NEO PASS🔸*: ${data.r6}🔸
 ░░░░░░░░░░░░░░
-Note: ⭐1/5
+Note: ⭐⭐⭐3/5
 Records: ${data.r7} Victoires✅/ ${data.r8} Défaites❌
 🏆Trophées: ${data.r9}     🌟TOS: ${data.r10}     💫Awards: ${data.r11}
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -39,7 +39,7 @@ Records: ${data.r7} Victoires✅/ ${data.r8} Défaites❌
 ◇ *Coupons🎟*: ${data.r17}🎟
 ◇ *NEO PASS🔸*: ${data.r18}🔸
 ░░░░░░░░░░░░░░
-Note: ⭐1/5
+Note: ⭐⭐2/5
 Records: ${data.r19} Victoires✅/ ${data.r20} Défaites❌
 🏆Trophées: ${data.r21}     🌟TOS: ${data.r22}     💫Awards: ${data.r23}
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
