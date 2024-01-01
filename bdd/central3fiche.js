@@ -16,7 +16,7 @@ async function createCentral3FicheTable() {
   try {
     // Créez la table central3_fiche si elle n'existe pas déjà
     await client.query(`
-      CREATE TABLE IF NOT EXISTS east1_fiche(
+      CREATE TABLE IF NOT EXISTS central3_fiche(
         id SERIAL PRIMARY KEY,
         r1 INTEGER DEFAULT 0,
         r2 TEXT DEFAULT 'aucun',
