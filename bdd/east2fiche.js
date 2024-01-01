@@ -56,7 +56,7 @@ async function createEast2FicheTable() {
         r36 TEXT DEFAULT 'aucun'
       );
     `);
-    console.log('Table east1_fiche créée avec succès');
+    console.log('Table east2_fiche créée avec succès');
   } catch (error) {
     console.error('Erreur lors de la création de la table east2_fiche:', error);
   } finally {
