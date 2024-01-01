@@ -1,9 +1,9 @@
 const { zokou } = require('../framework/zokou');
-const { getR } = require('../bdd/fiche');
+const { getR } = require('../bdd/east1fiche');
 
 zokou(
   {
-    nomCom: 'north1',
+    nomCom: 'east1',
     categorie: 'NEOverse'
   },
   async (dest, zk, commandeOptions) => {
@@ -11,58 +11,61 @@ zokou(
 const { ms, repondre, arg } = commandeOptions;
     const data = await getR();
       if(!arg || arg.length === 0) {
-let mesg = ` . 𝗘𝗔𝗦𝗧 𝗗𝗜𝗩𝗜𝗦𝗜𝗢𝗡🦅🟢
+
+    let mesg = ` .* 𝗘𝗔𝗦𝗧 𝗗𝗜𝗩𝗜𝗦𝗜𝗢𝗡🦅🟢*
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 ◇ *Pseudo👤*: Atsushi KÏNGS🇨🇲 
-◇ *Rang XP🔰*: ${r1}
-◇ *Golds🧭*: ${r2}🧭
-◇ *NEOcoins🔹*: 13🔷
-◇ *Gift Box🎁*: 0🎁
-◇ *Coupons🎟️*: 0🎟️
-◇ *NEO PASS🔸*: 0🔸
+◇ *Rang XP🔰*: ${data.r1}
+◇ *Golds🧭*: ${data.r2}🧭
+◇ *NEOcoins🔹*: ${data.r3}🔷
+◇ *Gift Box🎁*: ${data.r4}🎁
+◇ *Coupons🎟️*: ${data r5}🎟️
+◇ *NEO PASS🔸*: ${data.r6}🔸
 ░░░░░░░░░░░░░░
 *Note*: ⭐1/5
-*Records*: 25 Victoires✅/ 67 Défaites❌
-*🏆Trophées*: 0 *🌟TOS*: 0 *💫Awards*: 0
+*Records*: ${data.r7} Victoires✅/ ${data.r8} Défaites❌
+*🏆Trophées*: ${data.r9} *🌟TOS*: ${data.r10} *💫Awards*: ${data.r11}
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-*🎴Cards(15 max)*: Borushiki 
+*🎴Cards(15 max)*: ${data.r12} 
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 
 ◇ *Pseudo👤*: White KÏNGS🇨🇮 
-◇ *Rang XP🔰*: *SUPERSTAR💫*: Grade A
-◇ *Golds🧭*: 2.025.000🧭
-◇ *NEOcoins🔹*: 30🔷
-◇ *Gift Box🎁*: 1🎁
-◇ *Coupons🎟️*: 0🎟️
-◇ *NEO PASS🔸*: 0🔸
+◇ *Rang XP🔰*: ${datat.r13}
+◇ *Golds🧭*: ${data.r14}🧭
+◇ *NEOcoins🔹*: ${data.r15}🔷
+◇ *Gift Box🎁*: ${data.r16}🎁
+◇ *Coupons🎟️*: ${data.r17}🎟️
+◇ *NEO PASS🔸*: ${data.r18}🔸
 ░░░░░░░░░░░░░░
 *Note*: ⭐⭐⭐⭐4/5
-*Records*: 62 Victoires✅/ 30 Défaites❌
-*🏆Trophées*: 1 *🌟TOS*: 2 *💫Awards*: 0
+*Records*: ${data.r19} Victoires✅/ ${data.r20} Défaites❌
+*🏆Trophées*: ${data.r21} *🌟TOS*: ${data.r22} *💫Awards*: ${data.r23}
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-*🎴Cards(15 max)*: Sukuna, Saitama. 
+*🎴Cards(15 max)*: ${data.r24} 
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 
 ◇ *Pseudo👤*: Kemael🇨🇮
-◇ *Rang XP🔰*: Joueur Classé🎮
-◇ *Golds🧭*: 130.000🧭
-◇ *NEOcoins🔹*: 3🔷
-◇ *Gift Box🎁*: 1🎁
-◇ *Coupons🎟️*: 100🎟️
-◇ *NEO PASS🔸*: 0🔸
+◇ *Rang XP🔰*: ${data.r25}
+◇ *Golds🧭*: ${data.r26}🧭
+◇ *NEOcoins🔹*: ${data.r27}🔷
+◇ *Gift Box🎁*: ${data.r28}🎁
+◇ *Coupons🎟️*: ${data.r29}🎟️
+◇ *NEO PASS🔸*: ${data.r30}🔸
 ░░░░░░░░░░░░░░
 *Note*: ⭐⭐2.5/5
-*Records*: 17 Victoires✅/ 6 Défaites❌
-*🏆Trophées*: 1 *🌟TOS*: 1 *💫Awards*: 0
+*Records*: ${data.r31} Victoires✅/ ${data.r32} Défaites❌
+*🏆Trophées*: ${data.r33} *🌟TOS*: ${data.r34} *💫Awards*: ${data.r35}
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-*🎴Cards(15 max)*: Itadori, Natsu, Goku(début), Goku SSJ2
+*🎴Cards(15 max)*: ${data.r36}
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
- *◁🔷𝗡𝗘𝗢 𝗙𝗢𝗥 𝗧𝗛𝗘 𝗣𝗟𝗔𝗬𝗘𝗥𝗦🎮➕ᐅᐭ*`;
- zk.sendMessage(dest, { image: { url: 'https://telegra.ph/file/38659f7aeacb8cc83fe99.jpg' }, caption: mesg }, { quoted: ms });
+        *◁🔷𝗡𝗘𝗢 𝗙𝗢𝗥 𝗧𝗛𝗘 𝗣𝗟𝗔𝗬𝗘𝗥𝗦🎮➕ᐅᐭ
+*`;
+ 
+zk.sendMessage(dest, { image: { url: 'https://i.imgur.com/EashJkj.jpg' }, caption: mesg }, { quoted: ms });
                    } else {
     var dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
     const proConfig = {
@@ -88,56 +91,53 @@ var texte = mtype == "conversation" ? ms.message.conversation: "";
     
   let colonnesJoueur;
 
-  switch (arg2) {
-    case "Lily":
+  switch (joueur) {
+    case "Atsushi":
       colonnesJoueur = {
-        fans: "r1",
-        statut: "r2",
-        gold: "r3",
-        neocoins: "r4",
-        gift_box: "r5",
-        Coupons: "r6",
-        neo_pass: "r7",
-        victoires: "r8",
-        defaites: "r9",
-        trophees: "r10",
-        tos: "r11",
-        awards: "r12",
-        cards: "r13",
+        rang_xp: "r1",
+        golds: "r2",
+        neocoins: "r3",
+        gift_box: "r4",
+        coupons: "r5",
+        neo_pass: "r6",
+        victoires: "r7",
+        defaites: "r8",
+        trophees: "r9",
+        tos: "r10",
+        awards: "r11",
+        cards: "r12",
       };
       break;
-    case "DAMIEN":
+    case "White":
       colonnesJoueur = {
-        fans: "r14",
-        statut: "r15",
-        gold: "r16",
-        neocoins: "r17",
-        gift_box: "r18",
-        coupons: "r19",
-        neo_pass: "r20",
-        victoires: "r21",
-        defaites: "r22",
-        trophees: "r23",
-        tos: "r24",
-        awards: "r25",
-        cards: "r26",
+        rang_xp: "r13",
+        golds: "r14",
+        neocoins: "r15",
+        gift_box: "r16",
+        coupons: "r17",
+        neo_pass: "r18",
+        victoires: "r19",
+        defaites: "r20",
+        trophees: "r21",
+        tos: "r22",
+        awards: "r23",
+        cards: "r24",
       };
       break;
-    case "Kanzen":
+    case "Kemael":
       colonnesJoueur = {
-        fans: "r27",
-        statut: "r28",
-        gold: "r29",
-        neocoins: "r30",
-        gift_box: "r31",
-        coupons: "r32",
-        neo_pass: "r33",
-        victoires: "r34",
-        defaites: "r35",
-        trophees: "r36",
-        tos: "r37",
-        awards: "r38",
-        cards: "r39",
+        rang_xp: "r25",
+        golds: "r26",
+        neocoins: "r27",
+        gift_box: "r28",
+        coupons: "r29",
+        neo_pass: "r30",
+        victoires: "r31",
+        defaites: "r32",
+        trophees: "r33",
+        tos: "r34",
+        awards: "r35",
+        cards: "r36",
       };
       break;
     default:
