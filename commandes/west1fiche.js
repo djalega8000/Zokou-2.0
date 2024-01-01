@@ -23,7 +23,7 @@ const { ms, repondre, arg } = commandeOptions;
 ◇ *Coupons🎟️*: ${data.r5}🎟️
 ◇ *NEO PASS🔸*: ${data.r6}🔸
 ░░░░░░░░░░░░░░
-*Note*: ⭐1/5
+*Note*: ⭐⭐⭐⭐4,5/5
 *Records*: ${data.r7} Victoires✅/ ${data.r8} Défaites❌
 *🏆Trophées*: ${data.r9}     *🌟TOS*: ${data.r10}     *💫Awards*: ${data.r11}
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -31,7 +31,7 @@ const { ms, repondre, arg } = commandeOptions;
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 
-◇ *Pseudo👤*: Solomoe Astral KÏNGS🇸🇳
+◇ *Pseudo👤*: SoloMoe Astral KÏNGS🇸🇳
 ◇ *Rang XP🔰*: ${data.r13}
 ◇ *Golds🧭*: ${data.r14}🧭
 ◇ *NEOcoins🔹*: ${data.r15}🔷
@@ -39,7 +39,7 @@ const { ms, repondre, arg } = commandeOptions;
 ◇ *Coupons🎟️*: ${data.r17}🎟️
 ◇ *NEO PASS🔸*: ${data.r18}🔸
 ░░░░░░░░░░░░░░
-*Note*: ⭐1/5
+*Note*: ⭐⭐⭐3.5/5
 *Records*: ${data.r19} Victoires✅/ ${data.r20} Défaites❌
 *🏆Trophées*: ${data.r21}     *🌟TOS*: ${data.r22}     *💫Awards*: ${data.r23}
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
@@ -55,7 +55,7 @@ const { ms, repondre, arg } = commandeOptions;
 ◇ *Coupons🎟️*: ${data.r29}🎟️
 ◇ *NEO PASS🔸*: ${data.r30}🔸
 ░░░░░░░░░░░░░░
-*Note*: ⭐1/5
+*Note*: ⭐⭐⭐3.5/5
 *Records*: ${data.r31} Victoires✅/ ${data.r32} Défaites❌
 *🏆Trophées*: ${data.r33}     *🌟TOS*: ${data.r34}     *💫Awards*: ${data.r35}
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
