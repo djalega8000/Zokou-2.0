@@ -1,9 +1,9 @@
 const { zokou } = require('../framework/zokou');
-const { getR } = require('../bdd/fiche');
+const { getR } = require('../bdd/west1fiche');
 
 zokou(
   {
-    nomCom: 'north1',
+    nomCom: 'west1',
     categorie: 'NEOverse'
   },
   async (dest, zk, commandeOptions) => {
