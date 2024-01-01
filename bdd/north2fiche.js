@@ -155,7 +155,7 @@ async function getR() {
   }
 }
 
-createNorth2icheTable();
+createNorth2FicheTable();
 
 module.exports = {
   createNorth2FicheTable,
