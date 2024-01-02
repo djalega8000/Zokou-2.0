@@ -304,9 +304,6 @@ function mybotpic() {
       repondre("Données du joueur mises à jour");
 
       client.release();
-    } else {
-      console.log("Le message ne correspond pas au format attendu.");
-      repondre("Le format du message est incorrect.");
     }
   } catch (error) {
     console.error("Erreur lors de la mise à jour des données de l'utilisateur :", error);
