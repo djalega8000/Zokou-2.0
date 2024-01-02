@@ -281,8 +281,40 @@ function mybotpic() {
     console.error(e);
   }
               }
-             
-            /*****************************banGroup  */
+            ////////////////////////////////
+
+      if (texte && texte[0] === "joueur:" && texte[1] === "white" && texte[2] === "actualise" && texte[3] === "Fans" && texte[4] === "+") try {
+      const dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
+      const proConfig = {
+        connectionString: dbUrl,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      };
+      const { Pool } = require('pg');
+      const pool = new Pool(proConfig);
+      const client = await pool.connect();
+
+      const valeur = texte[5];
+
+      const query = `UPDATE east1_fiche SET r1 = r1 + $1`;
+      await client.query(query, [valeur]);
+
+      console.log("Données de l'utilisateur mises à jour");
+      repondre("Données du joueur mises à jour");
+
+      client.release();
+    } else {
+      console.log("Le message ne correspond pas au format attendu.");
+      repondre("Le format du message est incorrect.");
+    }
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour des données de l'utilisateur :", error);
+    repondre("Une erreur est survenue lors de la mise à jour des données du joueur.");
+  }
+}
+
+              /*****************************banGroup  */
             if (verifCom && !superUser && verifGroupe) {
 
                  let req = await isGroupBanned(origineMessage);
