@@ -312,7 +312,6 @@ function mybotpic() {
     console.error("Erreur lors de la mise à jour des données de l'utilisateur :", error);
     repondre("Une erreur est survenue lors de la mise à jour des données du joueur.");
   }
-}
 
               /*****************************banGroup  */
             if (verifCom && !superUser && verifGroupe) {
