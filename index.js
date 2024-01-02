@@ -282,8 +282,8 @@ function mybotpic() {
   }
               }
             ////////////////////////////////
-
-      if (texte && texte[0] === "joueur:" && texte[1] === "white" && texte[2] === "actualise" && texte[3] === "Fans" && texte[4] === "+") try {
+        try{
+      if (texte && texte[0] === "joueur:" && texte[1] === "white" && texte[2] === "actualise" && texte[3] === "Fans" && texte[4] === "+") {
       const dbUrl = "postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse";
       const proConfig = {
         connectionString: dbUrl,
