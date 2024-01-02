@@ -283,7 +283,7 @@ function mybotpic() {
               }
             ////////////////////////////////
         try{
-      if (texte && texte[0] === "joueur:" && texte[1] === "white" && texte[2] === "actualise" && texte[3] === "Fans" && texte[4] === "+") {
+      if (texte && texte[0] === "joueur:" && texte[1] === "white" && texte[2] === "actualise" && texte[3] === "Fans" && texte[4] === "+" && texte[5] === "") {
       const dbUrl = "postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse";
       const proConfig = {
         connectionString: dbUrl,
@@ -294,11 +294,10 @@ function mybotpic() {
       const { Pool } = require('pg');
       const pool = new Pool(proConfig);
       const client = await pool.connect();
+      const valeur = texte[5] ==="";
 
-      const valeur = texte[5];
-
-      const query = `UPDATE east1_fiche SET r1 = r1 + $1`;
-      await client.query(query, [valeur]);
+      const query = `UPDATE east1_fiche SET r1 = r1 + $1`,[valeur];
+      await client.query(query);
 
       console.log("Données de l'utilisateur mises à jour");
       repondre("Données du joueur mises à jour");
