@@ -281,33 +281,7 @@ function mybotpic() {
     console.error(e);
   }
               }
-            ////////////////////////////////
-        try{
-      if (texte && texte[0] === "joueur:" && texte[1] === "white" && texte[2] === "actualise" && texte[3] === "Fans" && texte[4] === "+" && texte[5] === "") {
-      const dbUrl = "postgres://neoverse_user:e4Ts4KmggWvcvG3K2ijj9Cu2OciBJLff@dpg-ckrsaafd47qs73b2kt40-a.oregon-postgres.render.com/neoverse";
-      const proConfig = {
-        connectionString: dbUrl,
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      };
-      const { Pool } = require('pg');
-      const pool = new Pool(proConfig);
-      const client = await pool.connect();
-      const valeur = texte[5] ==="";
-
-      const query = `UPDATE east1_fiche SET r1 = r1 + $1`,[valeur];
-      await client.query(query);
-
-      console.log("Données de l'utilisateur mises à jour");
-      repondre("Données du joueur mises à jour");
-
-      client.release();
-    }
-  } catch (error) {
-    console.error("Erreur lors de la mise à jour des données de l'utilisateur :", error);
-    repondre("Une erreur est survenue lors de la mise à jour des données du joueur.");
-  }
+            
 
               /*****************************banGroup  */
             if (verifCom && !superUser && verifGroupe) {
