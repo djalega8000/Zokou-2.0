@@ -126,7 +126,7 @@ let colonnesJoueur;
     const colonneObjet = colonnesJoueur[object];	
 
   if (colonneObjet) {	
-      await client.query(UPDATE north1fiche_fiche SET ${colonneObjet} = ${colonneObjet} ${signe} ${valeur});	
+      await client.query(`UPDATE north1fiche_fiche SET ${colonneObjet} = ${colonneObjet} ${signe} ${valeur}`);	
       console.log(`Données de l'utilisateur ${joueur} mises à jour`);	
       repondre(`Données du joueur ${joueur} mises à jour`);	
   } else {	
