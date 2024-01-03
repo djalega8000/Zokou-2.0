@@ -64,6 +64,23 @@ async function createNorth1FicheTable() {
   }
 }
 
+async function insererValeur() { 
+  const client = await pool.connect();
+  try{
+await client.query(`
+  INSERT INTO north1_fiche(id, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36)
+  VALUES ('1', 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun')
+  ON CONFLICT (id) DO NOTHING;
+`);
+    console.log('valeur ajouter avec succès');
+  } catch (error) {
+    console.error('Erreur lors de l ajout des données', error);
+  } finally {
+    client.release();
+  }
+}
+
+
 async function getR() {
   const client = await pool.connect();
 
