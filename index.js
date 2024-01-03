@@ -1,34 +1,19 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-  var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const baileys_1 = __importStar(require("@sampandey001/baileys"));
-const logger_1 = __importDefault(require("@sampandey001/baileys/lib/Utils/logger"));
-const logger = logger_1.default.child({});
+const {
+    default: makeWASocket,
+    useMultiFileAuthState,
+    fetchLatestBaileysVersion,
+    makeInMemoryStore,
+    makeCacheableSignalKeyStore,
+    getContentType,
+    jidDecode,
+    DisconnectReason,
+    downloadContentFromMessage,
+    delay,
+  } = require("@whiskeysockets/baileys");
+const  MAIN_LOGGER  = require('@whiskeysockets/baileys/lib/Utils/logger').default ;
+
+const logger = MAIN_LOGGER;
+
 logger.level = 'silent';
 const pino = require("pino");
 const boom_1 = require("@hapi/boom");
@@ -45,6 +30,7 @@ let evt = require(__dirname + "/framework/zokou");
 const {isUserBanned , addUserToBanList , removeUserFromBanList} = require("./bdd/banUser");
 const  {addGroupToBanList,isGroupBanned,removeGroupFromBanList} = require("./bdd/banGroup");
 const {isGroupOnlyAdmin,addGroupToOnlyAdminList,removeGroupFromOnlyAdminList} = require("./bdd/onlyAdmin");
+const { groupCollapsed } = require("console");
 //const //{loadCmd}=require("/framework/mesfonctions")
 let { reagir } = require(__dirname + "/framework/app");
 var session = conf.session;
@@ -59,9 +45,9 @@ async function authentification() {
             await fs.writeFileSync(__dirname + "/auth/creds.json", atob(session), "utf8");
             //console.log(session)
         }
-        else if (fs.existsSync(__dirname + "/auth/creds.json")) {
+       else if (fs.existsSync(__dirname + "/auth/creds.json") && session != "zokk") {
             await fs.writeFileSync(__dirname + "/auth/creds.json", atob(session), "utf8");
-        }
+        } 
     }
     catch (e) {
         console.log("Session Invalide " + e );
@@ -69,39 +55,34 @@ async function authentification() {
     }
 }
 authentification();
-const store = (0, baileys_1.makeInMemoryStore)({
-    logger: pino().child({ level: "silent", stream: "store" }),
-});
+
+
+const store = makeInMemoryStore({ logger});
 setTimeout(() => {
     async function main() {
-        const { version, isLatest } = await (0, baileys_1.fetchLatestBaileysVersion)();
-        const { state, saveCreds } = await (0, baileys_1.useMultiFileAuthState)(__dirname + "/auth");
+        const { version, isLatest } = await fetchLatestBaileysVersion();
+        const { state, saveCreds } =  await useMultiFileAuthState('./auth');
+        const pairingCode = process.argv.includes("--use-pairing-code");
         const sockOptions = {
             version,
-            logger: pino({ level: "silent" }),
-            browser: ['Zokou-Md', "safari", "1.0.0"],
+            logger,
+            browser: ['Zokou', "2.0", ""],
             printQRInTerminal: true,
-            /* auth: state*/ auth: {
-                creds: state.creds,
-                /** caching makes the store faster to send/recv messages */
-                keys: (0, baileys_1.makeCacheableSignalKeyStore)(state.keys, logger),
-            },
-            //////////
-            getMessage: async (key) => {
-                if (store) {
-                    const msg = await store.loadMessage(key.remoteJid, key.id, undefined);
-                    return msg.message || undefined;
-                }
-                return {
-                    conversation: 'An Error Occurred, Repeat Command!'
-                };
-            }
-            ///////
+            auth: {
+            creds: state.creds,
+                // caching makes the store faster to send/recv messages 
+             keys: makeCacheableSignalKeyStore(state.keys, logger),
+            } ,
+            getMessage,
         };
-        const zk = (0, baileys_1.default)(sockOptions);
+        const zk =  makeWASocket(sockOptions) //(0, baileys_1.default)(sockOptions);
         store.bind(zk.ev);
-        setInterval(() => { store.writeToFile("stor.json"); }, 3000);
+        setInterval(() => { store.writeToFile("stor.json"); }, 1000);
+
+ 
         zk.ev.on("messages.upsert", async (m) => {
+            try { 
+            console.log('************************************************got-message********************************************') ;
             const { messages } = m;
             const ms = messages[0];
             if (!ms.message)
@@ -110,13 +91,13 @@ setTimeout(() => {
                 if (!jid)
                     return jid;
                 if (/:\d+@/gi.test(jid)) {
-                    let decode = (0, baileys_1.jidDecode)(jid) || {};
+                    let decode = jidDecode(jid) || {};
                     return decode.user && decode.server && decode.user + '@' + decode.server || jid;
                 }
                 else
                     return jid;
             };
-            var mtype = (0, baileys_1.getContentType)(ms.message);
+            var mtype = getContentType(ms.message);
             var texte = mtype == "conversation" ? ms.message.conversation : mtype == "imageMessage" ? ms.message.imageMessage?.caption : mtype == "videoMessage" ? ms.message.videoMessage?.caption : mtype == "extendedTextMessage" ? ms.message?.extendedTextMessage?.text : mtype == "buttonsResponseMessage" ?
                 ms?.message?.buttonsResponseMessage?.selectedButtonId : mtype == "listResponseMessage" ?
                 ms.message?.listResponseMessage?.singleSelectReply?.selectedRowId : mtype == "messageContextInfo" ?
@@ -344,7 +325,7 @@ function mybotpic() {
                                         txt += `message supprimé \n @${auteurMessage.split("@")[0]} rétiré du groupe.`;
 
                                     await zk.sendMessage(origineMessage, { sticker: fs.readFileSync("st1.webp") }, { quoted: ms });
-                                    (0, baileys_1.delay)(800);
+                                    delay(800);
                                     await zk.sendMessage(origineMessage, { text: txt, mentions: [auteurMessage] }, { quoted: ms });
                                     try {
                                         await zk.groupParticipantsUpdate(origineMessage, [auteurMessage], "remove");
@@ -441,7 +422,7 @@ function mybotpic() {
                 txt += `message supprimé \n @${auteurMessage.split("@")[0]} rétiré du groupe.`;
 
             await zk.sendMessage(origineMessage, { sticker: fs.readFileSync("st1.webp") }, { quoted: ms });
-            (0, baileys_1.delay)(800);
+            delay(800);
             await zk.sendMessage(origineMessage, { text: txt, mentions: [auteurMessage] }, { quoted: ms });
             try {
                 await zk.groupParticipantsUpdate(origineMessage, [auteurMessage], "remove");
@@ -512,6 +493,8 @@ function mybotpic() {
                 }
             }
             //fin exécution commandes
+
+        } catch (e) { console.log('message_upsert_error' , e)}
         });
         //fin événement message
 
@@ -560,7 +543,13 @@ ${metadata.desc}`;
             }
 
             zk.sendMessage(group.id, { text: msg, mentions: membres });
-        }
+        } /*else if (group.action == 'promote' || group.action == 'demote') {
+            zk.sendMessage(group.id,
+                {
+                    text : `@${(group.author).split('@')[0]} a changer le grade d'administration a @${(group.participants[0]).split('@')[0]}` ,
+                    mentions : [group.author,group.participants[0]]
+                })
+        } */
     } catch (e) {
         console.error(e);
     }
@@ -595,9 +584,9 @@ ${metadata.desc}`;
             else if (connection === 'open') {
                 console.log("✅ connexion reussie! ☺️");
                 console.log("--");
-                await (0, baileys_1.delay)(200);
+                await delay(200);
                 console.log("------");
-                await (0, baileys_1.delay)(300);
+                await delay(300);
                 console.log("------------------/-----");
                 console.log("le bot est en ligne 🕸\n\n");
                 //chargement des commandes 
@@ -612,10 +601,10 @@ ${metadata.desc}`;
                             console.log(`${fichier} n'a pas pu être chargé pour les raisons suivantes : ${e}`);
                         } /* require(__dirname + "/commandes/" + fichier);
                          console.log(fichier + " installé ✔️")*/
-                        (0, baileys_1.delay)(300);
+                        delay(300);
                     }
                 });
-                (0, baileys_1.delay)(700);
+                delay(700);
                 var md;
                 if (conf.MODE === "oui") {
                     md = "public";
@@ -642,24 +631,24 @@ ${metadata.desc}`;
             }
             else if (connection == "close") {
                 let raisonDeconnexion = new boom_1.Boom(lastDisconnect?.error)?.output.statusCode;
-                if (raisonDeconnexion === baileys_1.DisconnectReason.badSession) {
+                if (raisonDeconnexion === DisconnectReason.badSession) {
                     console.log('Session id érronée veuillez rescanner le qr svp ...');
                 }
-                else if (raisonDeconnexion === baileys_1.DisconnectReason.connectionClosed) {
+                else if (raisonDeconnexion === DisconnectReason.connectionClosed) {
                     console.log('!!! connexion fermée, reconnexion en cours ...');
                     main();
                 }
-                else if (raisonDeconnexion === baileys_1.DisconnectReason.connectionLost) {
+                else if (raisonDeconnexion === DisconnectReason.connectionLost) {
                     console.log('connexion au serveur perdue 😞 ,,, reconnexion en cours ... ');
                     main();
                 }
-                else if (raisonDeconnexion === baileys_1.DisconnectReason?.connectionReplaced) {
+                else if (raisonDeconnexion === DisconnectReason?.connectionReplaced) {
                     console.log('connexion réplacée ,,, une sesssion est déjà ouverte veuillez la fermer svp !!!');
                 }
-                else if (raisonDeconnexion === baileys_1.DisconnectReason.loggedOut) {
+                else if (raisonDeconnexion === DisconnectReason.loggedOut) {
                     console.log('vous êtes déconnecté,,, veuillez rescanner le code qr svp');
                 }
-                else if (raisonDeconnexion === baileys_1.DisconnectReason.restartRequired) {
+                else if (raisonDeconnexion === DisconnectReason.restartRequired) {
                     console.log('redémarrage en cours ▶️');
                     main();
                 }
@@ -679,7 +668,7 @@ ${metadata.desc}`;
             let quoted = message.msg ? message.msg : message;
             let mime = (message.msg || message).mimetype || '';
             let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0];
-            const stream = await (0, baileys_1.downloadContentFromMessage)(quoted, messageType);
+            const stream = await downloadContentFromMessage(quoted, messageType);
             let buffer = Buffer.from([]);
             for await (const chunk of stream) {
                 buffer = Buffer.concat([buffer, chunk]);
@@ -693,6 +682,24 @@ ${metadata.desc}`;
         // fin fonctions utiles
         /** ************* */
         return zk;
+
+
+        /****************************getMessage */
+
+    async function getMessage(key) {
+        console.log(`*********************************************************\ngetting message\n*********************************************************`)
+        if (store) {
+            const msg = await store.loadMessage(key.remoteJid, key.id);
+            return msg?.message || undefined;
+        }
+
+        // only if store is present
+        return {
+            conversation : "can't work"
+        };
+    }
+
+/*************************************** */
     }
     let fichier = require.resolve(__filename);
     fs.watchFile(fichier, () => {
