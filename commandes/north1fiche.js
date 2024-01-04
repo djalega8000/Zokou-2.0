@@ -127,8 +127,9 @@ Records: 0 Victoires✅/ 0 Défaites❌
 
           const colonneObjet = colonnesJoueur[object];
 
-          if (colonneObjet) {
-            await client.query(`UPDATE north4_iche SET ${colonneObjet} = ${colonneObjet} ${signe} ${valeur} WHERE id = 1`);
+          if (colonneObjet && arg[4] = '+' || arg[4] = '-') {
+            const query(`UPDATE north4_iche SET ${colonneObjet} = ${colonneObjet} ${signe} ${valeur} WHERE id = 1`);
+            await client.query(query);
             console.log(`Données de l'utilisateur ${joueur} mises à jour`);
             repondre(`Données du joueur ${joueur} mises à jour`);
           } else {
@@ -138,6 +139,11 @@ Records: 0 Victoires✅/ 0 Défaites❌
         } else {
           console.log("Le message ne correspond pas au format attendu.");
           repondre(`Le format du message est incorrect.`);
+        } if (arg[4] === '=') {
+          const query = (`UPDATE north4_iche SET ${colonneObjet} = ${valeur} WHERE id = 1`);
+          await client.query(query);
+          console.log(`données du joueur: ${joueur} mise a jour`);
+          repondre(`données du joueur: ${joueur} mise a jour`);
         }
 
         client.release();
