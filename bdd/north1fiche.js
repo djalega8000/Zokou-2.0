@@ -171,6 +171,7 @@ async function getR() {
 }
 
 createNorth1FicheTable();
+insererValeur();
 
 module.exports = {
   createNorth1FicheTable,
