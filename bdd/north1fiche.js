@@ -16,7 +16,7 @@ async function createNorth1FicheTable() {
   try {
     // Créez la table north1_fiche si elle n'existe pas déjà
     await client.query(`
-      CREATE TABLE IF NOT EXISTS north1_fiche(
+      CREATE TABLE IF NOT EXISTS north_fiche(
         id SERIAL PRIMARY KEY,
         r1 INTEGER DEFAULT 0,
         r2 TEXT DEFAULT 'aucun',
@@ -56,9 +56,9 @@ async function createNorth1FicheTable() {
         r36 TEXT DEFAULT 'aucun'
       );
     `);
-    console.log('Table north1_fiche créée avec succès');
+    console.log('Table north_fiche créée avec succès');
   } catch (error) {
-    console.error('Erreur lors de la création de la table north1_fiche:', error);
+    console.error('Erreur lors de la création de la table north_fiche:', error);
   } finally {
     client.release();
   }
@@ -87,7 +87,7 @@ async function getR() {
   try {
     // Sélectionnez les valeurs pour tous les joueurs
     const query =
-      "SELECT r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36 FROM north1_fiche WHERE id = 1";
+      "SELECT r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36 FROM north_fiche WHERE id = 1";
     const result = await client.query(query);
     const {
       r1,
