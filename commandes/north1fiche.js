@@ -9,6 +9,8 @@ zokou(
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg } = commandeOptions;
 
+    let joueur;
+
     try {
       const data = await getR();
 
@@ -64,7 +66,8 @@ Records: 0 Victoires✅/ 0 Défaites❌
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
          *◁🔷𝗡𝗘𝗢 𝗙𝗢𝗥 𝗧𝗛𝗘 𝗣𝗟𝗔𝗬𝗘𝗥𝗦🎮➕ᐅᐭ*`;
-        zk.sendMessage(dest, { image: { url: 'https://i.imgur.com/UP1ubll.jpg' }, caption: mesg }, { quoted: ms });
+
+    zk.sendMessage(dest, { image: { url: 'https://i.imgur.com/UP1ubll.jpg' }, caption: mesg }, { quoted: ms });
       } else {
         const dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
         const proConfig = {
@@ -79,7 +82,7 @@ Records: 0 Victoires✅/ 0 Défaites❌
         const client = await pool.connect();
 
         if (arg[0] === 'joueur') {
-          let joueur = arg[1];
+          joueur = arg[1];
           let object = arg[3];
           let signe = arg[4];
           let valeur = arg[5];
@@ -127,8 +130,8 @@ Records: 0 Victoires✅/ 0 Défaites❌
 
           const colonneObjet = colonnesJoueur[object];
 
-          if (colonneObjet && arg[4] = '+' || arg[4] = '-') {
-            const query(`UPDATE north4_iche SET ${colonneObjet} = ${colonneObjet} ${signe} ${valeur} WHERE id = 1`);
+          if (colonneObjet && (arg[4] === '+' || arg[4] === '-')) {
+            const query = `UPDATE north4_iche SET ${colonneObjet} = ${colonneObjet} ${signe} ${valeur} WHERE id = 1`;
             await client.query(query);
             console.log(`Données de l'utilisateur ${joueur} mises à jour`);
             repondre(`Données du joueur ${joueur} mises à jour`);
@@ -139,8 +142,10 @@ Records: 0 Victoires✅/ 0 Défaites❌
         } else {
           console.log("Le message ne correspond pas au format attendu.");
           repondre(`Le format du message est incorrect.`);
-        } if (arg[4] === '=') {
-          const query = (`UPDATE north4_iche SET ${colonneObjet} = ${valeur} WHERE id = 1`);
+        }
+
+        if (arg[4] === '=') {
+          const query = `UPDATE north4_iche SET ${colonneObjet} = ${valeur} WHERE id = 1`;
           await client.query(query);
           console.log(`données du joueur: ${joueur} mise a jour`);
           repondre(`données du joueur: ${joueur} mise a jour`);
