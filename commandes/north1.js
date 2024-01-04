@@ -34,7 +34,7 @@ zokou(
 const temps = moment().format('HH:mm:ss');
 const date = moment().format('DD/MM/YYYY');
 
-    const north2msg = `
+    const neomsg = `
       *NEOverse Rp Gaming*
 *Date* : ${date}
 *Heure* : ${temps}
@@ -43,7 +43,7 @@ const date = moment().format('DD/MM/YYYY');
 
  if (lien.match(/\.(mp4|gif)$/i)) {
     try {
-        zk.sendMessage(dest, { video: { url: lien }, caption: north2msg }, { quoted: ms });
+        zk.sendMessage(dest, { video: { url: lien }, caption: neomsg }, { quoted: ms });
     }
     catch (e) {
         console.log("🥵🥵 Menu erreur " + e);
@@ -53,7 +53,7 @@ const date = moment().format('DD/MM/YYYY');
 // Vérification pour .jpeg ou .png
 else if (lien.match(/\.(jpeg|png|jpg)$/i)) {
     try {
-        zk.sendMessage(dest, { image: { url: lien }, caption: north2msg }, { quoted: ms });
+        zk.sendMessage(dest, { image: { url: lien }, caption: neomsg }, { quoted: ms });
     }
     catch (e) {
         console.log("🥵🥵 Menu erreur " + e);
@@ -71,7 +71,6 @@ else {
 
       await   repondre("Vous n'avez pas encore enregistrer la fiche north1 , pour ce faire ;\n tapez entrez apres north1 votre message et votre lien image ou video dans ce contete : /north1 message;lien");
          repondre(" veuillier me contacter pour plus ample explications")
-     }
  } else {
 
     if(!superUser) { repondre ("Seul les membre de la NS ont le droit de modifier la Fiche North1") ; return};
