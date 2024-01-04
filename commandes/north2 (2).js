@@ -1,18 +1,18 @@
 const { zokou } = require('../framework/zokou');
-const {addOrUpdateDataInNorth2 , getDataFromNorth2} = require('../bdd/north2')
+const {addOrUpdateDataInNorth1 , getDataFromNorth1} = require('../bdd/neo')
 const moment = require("moment-timezone");
 const s = require(__dirname + "/../set");
 
 zokou(
     {
-        nomCom : 'north2',
+        nomCom : 'north1',
         categorie : 'NEOverse'
         
     },async (dest,zk,commandeOptions) => {
 
  const {ms , arg, repondre,superUser} = commandeOptions;
 
- const data = await getDataFromNorth2();
+ const data = await getDataFromNorth1();
 
  if (!arg || !arg[0] || arg.join('') === '') {
 
@@ -67,14 +67,14 @@ else {
 }
 
     } else {
-        if(!superUser) { repondre("il n'y a pas de fiche north2 enregistrée ") ; return};
+        if(!superUser) { repondre("il n'y a pas de fiche north1 enregistrée ") ; return};
 
-      await   repondre("Vous n'avez pas encore enregistrer la fiche north2 , pour ce faire ;\n tapez entrez apres north2 votre message et votre lien image ou video dans ce contete : /north2 message;lien");
+      await   repondre("Vous n'avez pas encore enregistrer la fiche north1 , pour ce faire ;\n tapez entrez apres north1 votre message et votre lien image ou video dans ce contete : /north1 message;lien");
          repondre(" veuillier me contacter pour plus ample explications")
      }
  } else {
 
-    if(!superUser) { repondre ("Seul les membre de la NS ont le droit de modifier la Fiche North2") ; return};
+    if(!superUser) { repondre ("Seul les membre de la NS ont le droit de modifier la Fiche North1") ; return};
 
   
     const texte = arg.join(' ').split(';')[0];
@@ -82,9 +82,9 @@ else {
 
 
     
-await addOrUpdateDataInNorth2(texte , tlien)
+await addOrUpdateDataInNorth1(texte , tlien)
 
-repondre('Fiche North2  actualiser avec succes')
+repondre('Fiche North1  actualiser avec succes')
 
 }
     });
