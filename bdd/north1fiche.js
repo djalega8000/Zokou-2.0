@@ -52,7 +52,7 @@ async function createNorth1FicheTable() {
         r32 INTEGER,
         r33 INTEGER,
         r34 INTEGER,
-        r35 INTEGER
+        r35 INTEGER,
         r36 TEXT
       );
     `);
