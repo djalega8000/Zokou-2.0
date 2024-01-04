@@ -62,7 +62,7 @@ else if (lien.match(/\.(jpeg|png|jpg)$/i)) {
 } 
 else {
     
-    repondre(north2msg);
+    repondre(neomsg);
     
 }
 
@@ -71,6 +71,7 @@ else {
 
       await   repondre("Vous n'avez pas encore enregistrer la fiche north1 , pour ce faire ;\n tapez entrez apres north1 votre message et votre lien image ou video dans ce contete : /north1 message;lien");
          repondre(" veuillier me contacter pour plus ample explications")
+    }
  } else {
 
     if(!superUser) { repondre ("Seul les membre de la NS ont le droit de modifier la Fiche North1") ; return};
