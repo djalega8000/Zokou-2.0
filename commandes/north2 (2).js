@@ -1,5 +1,5 @@
 const { zokou } = require('../framework/zokou');
-const {addOrUpdateDataInNorth1 , getDataFromNorth1} = require('../bdd/neo')
+const {addOrUpdateDataInNeo , getDataFromNeo} = require('../bdd/neo')
 const moment = require("moment-timezone");
 const s = require(__dirname + "/../set");
 
@@ -12,7 +12,7 @@ zokou(
 
  const {ms , arg, repondre,superUser} = commandeOptions;
 
- const data = await getDataFromNorth1();
+ const data = await getDataFromNeo();
 
  if (!arg || !arg[0] || arg.join('') === '') {
 
@@ -82,7 +82,7 @@ else {
 
 
     
-await addOrUpdateDataInNorth1(texte , tlien)
+await addOrUpdateDataInNeo(texte , tlien)
 
 repondre('Fiche North1  actualiser avec succes')
 
