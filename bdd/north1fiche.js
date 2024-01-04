@@ -66,20 +66,56 @@ async function createNorth1FicheTable() {
 
 async function insererValeur() { 
   const client = await pool.connect();
-  try{
-await client.query(`
-  INSERT INTO north_fiche(id, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36)
-  VALUES ('1', 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun')
-  ON CONFLICT (id) DO NOTHING;
-`);
-    console.log('valeur ajouter avec succès');
+  try {
+    await client.query(`
+      INSERT INTO north_fiche(id, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36)
+      VALUES ('1', 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 0, 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun')
+      WHERE
+        id IS NULL AND
+        r1 IS NULL AND
+        r2 IS NULL AND
+        r3 IS NULL AND
+        r4 IS NULL AND
+        r5 IS NULL AND
+        r6 IS NULL AND
+        r7 IS NULL AND
+        r8 IS NULL AND
+        r9 IS NULL AND
+        r10 IS NULL AND
+        r11 IS NULL AND
+        r12 IS NULL AND
+        r13 IS NULL AND
+        r14 IS NULL AND
+        r15 IS NULL AND
+        r16 IS NULL AND
+        r17 IS NULL AND
+        r18 IS NULL AND
+        r19 IS NULL AND
+        r20 IS NULL AND
+        r21 IS NULL AND
+        r22 IS NULL AND
+        r23 IS NULL AND
+        r24 IS NULL AND
+        r25 IS NULL AND
+        r26 IS NULL AND
+        r27 IS NULL AND
+        r28 IS NULL AND
+        r29 IS NULL AND
+        r30 IS NULL AND
+        r31 IS NULL AND
+        r32 IS NULL AND
+        r33 IS NULL AND
+        r34 IS NULL AND
+        r35 IS NULL AND
+        r36 IS NULL
+    `);
+    console.log('Valeur ajoutée avec succès si les colonnes étaient vides');
   } catch (error) {
-    console.error('Erreur lors de l ajout des données', error);
+    console.error('Erreur lors de l\'ajout des données', error);
   } finally {
     client.release();
   }
 }
-
 
 async function getR() {
   const client = await pool.connect();
