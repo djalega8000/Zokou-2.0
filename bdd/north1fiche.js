@@ -69,7 +69,7 @@ async function getR() {
   try {
     // Sélectionnez les valeurs pour tous les joueurs
     const query =
-      "SELECT r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36 FROM north4_che WHERE id = 1";
+      "SELECT r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36 FROM north4_che WHERE id = $1";
     const result = await client.query(query);
     const {
       r1,
@@ -156,10 +156,8 @@ async function getR() {
 
 // Appeler la fonction insererValeur après la création de la table
 createNorth1FicheTable()
-  .then(() => insererValeur());
 
 module.exports = {
   createNorth1FicheTable,
-  insererValeur,
   getR,
 };
