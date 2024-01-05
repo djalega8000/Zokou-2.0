@@ -9,10 +9,12 @@ zokou(
   async (dest, zk, commandeOptions) => {
     const { ms, repondre, arg } = commandeOptions;
 
-    let joueur;
-
     try {
       const data = await getR();
+      let joueur = arg[1];
+      let object = arg[3];
+      let signe = arg[4];
+      let valeur = arg[5];
 
       if (!arg || arg.length === 0) {
         let mesg = `.*𝗡𝗢𝗥𝗧𝗛 𝗗𝗜𝗩𝗜𝗦𝗜𝗢𝗡🐺🔴*
@@ -66,8 +68,7 @@ Records: 0 Victoires✅/ 0 Défaites❌
 ░░░░░░░░░░░░░░░░░░░
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
          *◁🔷𝗡𝗘𝗢 𝗙𝗢𝗥 𝗧𝗛𝗘 𝗣𝗟𝗔𝗬𝗘𝗥𝗦🎮➕ᐅᐭ*`;
-
-    zk.sendMessage(dest, { image: { url: 'https://i.imgur.com/UP1ubll.jpg' }, caption: mesg }, { quoted: ms });
+        zk.sendMessage(dest, { image: { url: 'https://i.imgur.com/UP1ubll.jpg' }, caption: mesg }, { quoted: ms });
       } else {
         const dbUrl = "postgresql://postgres:aga-B533E3BcGdfa5*cFf*4daE4*f*fB@monorail.proxy.rlwy.net:12102/railway";
         const proConfig = {
@@ -81,12 +82,10 @@ Records: 0 Victoires✅/ 0 Défaites❌
         const pool = new Pool(proConfig);
         const client = await pool.connect();
 
-        if (arg[0] === 'joueur') {
-          let joueur = arg[1];
-          let object = arg[3];
-          let signe = arg[4];
-          let valeur = arg[5];
+        if (arg[0] === 'joueur:') {
+          let colonnesJoueur;
 
+          switch (joueur) {
           let colonnesJoueur;
 
           switch (joueur) {
@@ -125,18 +124,19 @@ Records: 0 Victoires✅/ 0 Défaites❌
             default:
               console.log("Nom de joueur non reconnu.");
               repondre(`joueur: ${joueur} non reconnu`);
-              return;
+              return; 
           }
 
           const colonneObjet = colonnesJoueur[object];
 
-          if (colonneObjet && (arg[4] === '+' || arg[4] === '-')) {
+          if (colonneObjet && (signe === '+' || signe === '-')) {
             const query = `UPDATE north4_iche SET ${colonneObjet} = ${colonneObjet} ${signe} ${valeur} WHERE id = 1`;
             await client.query(query);
+
             console.log(`Données de l'utilisateur ${joueur} mises à jour`);
-            repondre(`Données du joueur mises à jour\n👤*JOUEUR*: ${joueur}\n⚙*OBJECT*: ${object}\n💵*VALEUR*: ${singne}${valeur}\n*NOUVEAU SOLDE*: ${data.colonneObject}`)
-                     } else {
-            console.log("Nom d'objet non reconnu.");
+            repondre(`Données du joueur mises à jour\n👤*JOUEUR*: ${joueur}\n⚙*OBJECT*: ${object}\n💵*VALEUR*: ${signe}${valeur}\n*NOUVEAU SOLDE*: ${data[colonneObjet]}`);
+          } else {
+            console.log("Nom d'objet non reconnu ou signe invalide.");
             repondre(`Une erreur est survenue. Veuillez entrer correctement les données.`);
           }
         } else {
@@ -147,15 +147,16 @@ Records: 0 Victoires✅/ 0 Défaites❌
         if (arg[4] === '=') {
           const query = `UPDATE north4_iche SET ${colonneObjet} = ${valeur} WHERE id = 1`;
           await client.query(query);
+
           console.log(`données du joueur: ${joueur} mise a jour`);
-          repondre(`Données du joueur mises à jour\n👤*JOUEUR*: ${joueur}\n⚙*OBJECT*: ${object}\n💵*VALEUR*: ${valeur}\n*NOUVELLE CARDS/RANG_XP*: ${data.colonneObject}`)
+          repondre(`Données du joueur mises à jour\n👤*JOUEUR*: ${joueur}\n⚙*OBJECT*: ${object}\n💵*VALEUR*: ${valeur}\n*NOUVELLE CARDS/RANG_XP*: ${data[colonneObjet]}`);
         }
 
         client.release();
       }
     } catch (error) {
       console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
-      repondre('une erreur s'est produite');
-        }
+      repondre("Une erreur s'est produite");
+    }
   }
 );
