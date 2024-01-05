@@ -16,13 +16,44 @@ async function createNorth1FicheTable() {
   try {
     // Créez la table north4_iche si elle n'existe pas déjà
     await client.query(`
-      CREATE TABLE IF NOT EXISTS north4_iche(
+      CREATE TABLE IF NOT EXISTS north4_che(
         id SERIAL PRIMARY KEY,
         r1 TEXT,
         r2 INTEGER,
-        // ... (autres colonnes)
+        r3 INTEGER,
+        r4 INTEGER,
+        r5 INTEGER,
+        r6 INTEGER,
+        r7 INTEGER,
+        r8 INTEGER,
+        r9 INTEGER,
+        r10 INTEGER,
+        r11 INTEGER,
+        r12 TEXT,
+        r13 TEXT,
+        r14 INTEGER,
+        r15 INTEGER, 
+        r16 INTEGER,
+        r17 INTEGER,
+        r18 INTEGER,
+        r19 INTEGER,
+        r20 INTEGER,
+        r21 INTEGER,
+        r22 INTEGER,
+        r23 INTEGER,
+        r24 TEXT,
+        r25 TEXT,
+        r26 INTEGER,
+        r27 INTEGER,
+        r28 INTEGER, 
+        r29 INTEGER,
+        r30 INTEGER,
+        r31 INTEGER,
+        r32 INTEGER,
+        r33 INTEGER,
+        r34 INTEGER,
+        r35 INTEGER,
         r36 TEXT
-      );
     `);
     console.log('Table north4_iche créée avec succès');
   } catch (error) {
@@ -36,7 +67,7 @@ async function insererValeur() {
   const client = await pool.connect();
   try {
     // Vérifier si la table existe
-    const checkTableQuery = "SELECT to_regclass('public.north4_iche') AS table_exists";
+    const checkTableQuery = "SELECT to_regclass('public.north4_che') AS table_exists";
     const checkTableResult = await client.query(checkTableQuery);
     const tableExists = checkTableResult.rows[0].table_exists;
 
@@ -47,7 +78,7 @@ async function insererValeur() {
 
     // Insérer les valeurs
     const insertQuery = `
-      INSERT INTO north4_iche(id, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36)
+      INSERT INTO north4_che(id, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36)
       VALUES (1,'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun')`;
     await client.query(insertQuery);
 
@@ -65,7 +96,7 @@ async function getR() {
   try {
     // Sélectionnez les valeurs pour tous les joueurs
     const query =
-      "SELECT r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36 FROM north4_iche WHERE id = 1";
+      "SELECT r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36 FROM north4_che WHERE id = 1";
     const result = await client.query(query);
     const {
       r1,
