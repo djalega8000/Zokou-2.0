@@ -82,7 +82,7 @@ Records: 0 Victoires✅/ 0 Défaites❌
         const client = await pool.connect();
 
         if (arg[0] === 'joueur') {
-          joueur = arg[1];
+          let joueur = arg[1];
           let object = arg[3];
           let signe = arg[4];
           let valeur = arg[5];
@@ -106,7 +106,7 @@ Records: 0 Victoires✅/ 0 Défaites❌
                 cards: "r12",
               };
               break;
-            case "damien":
+            case "damian":
               colonnesJoueur = {
                 rang_xp: "r13",
                 golds: "r14",
@@ -134,8 +134,8 @@ Records: 0 Victoires✅/ 0 Défaites❌
             const query = `UPDATE north4_iche SET ${colonneObjet} = ${colonneObjet} ${signe} ${valeur} WHERE id = 1`;
             await client.query(query);
             console.log(`Données de l'utilisateur ${joueur} mises à jour`);
-            repondre(`Données du joueur ${joueur} mises à jour`);
-          } else {
+            repondre(`Données du joueur mises à jour\n👤*JOUEUR*: ${joueur}\n⚙*OBJECT*: ${object}\n💵*VALEUR*: ${singne}${valeur}\n*NOUVEAU SOLDE*: ${data.colonneObject}`)
+                     } else {
             console.log("Nom d'objet non reconnu.");
             repondre(`Une erreur est survenue. Veuillez entrer correctement les données.`);
           }
@@ -148,14 +148,14 @@ Records: 0 Victoires✅/ 0 Défaites❌
           const query = `UPDATE north4_iche SET ${colonneObjet} = ${valeur} WHERE id = 1`;
           await client.query(query);
           console.log(`données du joueur: ${joueur} mise a jour`);
-          repondre(`données du joueur: ${joueur} mise a jour`);
+          repondre(`Données du joueur mises à jour\n👤*JOUEUR*: ${joueur}\n⚙*OBJECT*: ${object}\n💵*VALEUR*: ${valeur}\n*NOUVELLE CARDS/RANG_XP*: ${data.colonneObject}`)
         }
 
         client.release();
       }
     } catch (error) {
       console.error("Erreur lors de la mise à jour des données de l'utilisateur:", error);
-      repondre(`une erreur est survenue lors de la mise à jour des données du joueur ${joueur}`);
-    }
+      repondre('une erreur s'est produite');
+        }
   }
 );
