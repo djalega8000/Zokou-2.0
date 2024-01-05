@@ -18,7 +18,7 @@ async function createNorth1FicheTable() {
     await client.query(`
       CREATE TABLE IF NOT EXISTS north4_che(
         id SERIAL PRIMARY KEY,
-        r1 TEXT,
+        r1 TEXT DEFAULT 'aucun',
         r2 INTEGER,
         r3 INTEGER,
         r4 INTEGER,
@@ -29,8 +29,8 @@ async function createNorth1FicheTable() {
         r9 INTEGER,
         r10 INTEGER,
         r11 INTEGER,
-        r12 TEXT,
-        r13 TEXT,
+        r12 TEXT DEFAULT 'aucun',
+        r13 TEXT DEFAULT 'aucun',
         r14 INTEGER,
         r15 INTEGER, 
         r16 INTEGER,
@@ -41,8 +41,8 @@ async function createNorth1FicheTable() {
         r21 INTEGER,
         r22 INTEGER,
         r23 INTEGER,
-        r24 TEXT,
-        r25 TEXT,
+        r24 TEXT DEFAULT 'aucun',
+        r25 TEXT DEFAULT 'aucun',
         r26 INTEGER,
         r27 INTEGER,
         r28 INTEGER, 
@@ -53,7 +53,7 @@ async function createNorth1FicheTable() {
         r33 INTEGER,
         r34 INTEGER,
         r35 INTEGER,
-        r36 TEXT
+        r36 TEXT DEFAULT 'aucun'
     `);
     console.log('Table north4_iche créée avec succès');
   } catch (error) {
@@ -66,18 +66,13 @@ async function createNorth1FicheTable() {
 async function insererValeur() { 
   const client = await pool.connect();
   try {
-    // Vérifier si la table existe
-    const checkTableQuery = "SELECT to_regclass('public.north4_che') AS table_exists";
-    const checkTableResult = await client.query(checkTableQuery);
-    const tableExists = checkTableResult.rows[0].table_exists;
-
-    if (!tableExists) {
-      // Si la table n'existe pas, la créer d'abord
-      await createNorth1FicheTable();
-    }
-
-    // Insérer les valeurs
-    const insertQuery = `
+    // Sélectionnez les valeurs pour tous les joueurs
+    const query =
+      "SELECT id, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36 FROM north4_che WHERE id = 1";
+    const result = await client.query(query);
+    if (result.row <0)  {
+  
+  const insertQuery = `
       INSERT INTO north4_che(id, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36)
       VALUES (1,'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun', 'aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'aucun')`;
     await client.query(insertQuery);
