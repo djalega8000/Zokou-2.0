@@ -1,7 +1,8 @@
 const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
 const { zokou } = require("../framework/zokou");
+const traduire = require("../framework/traduction");
 const { downloadMediaMessage,downloadContentFromMessage } =  require('@whiskeysockets/baileys');
-let fs=require("fs-extra") ;
+const fs = require("fs-extra") ;
 const axios = require('axios');  
 const FormData = require('form-data');
 const { exec } = require("child_process");
@@ -113,9 +114,7 @@ zokou({nomCom:"scrop",categorie: "Conversion", reaction: "👨🏿‍💻"},asyn
   } else if(msgRepondu.videoMessage) {
 mediamsg = msgRepondu.videoMessage
   } 
-  else if (msgRepondu.stickerMessage) {
-    mediamsg = msgRepondu.stickerMessage ;
-  } else {
+   else {
     repondre('Euh un media svp'); return
   } ;
 
@@ -245,7 +244,7 @@ zokou({ nomCom: "ecrire", categorie: "Conversion", reaction: "👨🏿‍💻" }
   }
 });
 
-zokou({nomCom:"url",categorie: "Conversion", reaction: "👨🏿‍💻"},async(origineMessage,zk,commandeOptions)=>{
+/* zokou({nomCom:"url",categorie: "Conversion", reaction: "👨🏿‍💻"},async(origineMessage,zk,commandeOptions)=>{
    const {ms , msgRepondu,arg,repondre,nomAuteurMessage} = commandeOptions ;
 
   if(!msgRepondu) { repondre( 'veiller mentionner le media' ) ; return } ;
@@ -290,11 +289,11 @@ mediamsg = msgRepondu.videoMessage
     repondre('commande non achever') ; return
   } else {
     repondre('Euh un media svp'); return
-  } ;
+  } ; 
 
 
       
-                  } );
+                  } ); */
 
 zokou({nomCom:"photo",categorie: "Conversion", reaction: "👨🏿‍💻"},async(dest,zk,commandeOptions)=>{
    const {ms , msgRepondu,arg,repondre,nomAuteurMessage} = commandeOptions ;
@@ -334,3 +333,91 @@ zokou({nomCom:"photo",categorie: "Conversion", reaction: "👨🏿‍💻"},asyn
           fs.unlinkSync(ran);
         });
 });
+
+async function uploadToTelegraph(Path) {
+    if (!fs.existsSync(Path)) {
+        throw new Error("Fichier non existant");
+    }
+
+    try {
+        const form = new FormData();
+        form.append("file", fs.createReadStream(Path));
+
+        const { data } = await axios.post("https://telegra.ph/upload", form, {
+            headers: {
+                ...form.getHeaders(),
+            },
+        });
+
+        if (data && data[0] && data[0].src) {
+            return "https://telegra.ph" + data[0].src;
+        } else {
+            throw new Error("Erreur lors de la récupération du lien de la vidéo");
+        }
+    } catch (err) {
+        throw new Error(String(err));
+    }
+}
+
+zokou({ nomCom: "url", categorie: "Conversion", reaction: "👨🏿‍💻" }, async (origineMessage, zk, commandeOptions) => {
+    const { msgRepondu, repondre } = commandeOptions;
+
+    if (!msgRepondu) {
+        repondre('Veuillez mentionner une vidéo ou une image.');
+        return;
+    }
+
+    let mediaPath;
+
+    if (msgRepondu.videoMessage) {
+        mediaPath = await zk.downloadAndSaveMediaMessage(msgRepondu.videoMessage);
+    } else if (msgRepondu.imageMessage) {
+        mediaPath = await zk.downloadAndSaveMediaMessage(msgRepondu.imageMessage);
+    } else {
+        repondre('Veuillez mentionner une vidéo ou une image.');
+        return;
+    }
+
+    try {
+        const telegraphUrl = await uploadToTelegraph(mediaPath);
+        fs.unlinkSync(mediaPath);  // Supprime le fichier après utilisation
+
+        repondre(telegraphUrl);
+    } catch (error) {
+        console.error('Erreur lors de la création du lien Telegraph :', error);
+        repondre('Erreur lors de la création du lien Telegraph.');
+    }
+});
+
+
+zokou({ nomCom: "trd", categorie: "Conversion", reaction: "👨🏿‍💻" }, async (dest, zk, commandeOptions) => {
+
+  const { msgRepondu, repondre , arg } = commandeOptions;
+
+  
+   if(msgRepondu) {
+     try {
+      
+     
+
+       if(!arg || !arg[0]) { repondre('indiquer le language dans lequel vous voulez traduire (ex :  fr , en)') ; return }
+   
+
+         let texttraduit = await traduire(msgRepondu.conversation , {to : arg[0]}) ;
+
+         repondre(texttraduit)
+
+        } catch (error) {
+          
+          repondre('Mentionner un message texte') ;
+      
+        }
+
+   } else {
+     
+     repondre('Mentionner le message texte a traduire')
+   }
+
+
+
+})

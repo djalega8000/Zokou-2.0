@@ -127,27 +127,85 @@ zokou({ nomCom: "jid", categorie: "Mods" }, async (dest, zk, commandeOptions) =>
 
         }) ;
 
-  zokou({ nomCom: "envoi", categorie: "Mods" }, async (dest, zk, commandeOptions) => {
+  zokou({ nomCom: "save", categorie: "Mods" }, async (dest, zk, commandeOptions) => {
 
   const { arg, ms, repondre, verifGroupe, msgRepondu, verifAdmin, superUser, auteurMessage,auteurMsgRepondu } = commandeOptions;
+  
+    if ( superUser) { 
+  
+      if(msgRepondu) {
 
-       if (!superUser) {
-    repondre("commande reservée au propriétaire du bot");
-    return;
-  } 
-    
-   if (!msgRepondu) {
-    repondre("Veiller mentionner le message svp");
-    return; };
-     if (!arg[0]) {
-    repondre('Veiller mettre le jid du destinataire');
-    return; } ;
+        console.log(msgRepondu) ;
 
-   const jid = arg.join(' ')
+        let msg ;
+  
+        if (msgRepondu.imageMessage) {
+  
+          
+  
+       let media  = await zk.downloadAndSaveMediaMessage(msgRepondu.imageMessage) ;
+       // console.log(msgRepondu) ;
+       msg = {
+  
+         image : { url : media } ,
+         caption : msgRepondu.imageMessage.caption,
+         
+       }
+      
+  
+        } else if (msgRepondu.videoMessage) {
+  
+          let media  = await zk.downloadAndSaveMediaMessage(msgRepondu.videoMessage) ;
+  
+          msg = {
+  
+            video : { url : media } ,
+            caption : msgRepondu.videoMessage.caption,
+            
+          }
+  
+        } else if (msgRepondu.audioMessage) {
+      
+          let media  = await zk.downloadAndSaveMediaMessage(msgRepondu.audioMessage) ;
+         
+          msg = {
      
-
-    /*const msg = getMessageFromStore(auteurMsgRepondu, msgRepondu) */
-await zk.sendMessage( jid, { forward: msgRepondu }) // WA forward the message!
+            audio : { url : media } ,
+            mimetype:'audio/mp4',
+             }     
+          
+        } else if (msgRepondu.stickerMessage) {
+  
+      
+          let media  = await zk.downloadAndSaveMediaMessage(msgRepondu.stickerMessage)
+  
+          let stickerMess = new Sticker(media, {
+            pack: 'Zokou-tag',
+            type: StickerTypes.CROPPED,
+            categories: ["🤩", "🎉"],
+            id: "12345",
+            quality: 70,
+            background: "transparent",
+          });
+          const stickerBuffer2 = await stickerMess.toBuffer();
+         
+          msg = { sticker: stickerBuffer2}
+  
+  
+        }  else {
+            msg = {
+               text : msgRepondu.conversation,
+            }
+        }
+  
+      zk.sendMessage(auteurMessage,msg)
+  
+      } else { repondre('Mentionner le message a enregistrer') }
+  
+  } else {
+    repondre('Commande reservée aux moderateurs')
+  }
+  
 
   })
 ;

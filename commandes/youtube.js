@@ -87,7 +87,7 @@ _*En cours de téléchargement...*_\n\n`
         // Envoi du fichier audio en utilisant l'URL du fichier local
       
 
-     zk.sendMessage(origineMessage, { audio: { url:"audio.mp3"},mimetype:'audio/mp4' }, { quoted: ms,ptt: false });
+     zk.sendMessage(origineMessage, { audio: { url:"audio.mp3"},mimetype:'audio/mp4' }, { quoted: ms ,ptt: false });
         console.log("Envoi du fichier audio terminé !");
 
      

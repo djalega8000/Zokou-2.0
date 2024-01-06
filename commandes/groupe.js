@@ -8,6 +8,7 @@ const {atbajouterOuMettreAJourJid,atbrecupererActionJid,atbverifierEtatJid,atbme
 const fs = require("fs-extra");
 const conf = require("../set");
 const { uploadImageToImgur } = require('../framework/imgur');
+const { recupevents } = require('../bdd/welcome');
 
 
 
@@ -81,6 +82,10 @@ zokou({ nomCom: "nommer", categorie: "Groupe", reaction: "👨🏿‍💼" }, as
   let membresGroupe = verifGroupe ? await infosGroupe.participants : ""
   if (!verifGroupe) { return repondre("Pour les groupe uniquement"); }
 
+  const met = await zk.groupMetadata(dest) ;
+
+  if(await recupevents(dest,'antipromote') == 'oui' && (met.author =! auteurMessage) )  { repondre('Vous avez pas droit de Nommer des participants car le antipromote est actif') ; return} ;
+
 
   const verifMember = (user) => {
 
@@ -142,6 +147,10 @@ zokou({ nomCom: "demettre", categorie: "Groupe", reaction: "👨🏿‍💼" }, 
   let { ms, repondre, msgRepondu, infosGroupe, auteurMsgRepondu, verifAdmin, verifZokouAdmin, verifGroupe, utilisateur, mbre, auteurMessage, superUser, idBot } = commandeOptions;
   let membresGroupe = verifGroupe ? await infosGroupe.participants : ""
   if (!verifGroupe) { return repondre("Pour les groupe uniquement"); }
+
+  const met = await zk.groupMetadata(dest) ;
+
+  if(await recupevents(dest,'antidemote') == 'oui' && (met.author =! auteurMessage) )  { repondre('Vous avez pas droit de denommer des participants car le antidemote est actif') ; return} ;
 
 
   const verifMember = (user) => {
@@ -288,7 +297,7 @@ zokou({ nomCom: "supp", categorie: "Groupe",reaction:"🧹" }, async (dest, zk, 
     repondre("Veuilez mentionner le Message à supprimer");
     return;
   }
-  if(superUser)
+  if(superUser && auteurMsgRepondu==idBot )
   {
     
        if(auteurMsgRepondu==idBot)
@@ -299,7 +308,7 @@ zokou({ nomCom: "supp", categorie: "Groupe",reaction:"🧹" }, async (dest, zk, 
       id: ms.message.extendedTextMessage.contextInfo.stanzaId,
          }
          await zk.sendMessage(dest,{delete:key});return;
-       }
+       } /*
       else if(auteurMsgRepondu!=idBot && !verifGroupe)
        {
              try{
@@ -311,27 +320,36 @@ zokou({ nomCom: "supp", categorie: "Groupe",reaction:"🧹" }, async (dest, zk, 
          }
          await zk.sendMessage(dest,{delete:key});return;
              }catch(erreur){repondre("oups une erreur lors de la suppression du message "+e)}
-       }
+       } */
   }
 
           if(verifGroupe)
           {
                if(verifAdmin || superUser)
                {
-                    if(verifZokouAdmin)
-                    {
+                    
                          try{
-                        
-            const key={
-            remoteJid:dest,
-      fromMe: false,
-      id: ms.message.extendedTextMessage.contextInfo.stanzaId,
-         }
+                
+                          const fs = require('fs');
+                         
+                         
+                          
+            // console.log(ms.message.extendedTextMessage.contextInfo.stanzaId)  ;         
+            const key=   {
+               remoteJid : dest,
+               id : ms.message.extendedTextMessage.contextInfo.stanzaId ,
+               fromMe : false,
+               participant : ms.message.extendedTextMessage.contextInfo.participant
+
+            }         // await getMessageKeyByStanzaIdAndJid('./store.json', ms.message.extendedTextMessage.contextInfo.stanzaId,dest)
+          //  console.log(key);
+         
          await zk.sendMessage(dest,{delete:key});return;
-             }catch(erreur){repondre("oups une erreur lors de la suppression du message "+e)}
-                    }
+
+             }catch(e){repondre("J'ai besoins des droit d'administration")}
+                    
                       
-               }else{repondre("Désolé je suis pas administrateur du groupe.")}
+               }else{repondre("Désolé vous n'etes pas administrateur du groupe.")}
           }
 });
 
@@ -575,7 +593,7 @@ zokou({ nomCom: "gpp", categorie: "Groupe" }, async (dest, zk, commandeOptions) 
 });
 
 /////////////
-zokou({nomCom:"annonce",categorie:"Groupe",reaction:"🎤"},async(dest,zk,commandeOptions)=>{
+/* zokou({nomCom:"annonce",categorie:"Groupe",reaction:"🎤"},async(dest,zk,commandeOptions)=>{
 
 
 const {ms,repondre,msgRepondu,verifGroupe,prefixe,arg}=commandeOptions;
@@ -612,12 +630,12 @@ const isImgRpd=msgRepondu.imageMessage?true:false;
 
 const imgRpd=isImgRpd?await zk.downloadAndSaveMediaMessage(msgRepondu.imageMessage):null;
 
-const titreImg=isImgRpd?msgRepondu.imageMessag.caption:"";*/
+const titreImg=isImgRpd?msgRepondu.imageMessag.caption:"";****
 
          if(msgRepondu)
             {
 
-    /** *********^^^^^^^^^^^^/ *///////////////////////////////////////////
+    /** *********^^^^^^^^^^^^/ ///////////////////////////////////////////
              
            const isTextRpd=msgRepondu.extendedTextMessage?.text?true:false;
 
@@ -650,7 +668,7 @@ if(isImgRpd)
 }else if(isTextRpd)
 { 
 
-  /*repondre(msgRepondu.extendedTextMessage?.text)*/
+  /*repondre(msgRepondu.extendedTextMessage?.text) ****
   
    await zk.sendMessage(dest,{text:textRpd,mentions:membres.map((i)=>i.id)})
 }
@@ -668,3 +686,110 @@ if(isImgRpd)
 
 
 });
+ */
+
+
+zokou({nomCom:"annonce",categorie:"Groupe",reaction:"🎤"},async(dest,zk,commandeOptions)=>{
+
+
+  const {ms,repondre,msgRepondu,verifGroupe,prefixe, arg ,verifAdmin , superUser}=commandeOptions;
+
+  if(!verifGroupe)  { repondre('Cette commande n\' est possible que dans les groupes ')} ;
+  if (verifAdmin || superUser) { 
+
+  let metadata = await zk.groupMetadata(dest) ;
+
+  //console.log(metadata.participants)
+ let tag = [] ;
+  for (const participant of metadata.participants ) {
+
+      tag.push(participant.id) ;
+  }
+  //console.log(tag)
+
+    if(msgRepondu) {
+      console.log(msgRepondu)
+      let msg ;
+
+      if (msgRepondu.imageMessage) {
+
+        
+
+     let media  = await zk.downloadAndSaveMediaMessage(msgRepondu.imageMessage) ;
+     // console.log(msgRepondu) ;
+     msg = {
+
+       image : { url : media } ,
+       caption : msgRepondu.imageMessage.caption,
+       mentions :  tag
+       
+     }
+    
+
+      } else if (msgRepondu.videoMessage) {
+
+        let media  = await zk.downloadAndSaveMediaMessage(msgRepondu.videoMessage) ;
+
+        msg = {
+
+          video : { url : media } ,
+          caption : msgRepondu.videoMessage.caption,
+          mentions :  tag
+          
+        }
+
+      } else if (msgRepondu.audioMessage) {
+    
+        let media  = await zk.downloadAndSaveMediaMessage(msgRepondu.audioMessage) ;
+       
+        msg = {
+   
+          audio : { url : media } ,
+          mimetype:'audio/mp4',
+          mentions :  tag
+           }     
+        
+      } else if (msgRepondu.stickerMessage) {
+
+    
+        let media  = await zk.downloadAndSaveMediaMessage(msgRepondu.stickerMessage)
+
+        let stickerMess = new Sticker(media, {
+          pack: 'Zokou-tag',
+          type: StickerTypes.CROPPED,
+          categories: ["🤩", "🎉"],
+          id: "12345",
+          quality: 70,
+          background: "transparent",
+        });
+        const stickerBuffer2 = await stickerMess.toBuffer();
+       
+        msg = { sticker: stickerBuffer2 , mentions : tag}
+
+
+      }  else {
+          msg = {
+             text : msgRepondu.conversation,
+             mentions : tag
+          }
+      }
+
+    zk.sendMessage(dest,msg)
+
+    } else {
+
+        if(!arg || !arg[0]) { repondre('Entrez le texte a annoncer ou mentionner le message a annoncer') ; return} ;
+
+      zk.sendMessage(
+         dest,
+         {
+          text : arg.join(' ') ,
+          mentions : tag
+         }     
+      )
+    }
+
+} else {
+  repondre('Commande reservée au admins')
+}
+})

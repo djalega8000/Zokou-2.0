@@ -12,7 +12,7 @@ zokou({ nomCom: "menu", reaction:"📁",categorie: "Général" }, async (dest, z
     var coms = {};
     var mode = "public";
     
-    if (s.MODE != "oui") {
+    if ((s.MODE).toLowerCase() != "oui") {
         mode = "privé";
     }
 
@@ -76,7 +76,7 @@ Pour utiliser une  commande, tapez  ${prefixe}"nom de la commande"
 
    if (lien.match(/\.(mp4|gif)$/i)) {
     try {
-        zk.sendMessage(dest, { video: { url: lien }, caption:infoMsg + menuMsg, footer: "Je suis *Zokou-MD*, développé par Djalega++" }, { quoted: ms });
+        zk.sendMessage(dest, { video: { url: lien }, caption:infoMsg + menuMsg, footer: "Je suis *Zokou-MD*, développé par Djalega++" , gifPlayback : true}, { quoted: ms });
     }
     catch (e) {
         console.log("🥵🥵 Menu erreur " + e);

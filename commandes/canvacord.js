@@ -1,4 +1,4 @@
-const { zokou } = require("../framework/zokou");
+/* const { zokou } = require("../framework/zokou");
 const canvacord = require("canvacord");
 const {uploadImageToImgur} = require("../framework/imgur")
 
@@ -69,3 +69,4 @@ createCanvacordCommand("affect", canvacord.Canvacord.affect);
 
 
 
+ */

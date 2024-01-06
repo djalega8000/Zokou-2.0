@@ -102,6 +102,18 @@
     "desc": "il s'agit de nombre d'avertissement limite",
     "required": false,
     "value": "3"
+  },
+  "OPENAI_API_KEY":
+  {
+    "desc": "Mettez votre api key de chez openai pour pour utiliser chatgpt",
+    "required": false,
+    "value": ""
+  },
+  "STARTING_BOT_MESSAGE":
+  {
+    "desc": "Mettez oui si vous voulez avoir le message du bot qu'il vous envoie en pv ou non si vous en voulez pas",
+    "required": true,
+    "value": "oui"
   }
   },
 
