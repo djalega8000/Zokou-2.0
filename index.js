@@ -597,7 +597,7 @@ ${metadata.desc}`;
             }
 
             zk.sendMessage(group.id, { text: msg, mentions: membres });
-        } else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui') ) {
+        } /*else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui') ) {
                 //  console.log(zk.user.id)
               if (group.author == metadata.owner || group.author  == conf.NUMERO_OWNER + '@s.whatsapp.net' || group.author == decodeJid(zk.user.id)  || group.author == group.participants[0]) { console.log('Cas de superUser je fais rien') ;return ;} ;
         
@@ -628,7 +628,7 @@ ${metadata.desc}`;
                     }
                )
                  
-         } 
+         } */
     } catch (e) {
         console.error(e);
     }
