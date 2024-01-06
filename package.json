@@ -23,7 +23,7 @@
     "@adiwajshing/keyed-db": "^0.2.4",
     "@hapi/boom": "^10.0.1",
     "@prevter/tiktok-scraper": "^1.0.0",
-    "@sampandey001/baileys": "github:aliazhar-id/Baileys#aliazhar-patch-2",
+    "@sampandey001/baileys": "latest",
     "@types/node": "^18.0.6",
     "@whiskeysockets/baileys": "^6.4.0",
     "@xaviabot/fb-downloader": "^1.0.14",
