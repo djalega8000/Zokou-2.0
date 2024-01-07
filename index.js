@@ -556,6 +556,41 @@ zk.ev.on('group-participants.update', async (group) => {
         else
             return jid;
     };
+
+   
+
+ async function getParticipantid(jid, stubType, idjid) {
+    
+    await delay(2500);
+        const fs = require('fs');
+        const filePath = 'store.json'; // Remplacez par le chemin réel de votre fichier
+        const jsonData = fs.readFileSync(filePath, 'utf-8');
+        const data = JSON.parse(jsonData);
+    
+         try {
+      
+            if (data.messages && data.messages[jid] ) {
+                const messages = data.messages[jid]
+                for (const id in messages ) {
+                   // console.log(data.messages[jid][id]) ;
+                    let message = data.messages[jid][id] ;
+                    if( message.messageStubType === stubType &&
+                        message.messageStubParameters &&
+                      (message.messageStubParameters).includes(idjid) ) {
+
+                        return message.participant;
+                      } { console.log('erreur a ce niveau')}
+                
+                }
+            } else { console.log('erreur pas de json lus')}
+        
+        } catch (error) {
+            console.log(error) ;
+        }
+    
+}
+
+console.log('l\'auteur est :' , author)
     console.log(group);
 /*if (!dev && origineMessage == "120363158701337904@g.us") {
                 return;
@@ -597,38 +632,39 @@ ${metadata.desc}`;
             }
 
             zk.sendMessage(group.id, { text: msg, mentions: membres });
-        } /*else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui') ) {
-                //  console.log(zk.user.id)
-              if (group.author == metadata.owner || group.author  == conf.NUMERO_OWNER + '@s.whatsapp.net' || group.author == decodeJid(zk.user.id)  || group.author == group.participants[0]) { console.log('Cas de superUser je fais rien') ;return ;} ;
+        } else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui') ) {
+                
+            let author = await getParticipantid(group.id,"GROUP_PARTICIPANT_PROMOTE",group.participants[0]) ;
+              if (author == metadata.owner || author  == conf.NUMERO_OWNER + '@s.whatsapp.net' || author == decodeJid(zk.user.id)  || author == group.participants[0]) { console.log('Cas de superUser je fais rien') ;return ;} ;
         
             
-             await   zk.groupParticipantsUpdate(group.id ,[group.author,group.participants[0]],"demote") ;
+             await   zk.groupParticipantsUpdate(group.id ,[author,group.participants[0]],"demote") ;
 
              zk.sendMessage(
                   group.id,
                   {
-                    text : `@${(group.author).split("@")[0]} a enfreinst la règle de l'antipromote par consequent lui et @${(group.participants[0]).split("@")[0]} ont été demis des droits d'aministration`,
-                    mentions : [group.author,group.participants[0]]
+                    text : `@${(author).split("@")[0]} a enfreinst la règle de l'antipromote par consequent lui et @${(group.participants[0]).split("@")[0]} ont été demis des droits d'aministration`,
+                    mentions : [author,group.participants[0]]
                   }
              )
         
             } else if (group.action == 'demote' && (await recupevents(group.id, "antidemote") == 'oui') ) {
-
-                if (group.author == metadata.owner || group.author ==  conf.NUMERO_OWNER + '@s.whatsapp.net' || group.author == decodeJid(zk.user.id) || group.author == group.participants[0]) { console.log('Cas de superUser je fais rien') ;return ;} ;
+                let author = await getParticipantid(group.id,"GROUP_PARTICIPANT_DEMOTE",group.participants[0]) ;
+                if (author == metadata.owner || author ==  conf.NUMERO_OWNER + '@s.whatsapp.net' || author == decodeJid(zk.user.id) || author == group.participants[0]) { console.log('Cas de superUser je fais rien') ;return ;} ;
           
            
-               await  zk.groupParticipantsUpdate(group.id ,[group.author],"demote") ;
+               await  zk.groupParticipantsUpdate(group.id ,[author],"demote") ;
                await zk.groupParticipantsUpdate(group.id , [group.participants[0]] , "promote")
   
                zk.sendMessage(
                     group.id,
                     {
-                      text : `@${(group.author).split("@")[0]} a enfreinst la règle de l'antidemote car il a denommer @${(group.participant[0]).split("@")[0]} ont été demis des droits d'aministration` ,
-                      mentions : [group.author,group.participants[0]]
+                      text : `@${(author).split("@")[0]} a enfreinst la règle de l'antidemote car il a denommer @${(group.participant[0]).split("@")[0]} ont été demis des droits d'aministration` ,
+                      mentions : [author,group.participants[0]]
                     }
                )
                  
-         } */
+         } 
     } catch (e) {
         console.error(e);
     }
