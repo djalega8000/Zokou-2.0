@@ -14,7 +14,7 @@ async function createNorth1FicheTable() {
   const client = await pool.connect();
 
   try {
-    // Créez la table north4_iche si elle n'existe pas déjà
+    // Créez la table north4_che si elle n'existe pas déjà
     await client.query(`
       CREATE TABLE IF NOT EXISTS north4_che(
         id SERIAL PRIMARY KEY,
@@ -54,110 +54,56 @@ async function createNorth1FicheTable() {
         r34 INTEGER DEFAULT 0,
         r35 INTEGER DEFAULT 0,
         r36 TEXT DEFAULT 'aucun'
+      );
     `);
-    console.log('Table north4_iche créée avec succès');
+    console.log('Table north4_che créée avec succès');
   } catch (error) {
-    console.error('Erreur lors de la création de la table north4_iche:', error);
+    console.error('Erreur lors de la création de la table north4_che:', error);
   } finally {
     client.release();
   }
 }
 
-async function getR() {
+// Fonction pour insérer des données
+async function insertData() {
   const client = await pool.connect();
 
   try {
-    // Sélectionnez les valeurs pour tous les joueurs
-    const query =
-      "SELECT r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36 FROM north4_che WHERE id = $1";
-    const result = await client.query(query);
-    const {
-      r1,
-      r2,
-      r3,
-      r4,
-      r5,
-      r6,
-      r7,
-      r8,
-      r9,
-      r10,
-      r11,
-      r12,
-      r13,
-      r14,
-      r15,
-      r16,
-      r17,
-      r18,
-      r19,
-      r20,
-      r21,
-      r22,
-      r23,
-      r24,
-      r25,
-      r26,
-      r27,
-      r28,
-      r29,
-      r30,
-      r31,
-      r32,
-      r33,
-      r34,
-      r35,
-      r36
-    } = result.rows[0];
-    return {
-      r1,
-      r2,
-      r3,
-      r4,
-      r5,
-      r6,
-      r7,
-      r8,
-      r9,
-      r10,
-      r11,
-      r12,
-      r13,
-      r14,
-      r15,
-      r16,
-      r17,
-      r18,
-      r19,
-      r20,
-      r21,
-      r22,
-      r23,
-      r24,
-      r25,
-      r26,
-      r27,
-      r28,
-      r29,
-      r30,
-      r31,
-      r32,
-      r33,
-      r34,
-      r35,
-      r36
-    };
+    const query = `
+      INSERT INTO north4_che (r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36)
+      VALUES ('aucun', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    `;
+
+    await client.query(query);
+    console.log('Données insérées avec succès');
   } catch (error) {
-    console.error("Erreur lors de la récupération des données de l'utilisateur:", error);
+    console.error('Erreur lors de l\'insertion des données:', error);
   } finally {
     client.release();
   }
 }
 
-// Appeler la fonction insererValeur après la création de la table
-createNorth1FicheTable()
+// Fonction pour récupérer toutes les données
+async function getData() {
+  const client = await pool.connect();
+
+  try {
+    const query = 'SELECT * FROM north4_che';
+    const result = await client.query(query);
+
+    return result.rows;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données:', error);
+  } finally {
+    client.release();
+  }
+}
+
+// Appeler la fonction createNorth1FicheTable après la création de la table
+createNorth1FicheTable();
 
 module.exports = {
   createNorth1FicheTable,
-  getR,
+  insertData,
+  getData,
 };
