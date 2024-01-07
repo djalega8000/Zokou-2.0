@@ -68,7 +68,7 @@ zokou({ nomCom: "dalle", reaction: "📡", categorie: "IA" }, async (dest, zk, c
     if (!data.choices || data.choices.length === 0) {
       repondre("OPENAI_API_KEY  invalide, veuillez mettre une nouvelle clé");
     } else {
-    zk.sendMessage(dest, { image: { url: data, caption: caption }, quoted: ms });
+    zk.sendMessage(dest, { image: { url: 'data' }, caption: caption }, { quoted: ms });
     }
   } catch (error) {
     console.error('Erreur:', error.message || 'Une erreur s\'est produite');
