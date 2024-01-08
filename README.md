@@ -30,7 +30,7 @@
 
 2. Obtenez une session du bot : <br>
   
-[Session](https://zokouscan.onrender.com/qrcode)
+[Session](https://zokouscan.onrender.com)
   
 
 
