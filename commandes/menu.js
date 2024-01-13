@@ -6,7 +6,7 @@ const os = require("os");
 const moment = require("moment-timezone");
 const s = require(__dirname + "/../set");
 
-zokou({ nomCom: "menu", reaction:"📁",categorie: "Général" }, async (dest, zk, commandeOptions) => {
+zokou({ nomCom: "menu", reaction:"🤘🏻",categorie: "Général" }, async (dest, zk, commandeOptions) => {
     let { ms, repondre ,prefixe,nomAuteurMessage,mybotpic} = commandeOptions;
     let { cm } = require(__dirname + "/../framework//zokou");
     var coms = {};
@@ -31,21 +31,21 @@ const temps = moment().format('HH:mm:ss');
 const date = moment().format('DD/MM/YYYY');
 
   let infoMsg =  `
-*╔═════ •✧✧• ════╗*
-┃   *Préfixe* : ${s.PREFIXE}
-┃   *Owner* : ${s.NOM_OWNER}
-┃   *Mode* : ${mode}
-┃   *Commandes* : ${cm.length}
-┃   *Date* : ${date}
+*╔═════ •✧✧• ════🤘🏻*
+🤘🏻   *Préfixe* : ${s.PREFIXE}
+🤘🏻   *Owner* : ${s.NOM_OWNER}
+🤘🏻   *Mode* : ${mode}
+🤘🏻   *Commandes* : ${cm.length}
+🤘🏻   *Date* : ${date}
 ┃   *Heure* : ${temps}
-┃   *Mémoire* : ${format(os.totalmem() - os.freemem())}/${format(os.totalmem())}
-┃   *Plateforme* : ${os.platform()}
-┃   *Développeurs* : Djalega++ 
-┃  & M๏𝓷keℽ D Lบffy
-*╚═════ •✧✧• ════╝* \n\n`;
+🤘🏻   *Mémoire* : ${format(os.totalmem() - os.freemem())}/${format(os.totalmem())}
+🤘🏻   *Plateforme* : ${os.platform()}
+🤘🏻   *Développeurs* : Djalega++ 
+🤘🏻  & M๏𝓷keℽ D Lบffy
+*╚═════ •✧✧• ════🤘🏻* \n\n`;
     
 let menuMsg = `
-👋 salut ${nomAuteurMessage} 👋
+🤘🏻 salut ${nomAuteurMessage} 🤘🏻
 Je suis *${s.BOT}*, un bot développé par *La team Zokou*.
 
 *Voici la liste de mes commandes :*
@@ -59,17 +59,17 @@ Je suis *${s.BOT}*, un bot développé par *La team Zokou*.
 *✗✪* ${cmd}`;
         }
         menuMsg += `
-*╚════ ✵ ✵ ═══╝* \n`
+*╚════ 🤘🏻 🤘🏻 ═══╝* \n`
     }
 
     menuMsg += `
 ◇            ◇
-*»»————— ★ —————««*
+*»»————— 🤘🏻 —————««*
 Pour utiliser une  commande, tapez  ${prefixe}"nom de la commande"
  
  *『ZokouMD*
                                                 
-*»»————— ★ —————««*
+*»»————— 🤘🏻 —————««*
 `;
 
    var lien = mybotpic();
@@ -100,3 +100,4 @@ else {
 }
 
 });
+    
