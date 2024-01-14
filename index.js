@@ -47,6 +47,7 @@ const  {addGroupToBanList,isGroupBanned,removeGroupFromBanList} = require("./bdd
 const {isGroupOnlyAdmin,addGroupToOnlyAdminList,removeGroupFromOnlyAdminList} = require("./bdd/onlyAdmin");
 const { constrainedMemory } = require("process");
 const { co } = require("translatte/languages");
+const { recupevents } = require('./bdd/welcome');
 //const //{loadCmd}=require("/framework/mesfonctions")
 let { reagir } = require(__dirname + "/framework/app");
 var session = conf.session;
@@ -106,7 +107,95 @@ setTimeout(() => {
         zk.ev.on("messages.upsert", async (m) => {
             const { messages } = m;
             const ms = messages[0];
-           // console.log(ms)
+
+           
+            /****somes events */
+            if (ms.messageStubType == 29) {
+
+            if ( (await recupevents(ms.key.remoteJid, "antipromote")) != 'oui' ) { console.log("L'antipromote n'est pas activé"); return}
+
+                try {
+                    
+               
+
+                let author = ms.participant ;
+                let vi = ms.messageStubParameters[0] ;
+
+                let groupdata = await zk.groupMetadata(ms.key.remoteJid) ;
+
+                if(author == groupdata.owner || author == conf.NUMERO_OWNER + '@s.whatsapp.net' || author == decodeJid(zk.user.id) || author == vi  ) { console.log('Cas de superUser' ) ; return}
+
+                await   zk.groupParticipantsUpdate( ms.key.remoteJid ,[author,vi],"demote")  ;
+
+                let mentions = [] ; 
+
+                for (let i = 0 ; i < (groupdata.participants).length ; i++) {
+
+                    if(groupdata.participants[i].admin != null) {
+                        mentions.push(groupdata.participants[i].id)
+                    } ;
+                }
+                mentions.push([[author,vi]]) ;
+
+                zk.sendMessage(
+                    ms.key.remoteJid,
+                    {
+                      text : `@${(author).split("@")[0]} a enfreinst la règle de l'antipromote par consequent lui et @${vi.split("@")[0]} ont été demis des droits d'aministration`,
+                      mentions : mentions
+                    }
+               )
+
+            } catch (error) {
+                    console.log(error) ;
+            }
+
+
+            } else if (ms.messageStubType == 30) {
+
+                if ( (await recupevents(ms.key.remoteJid, "antidemote")) != 'oui' ) { console.log("L'antidemote n'est pas activé"); return}
+
+                try {
+                    
+                
+
+                let author = ms.participant ;
+                let vi = ms.messageStubParameters[0] ;
+
+                if(author == groupdata.owner || author == conf.NUMERO_OWNER + '@s.whatsapp.net' || author == decodeJid(zk.user.id) || author == vi  ) { console.log('Cas de superUser' ) ; return}
+
+                await  zk.groupParticipantsUpdate(group.id ,[author],"demote") ;
+               await zk.groupParticipantsUpdate(group.id , [vi] , "promote") ;
+
+
+               let mentions = [] ; 
+
+               for (let i = 0 ; i < (groupdata.participants).length ; i++) {
+
+                   if(groupdata.participants[i].admin != null) {
+                       mentions.push(groupdata.participants[i].id)
+                   } ;
+               }
+               mentions.push([[author,vi]]) ;
+
+
+               zk.sendMessage(
+                group.id,
+                {
+                  text : `@${author.split("@")[0]} a enfreint la règle de l'antidemote car il a denommer @${vi.split("@")[0]} ont été demis des droits d'aministration` ,
+                  mentions : mentions
+                }
+           )
+
+
+        } catch (error) {
+
+            console.log(error)
+                    
+        }
+                
+
+            }
+           // ends of somes events
             if (!ms.message)
                 return;
             const decodeJid = (jid) => {
@@ -329,8 +418,14 @@ function mybotpic() {
                             console.log(e);
                         }
                     }
-                }
-                
+                } ;
+
+                /***********anti promote 
+
+                if (ms && ms.messageStubType == 29) {
+                    console.log('oui')
+                }  */
+                           
  
      //anti-lien
      try {
@@ -542,59 +637,12 @@ function mybotpic() {
         //fin événement message
 
 /******** evenement groupe update ****************/
-const { recupevents } = require('./bdd/welcome');
+
 
 zk.ev.on('group-participants.update', async (group) => {
 
-    const decodeJid = (jid) => {
-        if (!jid)
-            return jid;
-        if (/:\d+@/gi.test(jid)) {
-            let decode = (0, baileys_1.jidDecode)(jid) || {};
-            return decode.user && decode.server && decode.user + '@' + decode.server || jid;
-        }
-        else
-            return jid;
-    };
-
    
 
- async function getParticipantid(jid, stubType, idjid) {
-    
-    await delay(2500);
-        const fs = require('fs');
-        const filePath = 'store.json'; // Remplacez par le chemin réel de votre fichier
-        const jsonData = fs.readFileSync(filePath, 'utf-8');
-        const data = JSON.parse(jsonData);
-    
-         try {
-      
-            if (data.messages && data.messages[jid] ) {
-                const messages = data.messages[jid]
-                for (const id in messages ) {
-                   // console.log(data.messages[jid][id]) ;
-                    let message = data.messages[jid][id] ;
-                    if( message.messageStubType === stubType &&
-                        message.messageStubParameters &&
-                      (message.messageStubParameters).includes(idjid) ) {
-
-                        return message.participant;
-                      } { console.log('erreur a ce niveau')}
-                
-                }
-            } else { console.log('erreur pas de json lus')}
-        
-        } catch (error) {
-            console.log(error) ;
-        }
-    
-}
-
-console.log('l\'auteur est :' , author)
-    console.log(group);
-/*if (!dev && origineMessage == "120363158701337904@g.us") {
-                return;
-            }*/
     let ppgroup;
     try {
         ppgroup = await zk.profilePictureUrl(group.id, 'image');
@@ -632,39 +680,7 @@ ${metadata.desc}`;
             }
 
             zk.sendMessage(group.id, { text: msg, mentions: membres });
-        } else if (group.action == 'promote' && (await recupevents(group.id, "antipromote") == 'oui') ) {
-                
-            let author = await getParticipantid(group.id,"GROUP_PARTICIPANT_PROMOTE",group.participants[0]) ;
-              if (author == metadata.owner || author  == conf.NUMERO_OWNER + '@s.whatsapp.net' || author == decodeJid(zk.user.id)  || author == group.participants[0]) { console.log('Cas de superUser je fais rien') ;return ;} ;
-        
-            
-             await   zk.groupParticipantsUpdate(group.id ,[author,group.participants[0]],"demote") ;
-
-             zk.sendMessage(
-                  group.id,
-                  {
-                    text : `@${(author).split("@")[0]} a enfreinst la règle de l'antipromote par consequent lui et @${(group.participants[0]).split("@")[0]} ont été demis des droits d'aministration`,
-                    mentions : [author,group.participants[0]]
-                  }
-             )
-        
-            } else if (group.action == 'demote' && (await recupevents(group.id, "antidemote") == 'oui') ) {
-                let author = await getParticipantid(group.id,"GROUP_PARTICIPANT_DEMOTE",group.participants[0]) ;
-                if (author == metadata.owner || author ==  conf.NUMERO_OWNER + '@s.whatsapp.net' || author == decodeJid(zk.user.id) || author == group.participants[0]) { console.log('Cas de superUser je fais rien') ;return ;} ;
-          
-           
-               await  zk.groupParticipantsUpdate(group.id ,[author],"demote") ;
-               await zk.groupParticipantsUpdate(group.id , [group.participants[0]] , "promote")
-  
-               zk.sendMessage(
-                    group.id,
-                    {
-                      text : `@${(author).split("@")[0]} a enfreinst la règle de l'antidemote car il a denommer @${(group.participant[0]).split("@")[0]} ont été demis des droits d'aministration` ,
-                      mentions : [author,group.participants[0]]
-                    }
-               )
-                 
-         } 
+        }
     } catch (e) {
         console.error(e);
     }
