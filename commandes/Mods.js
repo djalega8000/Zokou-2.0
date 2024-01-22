@@ -5,8 +5,8 @@ const {isUserBanned , addUserToBanList , removeUserFromBanList} = require("../bd
 const  {addGroupToBanList,isGroupBanned,removeGroupFromBanList} = require("../bdd/banGroup");
 const {isGroupOnlyAdmin,addGroupToOnlyAdminList,removeGroupFromOnlyAdminList} = require("../bdd/onlyAdmin");
 const {removeSudoNumber,addSudoNumber,issudo} = require("../bdd/sudo");
-const conf = require("../set");
-const fs = require('fs-extra');
+//const conf = require("../set");
+//const fs = require('fs-extra');
 
 
 const sleep =  (ms) =>{
@@ -21,48 +21,82 @@ zokou({ nomCom: "tgs", categorie: "Mods" }, async (dest, zk, commandeOptions) =>
   if (!superUser) {
     repondre('Commande reservée au propriétaire du bot'); return;
   }
-  const apikey = conf.APILOLHUMAIN
+  //const apikey = conf.APILOLHUMAIN
 
-  if (apikey === null || apikey === 'null') { repondre('Veillez vérifier votre apikey ou si vous en avez pas , veiller crée un compte sur api.lolhuman.xyz et vous en procurer une.'); return; };
+ // if (apikey === null || apikey === 'null') { repondre('Veillez vérifier votre apikey ou si vous en avez pas , veiller crée un compte sur api.lolhuman.xyz et vous en procurer une.'); return; };
 
   if (!arg[0]) {
-    repondre("veuillez insérer un lien de sticker Telegram svp");
+    repondre("Veillez inserer un lien de stickers telegrame svp");
     return;
   }
 
   let lien = arg.join(' ');
 
-  let api = 'https://api.lolhuman.xyz/api/telestick?apikey=' + apikey + '&url=' + lien;
+  let name = lien.split('/addstickers/')[1] ;
+
+  let api = 'https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getStickerSet?name=' + encodeURIComponent(name) ;
 
   try {
-    const response = await axios.get(api);
-    const img = response.data.result.sticker;
 
-    for (let i = 0; i < img.length; i++) {
-      const sticker = new Sticker(img[i], {
-        pack: nomAuteurMessage,
-        author: "Zokou-md",
-        type: StickerTypes.FULL,
-        categories: ['🤩', '🎉'],
-        id: '12345',
-        quality: 50,
-        background: '#000000'
-      });
+    let stickers = await axios.get(api) ;
 
-      const stickerBuffer = await sticker.toBuffer(); // Convertit l'autocollant en tampon (Buffer)
+    let type = null ;
 
-      await zk.sendMessage(
-        dest,
-        {
-          sticker: stickerBuffer, // Utilisez le tampon (Buffer) directement dans l'objet de message
-        },
-        { quoted: ms }
-      );
+    if (stickers.data.result.is_animated === true ||stickers.data.result.is_video === true  ) {
+
+        type = 'Stickers animé'
+    } else {
+      type = 'Stickers non animé'
     }
+
+    let msg = `   Zk-stickers-dl
+    
+*nom :* ${stickers.data.result.name}
+*Type :* ${type} 
+*Nombre de stickes :* ${(stickers.data.result.stickers).length}
+
+    Telechargements en cours`
+
+    await  repondre(msg) ;
+
+     for ( let i = 0 ; i < (stickers.data.result.stickers).length ; i++ ) {
+
+        let file = await axios.get(`https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getFile?file_id=${stickers.data.result.stickers[i].file_id}`) ;
+
+        let buffer = await axios({
+          method: 'get',  // Utilisez 'get' pour télécharger le fichier
+          url:`https://api.telegram.org/file/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/${file.data.result.file_path}` ,
+          responseType: 'arraybuffer',  // Définissez le type de réponse sur 'stream' pour gérer un flux de données
+        })
+
+
+        const sticker = new Sticker(buffer.data, {
+          pack: nomAuteurMessage,
+          author: "Zokou-md",
+          type: StickerTypes.FULL,
+          categories: ['🤩', '🎉'],
+          id: '12345',
+          quality: 50,
+          background: '#000000'
+        });
+  
+        const stickerBuffer = await sticker.toBuffer(); // Convertit l'autocollant en tampon (Buffer)
+  
+        await zk.sendMessage(
+          dest,
+          {
+            sticker: stickerBuffer, // Utilisez le tampon (Buffer) directement dans l'objet de message
+          },
+          { quoted: ms }
+        ); 
+     }
+
   } catch (e) {
     repondre("erreur lors de la procédure \n", e);
   }
 });
+
+
 
 zokou({ nomCom: "crew", categorie: "Mods" }, async (dest, zk, commandeOptions) => {
   const { ms, repondre, arg, auteurMessage, superUser, auteurMsgRepondu, msgRepondu } = commandeOptions;

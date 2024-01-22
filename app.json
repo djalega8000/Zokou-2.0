@@ -63,12 +63,6 @@
      "required" :false
     }  
 	  ,
-    "APILOLHUMAIN":
-    {
-      "description":"placer votre  apikey de chez api.lolhuman.xyz(pas obligatoire)",
-      "value":"",
-      "required":false
-    },
     "ETAT":{
 		  "description":"marquez votre présence : 1 pour signaler que vous êtes en ligne même si vous ne l'êtes pas . 2 pour dire que vous êtes entrain d écrire un message. 3 pour signaler que vous êtes entrain de d enregistrer un audio . ou laissez le champs  vide pour signaler votre état réel.  ",
 		  "value":"1",
