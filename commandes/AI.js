@@ -1,8 +1,7 @@
 const { zokou } = require('../framework/zokou');
 const traduire = require("../framework/traduction") ;
 const axios = require('axios');
-//const fetch = require('node-fetch');
-//const conf = require('../set');
+
 
 
 
@@ -13,7 +12,7 @@ zokou({nomCom:"bot",reaction:"📡",categorie:"IA"},async(dest,zk,commandeOption
   
     if(!arg || !arg[0])
     {return repondre("oui je vous ecoute.")}
-    var quest = arg.join(' ');
+    //var quest = arg.join(' ');
   try{
     
     
@@ -45,42 +44,6 @@ fetch(`http://api.brainshop.ai/get?bid=177607&key=NwzhALqeO1kubFVD&uid=[uid]&msg
   });  
   
 
-  /*zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
-    const { repondre, arg } = commandeOptions;
-  
-    try {
-      if (!arg || arg.length === 0) {
-        return repondre("Veuillez poser une question.");
-      }
-  
-      const question = arg.join(' ');
-  
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${conf.GPT}`, 
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo", 
-          messages: [{ role: "system", content: "You are a helpful assistant." }, { role: "user", content: question }],
-        }),
-      });
-  
-      const reponseData = await response.json();
-      console.log("GPT REPONCE : ",reponseData); 
-      
-      if (!reponseData.choices || reponseData.choices.length === 0) {
-        repondre("OPENAI_API_KEY  invalide, veuillez mettre une nouvelle clé");
-      } else {
-        repondre(reponseData.choices[0].message.content);
-          }
-      
-    } catch (error) {
-      console.error('Erreur:', error.message || 'Une erreur s\'est produite');
-      repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
-    }
-  });*/
 
 zokou({ nomCom: "dalle", reaction: "📡", categorie: "IA" }, async (dest, zk, commandeOptions) => {
   const { repondre, arg, ms } = commandeOptions;
@@ -91,7 +54,7 @@ zokou({ nomCom: "dalle", reaction: "📡", categorie: "IA" }, async (dest, zk, c
     }
 
     // Regrouper les arguments en une seule chaîne séparée par "-"
-    const image = arg.join('-');
+    const image = arg.join(' ');
     const response = await axios.get(`https://vihangayt.me/tools/photoleap?q=${image}`);
     
     const data = response.data;
@@ -119,7 +82,7 @@ zokou({ nomCom: "gpt", reaction: "📡", categorie: "IA" }, async (dest, zk, com
     }
 
     // Regrouper les arguments en une seule chaîne séparée par "-"
-    const question = arg.join('-');
+    const question = arg.join(' ');
     const response = await axios.get(`https://vihangayt.me/tools/chatgpt4?q=${question}`);
     
     const data = response.data;
