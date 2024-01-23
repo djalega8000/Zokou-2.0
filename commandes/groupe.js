@@ -1,16 +1,14 @@
-
-
-const { zokou } = require("../framework/zokou")
-//const { getGroupe } = require("../bdd/groupe")
+const { zokou } = require("../framework/zokou");
+//const { getGroupe } = require("../bdd/groupe");
 const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
-const {ajouterOuMettreAJourJid,mettreAJourAction,verifierEtatJid} = require("../bdd/antilien")
-const {atbajouterOuMettreAJourJid,atbrecupererActionJid,atbverifierEtatJid,atbmettreAJourAction} = require("../bdd/antibot")
+const {ajouterOuMettreAJourJid,mettreAJourAction,verifierEtatJid} = require("../bdd/antilien");
+const {atbajouterOuMettreAJourJid,atbrecupererActionJid,atbverifierEtatJid,atbmettreAJourAction} = require("../bdd/antibot");
+const { search, download } = require("aptoide-scraper");
+const axios = require('axios');
 const fs = require("fs-extra");
 const conf = require("../set");
 const { uploadImageToImgur } = require('../framework/imgur');
 const { recupevents } = require('../bdd/welcome');
-
-
 
 
 zokou({ nomCom: "appel", categorie: "Groupe", reaction: "📣" }, async (dest, zk, commandeOptions) => {
@@ -792,4 +790,65 @@ zokou({nomCom:"annonce",categorie:"Groupe",reaction:"🎤"},async(dest,zk,comman
 } else {
   repondre('Commande reservée au admins')
 }
-})
+});
+
+
+zokou({ nomCom: "apk", reaction: "✨", categorie: "Recherche" }, async (dest, zk, commandeOptions) => {
+  const { repondre, arg, ms } = commandeOptions;
+
+  try {
+    const appName = arg.join(' ');
+    if (!appName) {
+      return repondre("*Entrer le nom de l'application à rechercher*");
+    }
+
+    const searchResults = await search(appName);
+
+    if (searchResults.length === 0) {
+      return repondre("*Application non existante, veuillez entrer un autre nom*");
+    }
+
+    const appData = await download(searchResults[0].id);
+    const fileSize = parseInt(appData.size);
+
+    if (fileSize > 300) {
+      return repondre("Le fichier dépasse 300 Mo, impossible de le télécharger.");
+    }
+
+    const downloadLink = appData.dllink;
+    const captionText =
+      "『 *Zokou-Md App* 』\n\n*Nom :* " + appData.name +
+      "\n*Id :* " + appData["package"] +
+      "\n*Dernière MAJ :* " + appData.lastup +
+      "\n*Taille :* " + appData.size +
+      "\n";
+
+    const apkFileName = (appData?.["name"] || "Downloader") + ".apk";
+    const filePath = apkFileName;
+
+    const response = await axios.get(downloadLink, { 'responseType': "stream" });
+    const fileWriter = fs.createWriteStream(filePath);
+    response.data.pipe(fileWriter);
+
+    await new Promise((resolve, reject) => {
+      fileWriter.on('finish', resolve);
+      fileWriter.on("error", reject);
+    });
+
+    const documentMessage = {
+      'document': fs.readFileSync(filePath),
+      'mimetype': 'application/vnd.android.package-archive',
+      'fileName': apkFileName
+    };
+
+    // Utilisation d'une seule méthode sendMessage pour envoyer l'image et le document
+    zk.sendMessage(dest, { image: { url: appData.icon }, caption: captionText }, { quoted: ms });
+    zk.sendMessage(dest, documentMessage, { quoted: ms });
+
+    // Supprimer le fichier après envoi
+    fs.unlinkSync(filePath);
+  } catch (error) {
+    console.error('Erreur lors du traitement de la commande apk:', error);
+    repondre("*Erreur lors du traitement de la commande apk*");
+  }
+});
