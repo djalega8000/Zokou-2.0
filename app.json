@@ -97,12 +97,6 @@
     "required": false,
     "value": "3"
   },
-  "OPENAI_API_KEY":
-  {
-    "description": "Mettez votre api key de chez openai pour pour utiliser chatgpt",
-    "required": false,
-    "value": ""
-  },
   "STARTING_BOT_MESSAGE":
   {
     "description": "Mettez oui si vous voulez avoir le message du bot qu'il vous envoie en pv ou non si vous en voulez pas",
