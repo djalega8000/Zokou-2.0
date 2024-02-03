@@ -1,5 +1,9 @@
+
+
+
 const {zokou} = require('../framework/zokou');
-const gis = require('async-g-i-s');
+var gis = require('g-i-s');
+
 
 zokou({
   nomCom: "img",
@@ -15,16 +19,15 @@ async (dest, zk, commandeOptions) => {
   }
 
   const searchTerm = arg.join(" ");
+  //repondre("termes " +searchTerm);
+  gis(searchTerm,envoiImage);
 
-  try {
-    const results = await gis(searchTerm);
+  function envoiImage(e,r)
+   {
+        if(e){repondre("oups une erreur ")}else{for(var a=0;a<5;a++){zk.sendMessage(dest,{image:{url:r[a].url}},{quoted:ms});}}
+    
+   }
 
-    // Envoyer les 5 premières images trouvées
-    for (let i = 0; i < 5; i++) {
-      zk.sendMessage(dest, { image: { url: results[i].url } }, { quoted: ms });
-    }
-  } catch (error) {
-    console.error('Erreur lors de la recherche d\'images :', error);
-    repondre('Erreur lors de la recherche d\'images.',error);
-  }
+ //gis(searchTerm,envoiImage);
+      
 });
