@@ -27,7 +27,7 @@
     "@whiskeysockets/baileys": "github:Faouz995/Baileys",
     "@xaviabot/fb-downloader": "^1.0.14",
     "aptoide-scraper": "^1.0.1",
-    "async-g-i-s": "^1.5.0",
+    "g-i-s": "^2.1.7",
     "axios": "^1.4.0",
     "cache-manager": "latest",
     "canvacord": "^5.4.8",
