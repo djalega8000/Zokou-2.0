@@ -32,7 +32,8 @@ const date = moment().format('DD/MM/YYYY');
 
   let infoMsg =  `
 *╔═════ •✧✧• ════╗*
-┃   *Préfixe* : ${s.PREFIXE}
+┃   🐘🐘🐘🐘🐘🐘
+┃  *Préfixe* : ${s.PREFIXE}
 ┃   *Owner* : ${s.NOM_OWNER}
 ┃   *Mode* : ${mode}
 ┃   *Commandes* : ${cm.length}
