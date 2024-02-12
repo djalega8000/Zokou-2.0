@@ -1,7 +1,7 @@
 {
   "name":"Zokou-2.0",
   "description":"bot whatsapp développé par djalega++",
-  "keywords":["bot","node","baileys","whatsapp"],
+  "keywords":["bot","node","baileys","whatsapp","whatsapp-bot","whatsapp_bot"],
   "logo":"https://raw.githubusercontent.com/djalega8000/Zokou-2.0/main/Zokou.jpg",
   "repository":"https://github.com/djalega8000/Zokou-2.0",
   "succes_url":"/",
@@ -35,7 +35,7 @@
      "LIENS_MENU" : {
     
       "description":"Ajoutez un ou plusieurs lien(s) d'image ou de video pour votre bot ; exemple : lien1,lien2,lien3......",
-      "value":"https://wallpapercave.com/uwp/uwp3943464.jpeg",
+      "value":"https://wallpapercave.com/uwp/uwp4269868.jpeg",
       "required":false
        
      },
