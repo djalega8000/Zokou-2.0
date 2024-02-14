@@ -72,7 +72,7 @@ Pour utiliser Bnn y y'a v ce c une  commande, tapez  ${prefixe}"nom de la comman
                                                 
 *»»————— ★ —————««*
 `;
-as.  m
+
     
    var lien = mybotpic();
 
