@@ -73,7 +73,7 @@ Pour utiliser Bnn y y'a v ce c une  commande, tapez  ${prefixe}"nom de la comman
 *»»————— ★ —————««*
 `;
 as.  m
-    je Xxx
+    
    var lien = mybotpic();
 
    if (lien.match(/\.(mp4|gif)$/i)) {
