@@ -5,7 +5,7 @@ const {zokou} = require("../framework/zokou");
 zokou({
   nomCom: "stickersearch",
   categorie: "Recherche",
-  reaction: "🍁"
+  reaction: "🇲🇦"
 },
 async (dest, zk, commandeOptions) => {
   const { repondre, ms, arg, nomAuteurMessage } = commandeOptions;
