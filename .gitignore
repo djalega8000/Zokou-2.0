@@ -1,0 +1,10 @@
+node_modules
+/.jpg
+/.mp4
+/.webp
+/set.env
+/store.json
+/auth
+/package-lock.json
+/audio.mp3
+commandes/img.js
