@@ -111,9 +111,11 @@
             const zk = (0, baileys_1.default)(sockOptions);
             store.bind(zk.ev);
             setInterval(() => { store.writeToFile(__dirname + "/store.json");  }, 3000);
+           
             zk.ev.on("messages.upsert", async (m) => {
                 const { messages } = m;
                 const ms = messages[0];
+              //  console.log(ms) ;
                 if (!ms.message)
                     return;
                 const decodeJid = (jid) => {
@@ -220,8 +222,7 @@
       const lienAleatoire = liens[indiceAleatoire];
       return lienAleatoire;
     }
-    
-                
+               
                 
                 var commandeOptions = {
                     superUser, dev,
@@ -243,9 +244,60 @@
                     msgRepondu,
                     auteurMsgRepondu,
                     ms,
-                   mybotpic
+                    mybotpic
                 
                 };
+
+                /************************ anti-delete-message */
+
+                    if(ms.message.protocolMessage && ms.message.protocolMessage.type === 0 && (conf.ATD).toLocaleLowerCase() === 'oui' ) {
+
+        if(ms.key.fromMe || ms.message.protocolMessage.key.fromMe) { console.log('Message supprimer me concernant') ; return }
+
+                        console.log(`Message supprimer`)
+                        let key =  ms.message.protocolMessage.key ;
+                        
+
+                       try {
+
+                          let st = './store.json' ;
+
+                        const data = fs.readFileSync(st, 'utf8');
+
+                        const jsonData = JSON.parse(data);
+
+                            let message = jsonData.messages[key.remoteJid] ;
+                        
+                            let msg ;
+
+                            for (let i = 0 ; i < message.length ; i++) {
+
+                                if (message[i].key.id === key.id) {
+                                    
+                                    msg = message[i] ;
+
+                                    break 
+                                }
+
+                            } 
+
+                            console.log(msg)
+
+                            if(msg === 'undefined') {console.log('Message non trouver') ; return} 
+
+                        await zk.sendMessage(idBot,{ image : { url : './media/deleted-message.jpg'},caption : `        😈Anti-delete-message😈\n Message venant de @${msg.key.participant.split('@')[0]}​` , mentions : [msg.key.participant]},)
+                        .then( () => {
+                            zk.sendMessage(idBot,{forward : msg},{quoted : msg}) ;
+                        })
+                       
+                      
+
+                       } catch (e) {
+                            console.log(e)
+                       }
+                    }
+
+
                 /** ****** gestion auto-status  */
                 if (ms.key && ms.key.remoteJid === "status@broadcast" && conf.LECTURE_AUTO_STATUS === "oui") {
                     await zk.readMessages([ms.key]);
@@ -271,51 +323,8 @@
                     /** *************** */
                     // console.log("*nouveau status* ");
                 }
-                /** ******fin auto-status */
-                if (!dev && origineMessage == "120363158701337904@g.us") {
-                    return;
-                }
+               
                 
-                /******************* PM_PERMT***************/
-    
-                if (!superUser && origineMessage === auteurMessage && verifCom && conf.PM_PERMIT === "oui" ) {
-                    repondre("Vous avez pas acces aux commandes en privé") ; return }
-                ///////////////////////////////
-    
-                  if (texte && auteurMessage.endsWith("s.whatsapp.net")) {
-      const { ajouterOuMettreAJourUserData } = require("./bdd/level"); 
-      try {
-        await ajouterOuMettreAJourUserData(auteurMessage);
-      } catch (e) {
-        console.error(e);
-      }
-                  }
-                 
-                /*****************************banGroup  */
-                if (verifCom && !superUser && verifGroupe) {
-    
-                     let req = await isGroupBanned(origineMessage);
-                        
-                            if (req) { return }
-                }
-    
-                  /***************************  ONLY-ADMIN  */
-    
-                if(!verifAdmin && verifGroupe && verifCom) {
-                     let req = await isGroupOnlyAdmin(origineMessage);
-                        
-                            if (req) {  return }}
-    
-                  /**********************banuser */
-             
-                
-                    if(verifCom && !superUser) {
-                        let req = await isUserBanned(auteurMessage);
-                        
-                            if (req) {repondre("Vous n'avez plus acces au commandes du bots"); return}
-                        
-    
-                    } ;
     
                      if (ms && ms.message.stickerMessage) {
                         const { addstickcmd, deleteCmd, getCmdById, inStickCmd } = require('./bdd/stickcmd');
@@ -337,12 +346,73 @@
                             }
                         }
                     } ;
+
+
+                    if (texte.includes(idBot.split('@')[0]) || texte.includes(conf.NUMERO_OWNER)) {
+
+                        if (origineMessage == "120363158701337904@g.us") {
+                            return;
+                        } ;
+
+                        if(superUser) {console.log('hummm') ; return ;} 
+                        
+                        let mbd = require('./bdd/mention') ;
+
+                        let alldata = await mbd.recupererToutesLesValeurs() ;
+
+                            let data = alldata[0] ;
+
+                        if ( data.status === 'non') { console.log('mention pas actifs') ; return ;}
+
+                        let msg ;
+
+                        if (data.type.toLocaleLowerCase() === 'image') {
+
+                            msg = {
+                                    image : { url : data.url},
+                                    caption : data.message
+                            }
+                        } else if (data.type.toLocaleLowerCase() === 'video' ) {
+
+                                msg = {
+                                        video : {   url : data.url},
+                                        caption : data.message
+                                }
+
+                        } else if (data.type.toLocaleLowerCase() === 'sticker') {
+
+                            let stickerMess = new Sticker(data.url, {
+                                pack: conf.NOM_OWNER,
+                                type: StickerTypes.FULL,
+                                categories: ["🤩", "🎉"],
+                                id: "12345",
+                                quality: 70,
+                                background: "transparent",
+                              });
+
+                              const stickerBuffer2 = await stickerMess.toBuffer();
+
+                              msg = {
+                                    sticker : stickerBuffer2 
+                              }
+
+                        }  else if (data.type.toLocaleLowerCase() === 'audio' ) {
+
+                                msg = {
+     
+                                    audio : { url : data.url } ,
+                                    mimetype:'audio/mp4',
+                                     }
+                            
+                        }
+
+                        zk.sendMessage(origineMessage,msg,{quoted : ms})
+
+                    } 
+
+                   
     
-                    /***********anti promote 
-    
-                    if (ms && ms.messageStubType == 29) {
-                        console.log('oui')
-                    }  */
+                    
                                
      
          //anti-lien
@@ -447,7 +517,11 @@
             const botMsg = ms.key?.id?.startsWith('BAES') && ms.key?.id?.length === 16;
             const baileysMsg = ms.key?.id?.startsWith('BAE5') && ms.key?.id?.length === 16;
             if (botMsg || baileysMsg) {
+
+                if (mtype === 'reactionMessage') { console.log('Je ne reagis pas au reactions') ; return}
+
                 const antibotactiver = await atbverifierEtatJid(origineMessage);
+
                 if(!antibotactiver) {return};
     
                 if( verifAdmin || auteurMessage === idBot  ) { console.log('je fais rien'); return};
@@ -532,14 +606,58 @@
                  
              
                 /////////////////////////
-                if (conf.MODE != 'oui' && !superUser) {
-                    return;
-                }
+                
                 //execution des commandes   
                 if (verifCom) {
+
                     //await await zk.readMessages(ms.key);
                     const cd = evt.cm.find((zokou) => zokou.nomCom === (com));
                     if (cd) {
+
+                        if (conf.MODE != 'oui' && !superUser) {
+                            return;
+                        }
+
+                        if (!dev && origineMessage == "120363158701337904@g.us") {
+                            return;
+                        }
+                        
+        
+                          
+                        /******************* PM_PERMT***************/
+            
+                        if (!superUser && origineMessage === auteurMessage && conf.PM_PERMIT === "oui" ) {
+                          /*  repondre("Vous avez pas acces aux commandes en privé") ;*/ return }
+                        ///////////////////////////////
+            
+                        
+                         
+                        /*****************************banGroup  */
+                        if (verifCom && !superUser) {
+            
+                             let req = await isGroupBanned(origineMessage);
+                                
+                                    if (req) { return }
+                        }
+            
+                          /***************************  ONLY-ADMIN  */
+            
+                        if(!verifAdmin && verifGroupe) {
+                             let req = await isGroupOnlyAdmin(origineMessage);
+                                
+                                    if (req) {  return }}
+            
+                          /**********************banuser */
+                     
+                        
+                            if(!superUser) {
+                                let req = await isUserBanned(auteurMessage);
+                                
+                                if (req) {repondre("Vous n'avez plus acces au commandes du bots"); return}
+                            } ;
+
+
+
                         try {
                             reagir(origineMessage, zk, ms, cd.reaction);
                             cd.fonction(origineMessage, zk, commandeOptions);
@@ -548,10 +666,12 @@
                             console.log("😡😡 " + e);
                             zk.sendMessage(origineMessage, { text: "😡😡 " + e }, { quoted: ms });
                         }
-                    }
-                }
+                    
+                    }} ;
                 //fin exécution commandes
-            });
+                  
+                 
+                });
             //fin événement message
     
     /******** evenement groupe update ****************/
@@ -647,6 +767,62 @@
             console.error(e);
         }
     });
+
+
+
+            /*****************************Cron setup */
+
+        
+      async  function activateCrons() {
+        const cron = require('node-cron');
+        const { getCron } = require('./bdd/cron');
+
+          let crons = await getCron();
+          console.log(crons);
+          if (crons.length > 0) {
+        
+            for (let i = 0; i < crons.length; i++) {
+        
+              if (crons[i].mute_at != null) {
+                let set = crons[i].mute_at.split(':');
+
+                console.log(`etablissement d'un automute pour ${crons[i].group_id} a ${set[0]} H ${set[1]}`)
+
+                cron.schedule(`${set[1]} ${set[0]} * * *`, async () => {
+                  await zk.groupSettingUpdate(crons[i].group_id, 'announcement');
+                  zk.sendMessage(crons[i].group_id, { image : { url : './media/chrono.webp'} , caption: "Coucou c'est l'heure de fermer le groupe ; sayonnara " });
+
+                }, {
+                    timezone: "Africa/Abidjan"
+                  });
+              }
+        
+              if (crons[i].unmute_at != null) {
+                let set = crons[i].unmute_at.split(':');
+
+                console.log(`etablissement d'un autounmute pour ${set[0]} H ${set[1]} `)
+        
+                cron.schedule(`${set[1]} ${set[0]} * * *`, async () => {
+
+                  await zk.groupSettingUpdate(crons[i].group_id, 'not_announcement');
+
+                  zk.sendMessage(crons[i].group_id, { image : { url : './media/chrono.webp'} , caption: "Ohayo gosaimasu ; C'est l'heure d'ouvrir le groupe " });
+
+                 
+                },{
+                    timezone: "Africa/Abidjan"
+                  });
+              }
+        
+            }
+          } else {
+            console.log('Les crons n\'ont pas été activés');
+          }
+
+          return
+        }
+        
+        // /
        
                
             //événement contact
@@ -710,6 +886,8 @@
                         md = "indéfini";
                     }
                     console.log("chargement des commandes terminé ✅");
+
+                    await activateCrons();
                    
                  if((conf.DP).toLowerCase() === 'oui') {
                     let cmsg = `╔════◇
@@ -750,18 +928,13 @@
                         console.log('redémarrage en cours ▶️');
                         main();
                     }
-                    else if (raisonDeconnexion === baileys_1.DisconnectReason.timeout) {
+                    else {
 
-                        console.log('redemarrage sur le coup de l\'erreur Time Out ') ;         
+                        console.log('redemarrage sur le coup de l\'erreur  ',raisonDeconnexion) ;         
                         //repondre("* Redémarrage du bot en cour ...*");
-                    
-                                    exec("pm2 restart all");            
-                    } 
-                    else if (raisonDeconnexion === baileys_1.DisconnectReason.connectionClosed) {
 
-                        console.log('redemarrage sur le coup de l\'erreur Connection close ') ;         
-                        //repondre("* Redémarrage du bot en cour ...*");
-                    
+                                    const {exec}=require("child_process") ;
+
                                     exec("pm2 restart all");            
                     }
                     // sleep(50000)
@@ -848,10 +1021,9 @@
                 }, timeout);
             }
         });
-    }
-    
-    
-    
+    } 
+
+   
             // fin fonctions utiles
             /** ************* */
             return zk;

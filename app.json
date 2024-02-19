@@ -66,7 +66,7 @@
     "ETAT":{
 		  "description":"marquez votre présence : 1 pour signaler que vous êtes en ligne même si vous ne l'êtes pas . 2 pour dire que vous êtes entrain d écrire un message. 3 pour signaler que vous êtes entrain de d enregistrer un audio . ou laissez le champs  vide pour signaler votre état réel.  ",
 		  "value":"1",
-		  "required":"false"
+		  "required": false
 	  },
     "SESSION_ID":
     {
@@ -102,6 +102,12 @@
     "description": "Mettez oui si vous voulez avoir le message du bot qu'il vous envoie en pv ou non si vous en voulez pas",
     "required": true,
     "value": "oui"
+  },
+  "ANTI_DELETE_MESSAGE":
+  {
+    "description": "Mettez oui si vous voulez que les message supprimer vous sois envoyez en pv",
+    "required": false,
+    "value": "non"
   }
   },
 

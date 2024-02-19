@@ -1,5 +1,5 @@
 {
-  "name": "Zokou-2.0",
+  "name": "zokou-2.0",
   "version": "2.0.0",
   "description": "",
   "main": "index.js",
@@ -27,7 +27,6 @@
     "@whiskeysockets/baileys": "github:Faouz995/Baileys",
     "@xaviabot/fb-downloader": "^1.0.14",
     "aptoide-scraper": "^1.0.1",
-    "async-g-i-s": "^1.5.0",
     "axios": "^1.4.0",
     "cache-manager": "latest",
     "canvacord": "^5.4.8",
@@ -50,6 +49,7 @@
     "link-preview-js": "^3.0.4",
     "moment-timezone": "^0.5.43",
     "mumaker": "^2.0.0",
+    "node-cron": "^3.0.3",
     "node-fetch": "^3.2.6",
     "node-id3": "^0.2.6",
     "pg": "^8.11.2",

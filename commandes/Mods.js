@@ -520,3 +520,87 @@ if (!superUser) {repondre('Cette commande n\'est permis qu\'au proprietaire du b
   }
 });
 
+
+zokou({
+      nomCom : 'mention',
+      categorie : 'Mods',
+} , async (dest,zk,commandeOptions) => {
+
+     const {ms , repondre ,superUser , arg} = commandeOptions ;
+
+     if (!superUser) {repondre('tu n\'as pas les droits pour cette commande') ; return}
+
+     const mbdd = require('../bdd/mention') ;
+
+     let alldata = await  mbdd.recupererToutesLesValeurs() ;
+      data = alldata[0] ;
+        
+
+     if(!arg || arg.length < 1) { 
+
+      let etat ;
+
+      if (alldata.length === 0 ) { repondre(`*consigne :*
+-Pour activer ou modifier le mention ; suivez ce synax : mention lien type message
+Les differents type sont audio video image sticker
+      
+exemple : mention https://static.animecorner.me/2023/08/op2.jpg image message`) ; return}
+
+          if(data.status == 'non') {
+              etat = 'Desactiver'
+          } else {
+            etat = 'Activer' ;
+          }
+          
+          mtype = data.type || 'aucune donnee' ;
+
+          url = data.url || 'aucune donnee' ;
+
+
+          let msg = `*Etat :* ${etat}
+*Type :* ${mtype}
+*Lien :* ${url}
+
+*consigne :*
+-Pour activer ou modifier le mention ; suivez ce synax : mention lien type message
+Les differents type sont audio video image sticker
+
+exemple : mention https://static.animecorner.me/2023/08/op2.jpg image Salut moi c'est Luffy
+
+-Pour stoper le mention ; utiliser mention stop` ;
+
+        repondre(msg) ;
+
+        return ;
+              }
+
+     if(arg.length >= 2) {
+       
+          if(arg[0].startsWith('http') && (arg[1] == 'image' || arg[1] == 'audio' || arg[1] == 'video' || arg[1] == 'sticker')) {
+
+                let args = [] ;
+                  for (i = 2 ; i < arg.length ; i++) {
+                      args.push(arg[i]) ;
+                  }
+              let message = args.join(' ') || '' ;
+
+                  await mbdd.addOrUpdateDataInMention(arg[0],arg[1],message);
+                  await mbdd.modifierStatusId1('oui')
+                  .then(() =>{
+                      repondre(' mention enregistrer ') ;
+                  })
+            } else {
+              repondre('*consigne :* Pour activer ou modifier le mention ; suivez ce synax : *mention lien type* ; Les differents type sont audio video image sticker')
+         } 
+        
+        } else if ( arg.length === 1 && arg[0] == 'stop') {
+
+            await mbdd.modifierStatusId1('non')
+            .then(() =>{
+                  repondre(' mention stoppé ') ;
+            })
+        }
+        else {
+            repondre('Veiller respecter la consigne svp') ;
+        }
+})

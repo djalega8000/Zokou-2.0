@@ -1,4 +1,4 @@
-const {zokou}=require("../framework/zokou")
+const {zokou} =require("../framework/zokou")
 
 
 
@@ -17,7 +17,7 @@ const{repondre,ms,dev,superUser}=com;
     return repondre("Cette commande est réservée au propriétaire du bot");
   }
 
-  const {exec}=require("child_process")
+  const {exec}=require("child_process") ;
 
     repondre("* Redémarrage du bot en cour ...*");
 
