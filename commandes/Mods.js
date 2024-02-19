@@ -544,7 +544,7 @@ zokou({
 -Pour activer ou modifier le mention ; suivez ce synax : mention lien type message
 Les differents type sont audio video image sticker
       
-exemple : mention https://static.animecorner.me/2023/08/op2.jpg image message`) ; return}
+exemple : mention https://static.animecorner.me/2023/08/op2.jpg image Salut moi c'est luffy`) ; return}
 
           if(data.status == 'non') {
               etat = 'Desactiver'
