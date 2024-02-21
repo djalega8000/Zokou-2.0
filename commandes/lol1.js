@@ -3,7 +3,8 @@ const { zokou } = require('../framework/zokou');
 zokou(
   {
     nomCom: "lol"
-    categorie: "Conversion" 
+    categorie: "Fun"
+    reaction:"🤣"
   },
   async (dest, zk, commandeOptions) => {
     const { ms, repondre } = 
