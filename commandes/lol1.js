@@ -2,7 +2,7 @@ const { zokou } = require('../framework/zokou');
 
 zokou(
   {
-    nomCom: "lol"
+    nomCom: "lol",
     categorie: "Fun"
     reaction:"🤣"
   },
