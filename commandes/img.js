@@ -2,7 +2,7 @@
 
 
 const {zokou} = require('../framework/zokou');
-var gis = require('gist');
+var gis = require('g-i-s');
 
 
 zokou({

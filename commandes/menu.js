@@ -56,7 +56,7 @@ Je suis *${s.BOT}*, un bot développé par *La team Zokou*.
         menuMsg += `*╔══✵* *${cat}*  *✵ ══╗*`;
         for (const cmd of coms[cat]) {
             menuMsg += `
-*✗✪* ${cmd}`;
+*☄* ${cmd}`;
         }
         menuMsg += `
 *╚════ ✵ ✵ ═══╝* \n`
@@ -65,13 +65,14 @@ Je suis *${s.BOT}*, un bot développé par *La team Zokou*.
     menuMsg += `
 ◇            ◇
 *»»————— ★ —————««*
-Pour utiliser une  commande, tapez  ${prefixe}"nom de la commande"
+Pour utiliser Bnn y y'a v ce c une  commande, tapez  ${prefixe}"nom de la commande"
  
  *『ZokouMD*
                                                 
 *»»————— ★ —————««*
 `;
 
+    
    var lien = mybotpic();
 
    if (lien.match(/\.(mp4|gif)$/i)) {

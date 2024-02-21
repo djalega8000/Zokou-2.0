@@ -39,6 +39,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "form-data": "^4.0.0",
     "fs-extra": "^11.1.1",
+    "g-i-s": "^2.1.7",
     "gist": "^0.2.0",
     "google-it": "^1.6.4",
     "google-tts-api": "latest",
