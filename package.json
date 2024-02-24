@@ -22,7 +22,6 @@
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
     "@hapi/boom": "^10.0.1",
-    "@prevter/tiktok-scraper": "^1.0.0",
     "@types/node": "^18.0.6",
     "@whiskeysockets/baileys": "github:Faouz995/Baileys",
     "@xaviabot/fb-downloader": "^1.0.14",

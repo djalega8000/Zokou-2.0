@@ -415,6 +415,18 @@
                     
                 } 
 
+
+        
+            //---------------------------------------rang-count--------------------------------
+        if (texte && auteurMessage.endsWith("s.whatsapp.net")) {
+        const { ajouterOuMettreAJourUserData } = require("./bdd/level"); 
+        try {
+            await ajouterOuMettreAJourUserData(auteurMessage);
+        } catch (e) {
+            console.error(e);
+        }
+                    }
+
                    
     
                     

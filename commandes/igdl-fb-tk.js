@@ -1,6 +1,5 @@
 const {zokou} = require('../framework/zokou');
 const fs = require('fs');
-const getFBInfo = require("@xaviabot/fb-downloader");
 const { default: axios } = require('axios');
 
 zokou({nomCom : "igdl" , categorie : "Téléchargement"},async (dest , zk , commandeOptions)=>{
