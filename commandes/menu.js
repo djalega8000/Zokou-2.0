@@ -31,43 +31,42 @@ const temps = moment().format('HH:mm:ss');
 const date = moment().format('DD/MM/YYYY');
 
   let infoMsg =  `
-*╔═════ •✧✧• ════╗*
-┃   *Préfixe* : ${s.PREFIXE}
-┃   *Owner* : ${s.NOM_OWNER}
-┃   *Mode* : ${mode}
-┃   *Commandes* : ${cm.length}
-┃   *Date* : ${date}
-┃   *Heure* : ${temps}
-┃   *Mémoire* : ${format(os.totalmem() - os.freemem())}/${format(os.totalmem())}
-┃   *Plateforme* : ${os.platform()}
-┃   *Développeurs* : Djalega++ 
-┃  & M๏𝓷keℽ D Lบffy
-*╚═════ •✧✧• ════╝* \n\n`;
+╭────✧${s.BOT}✧────◆
+│   *Préfixe* : ${s.PREFIXE}
+│   *Owner* : ${s.NOM_OWNER}
+│   *Mode* : ${mode}
+│   *Commandes* : ${cm.length}
+│   *Date* : ${date}
+│   *Heure* : ${temps}
+│   *Mémoire* : ${format(os.totalmem() - os.freemem())}/${format(os.totalmem())}
+│   *Plateforme* : ${os.platform()}
+│   *Développeurs* : Djalega++ 
+│  & M๏𝓷keℽ D Lบffy
+╰─────✧WA-BOT✧─────◆ \n\n`;
     
 let menuMsg = `
 👋 salut ${nomAuteurMessage} 👋
-Je suis *${s.BOT}*, un bot développé par *La team Zokou*.
 
 *Voici la liste de mes commandes :*
 ◇                             ◇
 `;
 
     for (const cat in coms) {
-        menuMsg += `*╔══✵* *${cat}*  *✵ ══╗*`;
+        menuMsg += `╭────❏ *${cat}* ❏`;
         for (const cmd of coms[cat]) {
             menuMsg += `
-*☄* ${cmd}`;
+│ ${cmd}`;
         }
         menuMsg += `
-*╚════ ✵ ✵ ═══╝* \n`
+╰═════════════⊷ \n`
     }
 
     menuMsg += `
 ◇            ◇
 *»»————— ★ —————««*
-Pour utiliser Bnn y y'a v ce c une  commande, tapez  ${prefixe}"nom de la commande"
+Pour utiliser  une  commande, tapez  ${prefixe}"nom de la commande"
  
- *『ZokouMD*
+ powered by zokou-md
                                                 
 *»»————— ★ —————««*
 `;
