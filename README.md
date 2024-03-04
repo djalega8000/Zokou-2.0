@@ -3,9 +3,8 @@
 
 
 
-![banner](𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓.jpg)
-
- 𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓 est un bot multi-devices conçu pour enrichir vos conversations WhatsApp avec des fonctionnalités utiles et amusantes. Qu'il s'agisse de gérer des fichiers, d'interagir avec des stickers ou de faciliter la gestion de groupe, Zokou est là pour vous aider.
+![banner](zokou.jpg)
+Zokou est un bot multi-devices conçu pour enrichir vos conversations WhatsApp avec des fonctionnalités utiles et amusantes. Qu'il s'agisse de gérer des fichiers, d'interagir avec des stickers ou de faciliter la gestion de groupe, Zokou est là pour vous aider.
 
 ## Fonctionnalités Principales
 
@@ -24,15 +23,15 @@
 - **Citations Inspirantes :** Recevez des citations inspirantes pour vous motiver au quotidien.
 
 
-## 𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓
+## zokou
 
 1. Veillez cliquer sur **[Fork](https://github.com/djalega8000/Zokou-2.0/fork)** afin de copier le repo sur votre compte github.  veillez bien ajouter une etoile 🌟 pour encourager les développeurs 
 
 2. Obtenez une session du bot : <br>
   
-[Session-1](https://𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓.onrender.com) ; <br>
+[Session-1](https://zokou.onrender.com) ; <br>
 
-[session-2](https://𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓-qr-509e45b56ca5.herokuapp.com/)
+[session-2](https://zokou-qr-509e45b56ca5.herokuapp.com/)
   
 
 
@@ -48,7 +47,7 @@
 
 ## Contributions
 
-Les contributions à 𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓 sont les bienvenues ! Si vous avez des idées pour de nouvelles fonctionnalités, des améliorations ou des corrections de bogues, n'hésitez pas à ouvrir une issue ou à soumettre une demande de pull 
+Les contributions à Zokousont les bienvenues ! Si vous avez des idées pour de nouvelles fonctionnalités, des améliorations ou des corrections de bogues, n'hésitez pas à ouvrir une issue ou à soumettre une demande de pull 
 
 Nous remercions certaines personnes pour leur contribution :
 
