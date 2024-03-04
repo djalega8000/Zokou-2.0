@@ -3,7 +3,7 @@
 
 
 
-![banner](𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓.jpg)
+(𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓.jpg)
 Zokou est un bot multi-devices conçu pour enrichir vos conversations WhatsApp avec des fonctionnalités utiles et amusantes. Qu'il s'agisse de gérer des fichiers, d'interagir avec des stickers ou de faciliter la gestion de groupe, Zokou est là pour vous aider.
 
 ## Fonctionnalités Principales
