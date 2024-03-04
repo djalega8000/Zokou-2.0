@@ -4,7 +4,7 @@
 
 
 (𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓.jpg)
-𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓 est un bot multi-devices conçu pour enrichir vos conversations WhatsApp avec des fonctionnalités utiles et amusantes. Qu'il s'agisse de gérer des fichiers, d'interagir avec des stickers ou de faciliter la gestion de groupe, Zokou est là pour vous aider.
+𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓 est un bot multi-devices conçu pour enrichir vos conversations WhatsApp avec des fonctionnalités utiles et amusantes. Qu'il s'agisse de gérer des fichiers, d'interagir avec des stickers ou de faciliter la gestion de groupe, 𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓 est là pour vous aider.
 
 ## Fonctionnalités Principales
 
@@ -57,9 +57,9 @@ Nous remercions certaines personnes pour leur contribution :
                 
 ## Licence
 
-Le Bot WhatsApp Zokou est publié sous la [Licence MIT](https://opensource.org/licenses/MIT).
+Le Bot WhatsApp 𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓 est publié sous la [Licence MIT](https://opensource.org/licenses/MIT).
 
-Profitez des fonctionnalités variées du Bot WhatsApp Zokou pour améliorer vos conversations et rendre votre expérience WhatsApp plus intéressante !
+Profitez des fonctionnalités variées du Bot WhatsApp 𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓 pour améliorer vos conversations et rendre votre expérience WhatsApp plus intéressante !
 
 
 ## Developpeur :
