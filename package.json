@@ -1,5 +1,5 @@
 {
-  "name": "zokou-2.0",
+  "name": "𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓",
   "version": "2.0.0",
   "description": "",
   "main": "index.js",
@@ -12,12 +12,12 @@
   "keywords": [
     "bot",
     "Baileys",
-    "Zokou",
+    "𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓",
     "whatsapp",
     "whatsapp-bot",
-    "Djalega++"
+    "𝐗𝐊𝐘_𝐇𝐀𝐄𝐍."
   ],
-  "author": "Djalega++",
+  "author": "𝐗𝐊𝐘_𝐇𝐀𝐄𝐍",
   "license": "ISC",
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",

@@ -41,7 +41,7 @@
     //import chalk from 'chalk'
     const { verifierEtatJid , recupererActionJid } = require("./bdd/antilien");
     const { atbverifierEtatJid , atbrecupererActionJid } = require("./bdd/antibot");
-    let evt = require(__dirname + "/framework/zokou");
+    let evt = require(__dirname + "/framework/𝐗𝐊𝐘_𝐇𝐀𝐄𝐍_𝟑.𝟎_𝐆𝐎𝐀𝐓");
     const {isUserBanned , addUserToBanList , removeUserFromBanList} = require("./bdd/banUser");
     const  {addGroupToBanList,isGroupBanned,removeGroupFromBanList} = require("./bdd/banGroup");
     const {isGroupOnlyAdmin,addGroupToOnlyAdminList,removeGroupFromOnlyAdminList} = require("./bdd/onlyAdmin");
