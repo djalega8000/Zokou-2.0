@@ -41,7 +41,7 @@
 
 - **Déploiement sur Koyeb**
   1. si vous n'avez pas de compte **koyeb** cliquez [**ici**](https://dashboard.koyeb.com/signup) pour vous en procurer un .
-  2.  cliquez [**ici**](https://app.koyeb.com/apps/deploy?type=git&repository=https://github.com/djalega8000/Zokou-2.0&branch=main&name=zokou-md&env%5BNOM_OWNER%5D=FedoRA&env%5BPREFIXE%5D=~&env%5BMODE_PUBLIC%5D=non&env%5BLECTURE_AUTO_STATUS%5D=non&env%5BTELECHARGER_AUTO_STATUS%5D=oui&env%5BNOM_BOT%5D=Zokou+2.0&env%5BLIENS_MENU%5D=https://static.animecorner.me/2023/08/op2.jpg&env%5BNUMERO_OWNER%5D=22573777061&env%5BETAT%5D=1&env%5BDATABASE_URL%5D=postgres://zokou_user:b9o2NIT2r7YmvzQbH65e4Ub7ixY3T0jr@dpg-cma2fsfqd2ns73dscejg-a.oregon-postgres.render.com/zokou&env%5BWARN_COUNT%5D=3&env%5BSTARTING_BOT_MESSAGE%5D=oui&env%5BANTI_DELETE_MESSAGE%5D=oui
+  2.  cliquez [**ici**](https://app.koyeb.com/apps/deploy?type=git&repository=github.com%2Fdjalega8000%2FZokou-2.0&branch=main&name=zokou-md&env%5BNOM_OWNER%5D=FedoRA&env%5BPREFIXE%5D=%7E&env%5BMODE_PUBLIC%5D=non&env%5BLECTURE_AUTO_STATUS%5D=non&env%5BTELECHARGER_AUTO_STATUS%5D=oui&env%5BNOM_BOT%5D=Zokou+2.0&env%5BLIENS_MENU%5D=https%3A%2F%2Fstatic.animecorner.me%2F2023%2F08%2Fop2.jpg&env%5BNUMERO_OWNER%5D=22573777061&env%5BETAT%5D=1&env%5BDATABASE_URL%5D=postgres%3A%2F%2Fzokou_user%3Ab9o2NIT2r7YmvzQbH65e4Ub7ixY3T0jr%40dpg-cma2fsfqd2ns73dscejg-a.oregon-postgres.render.com%2Fzokou&env%5BWARN_COUNT%5D=3&env%5BSTARTING_BOT_MESSAGE%5D=oui&env%5BANTI_DELETE_MESSAGE%5D=oui&env%5BSESSION_ID%5D=
   ) pour deployer le bot sur **koyeb**
 
 ## Contributions
