@@ -30,7 +30,7 @@
 
 2. Obtenez une session du bot : <br>
   
-[Session-1](https://zokouscan-production.up.railway.app) ; <br>
+[Session-1](https://zkscan.onrender.com/) ; <br>
 
  
 
