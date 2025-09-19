@@ -1,0 +1,64 @@
+
+
+markdown
+🤖 Bot WhatsApp - Zokou
+
+Ce projet est un *bot WhatsApp* développé avec le framework *Zokou*, basé sur Node.js et la librairie Baileys.
+
+---
+
+📦 Prérequis
+
+- Node.js v16 ou supérieur
+- Git
+- Termux (Android) ou Terminal (Linux/macOS)
+- Connexion internet
+- Un compte WhatsApp
+
+---
+
+🚀 Installation & Déploiement
+
+1. *Cloner le dépôt*
+```bash
+git clone https://github.com/votre-nom/ZokouBot.git
+cd ZokouBot
+```
+
+2. *Installer les dépendances*
+```bash
+npm install
+```
+
+3. *Lancer le bot*
+```bash
+node index.js
+```
+
+4. *Scanner le QR code*
+- À la première exécution, un QR code s’affiche. Scanne-le avec ton WhatsApp pour connecter le bot.
+
+---
+
+⚙️ Personnalisation
+
+- Modifier `settings.js` pour changer le nom du bot, l’ID du propriétaire, le préfixe, etc.
+- Ajouter vos propres commandes dans le dossier `commands/`.
+
+---
+
+🧑‍💻 Développeur
+sa7dro 
+- Créé par : *T_Sandro_01*
+- Contact : *36913740*
+
+---
+
+📌 Note importante
+
+> Ce bot est destiné à des fins éducatives. Veuillez respecter les conditions d’utilisation de WhatsApp. N'utilisez pas ce bot pour spammer ou harceler.
+
+---
+
+*Merci d’utiliser ZokouBot ✨*
+```
